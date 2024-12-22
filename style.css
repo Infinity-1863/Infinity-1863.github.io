@@ -47,6 +47,10 @@ nav a:hover {
 	color: black;
 }
 
+#about p {
+	font-size: 2vw;
+}
+
 .celestial-body {
 	position: absolute;
 	width: 150px;
@@ -55,7 +59,7 @@ nav a:hover {
 	left: 50%;
 	transform: translate(-50%, -100%);
 	z-index: 9999;
-	transition: opacity 1s ease;
+	transition: transform 0.2s ease;
 }
 
 #sun {
@@ -167,7 +171,7 @@ input[type="text"] {
 
 .cloud {
 	position: absolute;
-	background-image: url(Images/cloud_24dp_E8EAED.png);
+	background-image: url(assets/images/cloud_24dp_E8EAED.png);
 	background-repeat: no-repeat;
 	/* Prevents the background from repeating */
 	background-size: contain;
@@ -179,6 +183,34 @@ input[type="text"] {
 @media (max-width: 768px) {
 	.project {
 		width: 80%;
-		/* On smaller screens, stack the projects vertically */
+		/* Make projects take more space on smaller screens */
 	}
+
+	header {
+		height: 50vh;
+		/* Reduce header height on smaller screens */
+		padding: 10px;
+	}
+
+	#about p {
+		font-size: 16px;
+		/* Make text smaller on mobile */
+	}
+
+	nav a {
+		font-size: 18px;
+		/* Smaller font for navigation */
+		padding: 8px 15px;
+		/* Adjust button padding */
+	}
+
+	footer {
+		padding: 30px 10px;
+		/* Adjust footer padding */
+	}
+
+	.celestial-body {
+        width: 100px;
+        height: 100px;
+    }
 }

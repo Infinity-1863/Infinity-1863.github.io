@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	clouds.style.zIndex = '-10'; // Set clouds to be under other elements
 	body.appendChild(clouds);
 
-	const radius = window.innerHeight / 1;
+	const radius = window.innerHeight / 1.2;
 	let distanceFactor = 1;
 	let verticalCenterFactor = 1;
 
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const verticalOffset = (viewHeight * verticalCenterFactor) - 100;
 
+		// Position calculations for sun and moon without transition
 		sun.style.transform = `translate(${sunX}px, calc(${verticalOffset}px + ${-sunY}px + ${scrollPosition}px))`;
 		moon.style.transform = `translate(${moonX}px, calc(${verticalOffset}px + ${-moonY}px + ${scrollPosition}px))`;
 
@@ -115,9 +116,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (sunAtTop) {
 			sun.style.display = 'block';
 			moon.style.display = 'none';
-			header.style.backgroundColor = 'linear-gradient(to bottom, #87ceeb, #00bfff)';
-			body.style.backgroundColor = '#87ceeb';
-			stars.style.display = 'none';
+			header.style.backgroundColor = 'linear-gradient(to bottom, #87ceeb, rgb(37, 162, 203))';
+			body.style.backgroundColor = 'rgb(37, 162, 203)';
+			stars.style.display = 'block';
+			stars.style.transition = 'opacity 1s ease-out'; // Smooth opacity transition
+			stars.style.opacity = Math.min(1, scrollPosition / (viewHeight * 2)); // Smooth opacity transition
 			clouds.style.display = 'block';
 			updateTextColor(true);
 		} else {
@@ -126,6 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			header.style.backgroundColor = 'linear-gradient(to bottom, #2c3e50, #34495e)';
 			body.style.backgroundColor = 'black';
 			stars.style.display = 'block';
+			stars.style.transition = 'opacity 1s ease-out'; // Smooth opacity transition
+			stars.style.opacity = Math.min(1, (scrollPosition / (viewHeight * 2)) * 2); // Smooth opacity transition
 			clouds.style.display = 'none';
 			updateTextColor(false);
 		}
@@ -136,9 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Only move the stars if the scroll position is above the stop point
 		if (scrollPosition < stopStarsAt) {
-			stars.style.transform = `translateY(${scrollPosition * 1.1}px)`;
+			stars.style.transform = `translateY(${scrollPosition * 1.1}px)`; // No transition on transform
 		} else {
-			stars.style.transform = `translateY(${stopStarsAt * 1.1}px)`; // Keep stars at the stop point
+			stars.style.transform = `translateY(${stopStarsAt * 1.1}px)`; // Keep stars at the stop point, no transition on transform
 		}
 	}
 
@@ -147,8 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		document.querySelectorAll('.cloud').forEach(cloud => {
 			const speed = cloud.dataset.speed;
-			// Here, the Y position will be affected by scroll and cloud speed.
-			const cloudYPosition = (scrollPosition * speed) / 5;
+			const cloudYPosition = (scrollPosition * speed) / 5; // Adjust for smooth cloud movement
 			cloud.style.transform = `translateY(${cloudYPosition}px)`;
 		});
 	}
@@ -177,5 +181,5 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Initial call to set up the view
 	toggleCelestialBodies();
 
-	celestialSpeed = 0.5;  // Double the speed for example
+	celestialSpeed = 1;  // Double the speed for example
 });
