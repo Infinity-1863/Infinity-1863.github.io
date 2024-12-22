@@ -4,65 +4,78 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio - Olexandr</title>
 	<link rel="stylesheet" href="style.css">
+	<title>Celestial Portfolio</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 </head>
 
 <body>
-	<header id="header">
-		<div class="bg-element" style="top: 10%; left: 5%;"></div>
-		<div class="bg-element" style="top: 15%; left: 25%;"></div>
-		<div class="bg-element" style="top: 20%; left: 50%;"></div>
-		<div class="bg-element" style="top: 30%; left: 75%;"></div>
-		<div class="bg-element" style="top: 40%; left: 90%;"></div>
-		<div class="bg-element" style="top: 55%; left: 10%;"></div>
-		<div class="bg-element" style="top: 60%; left: 30%;"></div>
-		<div class="bg-element" style="top: 65%; left: 60%;"></div>
-		<div class="bg-element" style="top: 70%; left: 80%;"></div>
-		<div class="bg-element" style="top: 80%; left: 20%;"></div>
-		<div class="bg-element" style="top: 85%; left: 45%;"></div>
-		<div class="bg-element" style="top: 25%; left: 15%;"></div>
-		<div class="bg-element" style="top: 35%; left: 40%;"></div>
-		<div class="bg-element" style="top: 50%; left: 70%;"></div>
-		<div class="bg-element" style="top: 75%; left: 50%;"></div>
-		<div class="header-content">
-			<h1>Hi, I'm Olexandr.</h1>
-			<p>A Developer Crafting Modern, Creative, and Functional Websites.</p>
-			<button onclick="scrollToProjects()">View My Work</button>
-		</div>
-	</header>
+	<div class="celestial-body" id="sun"></div>
+	<div class="celestial-body" id="moon"></div>
+	<div class="container">
+		<header id="header">
+		</header>
 
-	<main>
+		<section id="about">
+			<h2>About Me</h2>
+			<p>Welcome to my universe! Explore my work and skills through celestial wonders.</p>
+		</section>
+
 		<section id="projects">
-			<h2>My Works</h2>
+			<h2>Projects</h2>
+			<input type="text" id="projectSearch" placeholder="Search projects...">
 			<div class="project-list">
-				<div class="project-card">
-					<h3>Product Landing Page</h3>
-					<img src="img/Screenshot 2024-12-22 at 11.47.49 AM.png" alt="">
-					<p>A sleek and responsive product landing page designed to showcase services and drive customer
-						engagement.</p>
-					<a href="/Product Landing/index.html" class="project-link">View Project</a>
+				<div class="project" data-title="Project One">
+					<a href="/Portfolio Landing/index.html">
+						<img src="Images/Portfolio.png" alt="Project One">
+					</a>
+					<h3>Portfolio Landing</h3>
 				</div>
-				<div class="project-card">
-					<h3>Creative Portfolio Landing Page</h3>
-					<p>An artistic and modern portfolio to showcase personal or professional projects with elegance.</p>
-					<a href="#" class="project-link">View Project</a>
+				<div class="project" data-title="Project Two">
+					<a href="/Product Landing/index.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Product Landing</h3>
 				</div>
-				<div class="project-card">
-					<h3>Technology Startup Landing Page</h3>
-					<p>A futuristic and professional design tailored for startups and tech companies to attract
-						customers.</p>
-					<a href="#" class="project-link">View Project</a>
+				<div class="project" data-title="Project Two">
+					<a href="project-two-link.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Project Two</h3>
+				</div>
+				<div class="project" data-title="Project Two">
+					<a href="project-two-link.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Project Two</h3>
+				</div>
+				<div class="project" data-title="Project Two">
+					<a href="project-two-link.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Project Two</h3>
+				</div>
+				<div class="project" data-title="Project Two">
+					<a href="project-two-link.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Project Two</h3>
+				</div>
+				<div class="project" data-title="Project Two">
+					<a href="project-two-link.html">
+						<img src="Images/Product.png" alt="Project Two">
+					</a>
+					<h3>Project Two</h3>
 				</div>
 			</div>
 		</section>
-	</main>
 
-	<footer>
-		<p>© 2024 Olexandr. All rights reserved.</p>
-		<p>Email: olexandr2410@gmail.com</p>
-	</footer>
-
+		<footer>
+			<p>Contact me at:</p>
+			<p>Email: olexandr2410@gmail.com</p>
+			<p>Instagram: @yourinstagram</p>
+		</footer>
+	</div>
 	<script src="script.js"></script>
 </body>
 

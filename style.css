@@ -1,226 +1,184 @@
-/* Global Styles */
-body {
+body,
+html {
 	margin: 0;
-	font-family: 'Arial', sans-serif;
-	color: #ffffff;
-	background: #1a1a2e;
+	padding: 0;
+	font-family: Arial, sans-serif;
 	overflow-x: hidden;
+	scroll-behavior: smooth;
+	transition: color 1s ease, background-color 1s ease;
 }
 
-h1,
-h2,
-h3,
-p {
-	margin: 0;
+.container {
+	width: 100%;
+	overflow: hidden;
 }
 
-/* Header */
-#header {
+header {
+	position: relative;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
-	background: linear-gradient(135deg, #6a0572, #1a1a2e);
-	position: relative;
 	overflow: hidden;
+	color: gold;
+	transition: background-color 1s ease, color 1s ease;
 }
 
-.bg-element {
+header nav ul {
+	list-style: none;
+	display: flex;
 	position: absolute;
+	bottom: 20px;
+}
+
+nav a {
+	color: gold;
+	margin: 0 15px;
+	text-decoration: none;
+	font-size: 24px;
+	border: 2px solid gold;
+	padding: 10px 20px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+	background-color: gold;
+	color: black;
+}
+
+.celestial-body {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	left: 50%;
+	transform: translate(-50%, -100%);
+	z-index: 9999;
+	transition: opacity 1s ease;
+}
+
+#sun {
+	background-image: radial-gradient(circle, gold, orange);
+	box-shadow: 0 0 200px rgba(255, 215, 0, 0.5), 0 0 200px rgba(255, 165, 0, 0.3);
+}
+
+#moon {
+	background-image: radial-gradient(circle, silver, gray);
+	box-shadow: 0 0 200px rgba(200, 200, 200, 0.5), 0 0 200px rgba(150, 150, 150, 0.3);
+}
+
+section {
+	padding: 100px 20px;
+	text-align: center;
+	transition: color 1s ease;
+}
+
+#projects .project-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+.project {
+	width: 25%;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	transition: transform 0.3s ease;
+}
+
+.project img {
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid gold;
+}
+
+.project:hover {
+	transform: scale(1.05);
+}
+
+footer {
+	color: gold;
+	text-align: center;
+	padding: 50px 20px;
+	position: relative;
+}
+
+.footer-body {
 	width: 50px;
 	height: 50px;
-	background: rgba(255, 255, 255, 0.2);
 	border-radius: 50%;
-	pointer-events: none;
-	opacity: 0.6;
-	animation: float 8s infinite ease-in-out;
+	margin: 5px;
+	display: inline-block;
 }
 
-@keyframes float {
+input[type="text"] {
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	width: 80%;
+	max-width: 300px;
+	margin-bottom: 20px;
+}
 
-	0%,
-	100% {
-		transform: translateY(0);
+/* Star effect */
+.stars {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: -1;
+	overflow: hidden;
+	display: none;
+	/* Hide stars initially */
+}
+
+.star {
+	position: absolute;
+	width: 2px;
+	height: 2px;
+	background-color: white;
+	border-radius: 50%;
+	animation: twinkle 1.5s infinite ease-in-out;
+}
+.prevent-scrolling{
+	overflow: hidden;
+	width: 100%;
+	height: 50px;
+}
+
+@keyframes twinkle {
+	0% {
+		opacity: 0.8;
 	}
 
 	50% {
-		transform: translateY(-50px);
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0.8;
 	}
 }
 
-.header-content h1 {
-	font-size: 3rem;
-	margin-bottom: 1rem;
+.cloud {
+	position: absolute;
+	background-image: url(Images/cloud_24dp_E8EAED.png);
+	background-repeat: no-repeat;
+	/* Prevents the background from repeating */
+	background-size: contain;
+	/* Adjusts the background image to fit within the cloud element */
+	transition: transform 0.1s ease-out;
+	z-index: -10;
 }
 
-.header-content p {
-	font-size: 1.25rem;
-	margin-bottom: 2rem;
-}
-
-.header-content button {
-	background: #6a0572;
-	border: none;
-	color: #ffffff;
-	padding: 0.75rem 2rem;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.header-content button:hover {
-	background: #4a0267;
-	transform: scale(1.1);
-}
-
-/* Projects Section */
-#projects {
-	padding: 4rem 2rem;
-	text-align: center;
-	background: #222;
-}
-
-#projects h2 {
-	font-size: 2.5rem;
-	margin-bottom: 2rem;
-	color: #ffffff;
-}
-
-.project-list {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	gap: 2rem;
-}
-
-.project-card {
-	background: #333;
-	border-radius: 10px;
-	padding: 1.5rem;
-	width: calc(33% - 2rem);
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card h3 {
-	font-size: 1.5rem;
-	margin-bottom: 1rem;
-}
-
-.project-card p {
-	font-size: 1rem;
-	margin-bottom: 1.5rem;
-	color: #ddd;
-}
-
-.project-card img{
-	width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.project-link {
-	color: #6a0572;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.project-card:hover {
-	transform: translateY(-10px);
-	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-}
-
-/* Footer */
-footer {
-	text-align: center;
-	padding: 2rem;
-	background: #111;
-}
-
-footer p {
-	margin: 0.5rem 0;
-	font-size: 1rem;
-}
-
-/* Mobile Optimization */
 @media (max-width: 768px) {
-
-	/* Header */
-	.header-content h1 {
-		font-size: 2rem;
-	}
-
-	.header-content p {
-		font-size: 1.1rem;
-	}
-
-	.header-content button {
-		padding: 0.5rem 1.5rem;
-		font-size: 0.9rem;
-	}
-
-	/* Projects Section */
-	#projects h2 {
-		font-size: 2rem;
-	}
-
-	.project-list {
-		justify-content: center;
-	}
-
-	.project-card {
-		width: 100%;
-		padding: 1rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.project-card h3 {
-		font-size: 1.2rem;
-	}
-
-	.project-card p {
-		font-size: 0.9rem;
-	}
-}
-
-/* Extra Small Mobile Devices */
-@media (max-width: 480px) {
-
-	/* Header */
-	.header-content h1 {
-		font-size: 1.5rem;
-	}
-
-	.header-content p {
-		font-size: 1rem;
-	}
-
-	.header-content button {
-		padding: 0.5rem 1rem;
-		font-size: 0.8rem;
-	}
-
-	/* Projects Section */
-	#projects h2 {
-		font-size: 1.75rem;
-	}
-
-	.project-list {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.project-card {
-		width: 90%;
-		padding: 1rem;
-	}
-
-	.project-card h3 {
-		font-size: 1rem;
-	}
-
-	.project-card p {
-		font-size: 0.8rem;
+	.project {
+		width: 80%;
+		/* On smaller screens, stack the projects vertically */
 	}
 }
