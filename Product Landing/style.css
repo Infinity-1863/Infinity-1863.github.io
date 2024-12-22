@@ -1,0 +1,266 @@
+/* General Reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Body and Main Styles */
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	color: #ffffff;
+	background-color: #2e3865;
+}
+
+/* Header Section */
+.hero {
+	background-image: url('img/background.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	height: 100vh;
+	color: #ffffff;
+	text-align: center;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.hero-content {
+	width: 40%;
+	margin: 0 auto;
+	background-color: #74747490;
+	border-radius: 10%;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px 0 20px;
+	background-color: #2c3e50;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 999;
+}
+
+.navbar .logo img {
+	width: 50px;
+}
+
+.navbar .menu {
+	display: flex;
+	gap: 20px;
+}
+
+.navbar a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.navbar a:hover {
+	color: #b1b1b1;
+}
+
+.menu-toggle {
+	display: none;
+	font-size: 30px;
+	background: none;
+	border: none;
+	color: #fff;
+}
+
+/* Hero Section Content */
+.hero h1 {
+	font-size: 48px;
+	margin-bottom: 20px;
+}
+
+.hero p {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.cta-button {
+	background-color: #3b5a7a;
+	color: #fff;
+	padding: 12px 24px;
+	text-decoration: none;
+	border-radius: 30px;
+	font-weight: bold;
+	font-size: 18px;
+	transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+	background-color: #2c3e50;
+}
+
+/* Features Section */
+.section {
+	padding: 40px 20px;
+	text-align: center;
+}
+
+.feature-cards {
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.feature-card {
+	background-color: #ecf0f130;
+	padding: 20px;
+	border-radius: 10px;
+	width: 30%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h3 {
+	font-size: 22px;
+	margin-bottom: 10px;
+}
+
+.feature-card p {
+	font-size: 16px;
+}
+
+/* Testimonials Section */
+.testimonial-slider {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	text-align: center;
+}
+
+.testimonial {
+	background-color: #f5f5f530;
+	padding: 20px;
+	border-radius: 10px;
+	font-style: italic;
+}
+
+.testimonial cite {
+	display: block;
+	margin-top: 10px;
+	font-size: 16px;
+	color: #e67e22;
+}
+
+/* Contact Form Section */
+.contact-form {
+	width: 60%;
+	margin: 0 auto;
+	background-color: #ffffff30;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form .form-group {
+	margin-bottom: 15px;
+}
+
+.contact-form label {
+	font-size: 16px;
+	display: block;
+	margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.contact-form button {
+	width: 100%;
+	background-color: #e67e22;
+	color: white;
+	padding: 12px;
+	border: none;
+	border-radius: 30px;
+	font-weight: bold;
+	font-size: 18px;
+	transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+	background-color: #d35400;
+}
+
+/* Footer Section */
+footer {
+	text-align: center;
+	padding: 20px;
+	background-color: #2c3e50;
+	color: #fff;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+	.hero h1 {
+		font-size: 32px;
+	}
+
+	.hero p {
+		font-size: 16px;
+	}
+
+	.hero-content {
+		width: 80%;
+	}
+
+	.feature-cards {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.feature-card {
+		width: 80%;
+		margin-bottom: 20px;
+	}
+
+	.testimonial-slider {
+		flex-direction: column;
+	}
+
+	.menu-toggle {
+		display: block;
+	}
+
+	.navbar .menu {
+		display: none;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.navbar.active .menu {
+		display: flex;
+	}
+
+	.navbar .menu a {
+		padding: 10px 20px;
+	}
+}
+
+/* Parallax Effect on Mobile */
+@media (max-width: 768px) {
+	.hero {
+		background-attachment: scroll;
+	}
+}
