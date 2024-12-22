@@ -1,0 +1,150 @@
+/*
+ Theme Name: My Portfolio
+ Theme URI: http://example.com/my-custom-theme
+ Author: Olexandr
+ Author URI: http://example.com
+ Description: A custom WordPress theme.
+ Version: 1.0
+ License: GPL2
+ License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain: my-custom-theme
+*/
+
+/* Global Styles */
+body {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+	color: #ffffff;
+	background: #1a1a2e;
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+}
+
+/* Header */
+#header {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background: linear-gradient(135deg, #6a0572, #1a1a2e);
+	position: relative;
+	overflow: hidden;
+}
+
+.bg-element {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	pointer-events: none;
+	opacity: 0.6;
+	animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-50px);
+	}
+}
+
+.header-content h1 {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.header-content p {
+	font-size: 1.25rem;
+	margin-bottom: 2rem;
+}
+
+.header-content button {
+	background: #6a0572;
+	border: none;
+	color: #ffffff;
+	padding: 0.75rem 2rem;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.header-content button:hover {
+	background: #4a0267;
+	transform: scale(1.1);
+}
+
+/* Projects Section */
+#projects {
+	padding: 4rem 2rem;
+	text-align: center;
+	background: #222;
+}
+
+#projects h2 {
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+	color: #ffffff;
+}
+
+.project-list {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	gap: 2rem;
+}
+
+.project-card {
+	background: #333;
+	border-radius: 10px;
+	padding: 1.5rem;
+	width: calc(33% - 2rem);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card h3 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.project-card p {
+	font-size: 1rem;
+	margin-bottom: 1.5rem;
+	color: #ddd;
+}
+
+.project-link {
+	color: #6a0572;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.project-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer */
+footer {
+	text-align: center;
+	padding: 2rem;
+	background: #111;
+}
+
+footer p {
+	margin: 0.5rem 0;
+	font-size: 1rem;
+}
