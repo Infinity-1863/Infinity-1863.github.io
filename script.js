@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let verticalCenterFactor = 1;
 
 	// Speed for celestial bodies, can be changed dynamically
-	let celestialSpeed = 0.5; // Slower movement speed
+	let celestialSpeed = 0.4; // Slower movement speed
 
 	// Generate clouds
 	function generateClouds() {
@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	const footer = document.querySelector('footer');
-
 	// Function to generate stars
 	function generateStars() {
 		const starsCount = 100;
@@ -57,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	generateClouds();
 
 	function updateTextColor(sunAtTop) {
-		const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li');
+		const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, button');
 
 		textElements.forEach(element => {
 			element.style.color = sunAtTop ? 'gold' : 'gray';
@@ -87,39 +85,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		sun.style.transform = `translate(${sunX}px, ${verticalOffset - sunY}px)`;
 		moon.style.transform = `translate(${moonX}px, ${verticalOffset - moonY}px)`;
 
-		const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-
-		if (window.scrollY + window.innerHeight >= footerTop) {
-			sun.style.display = 'none';
-			moon.style.display = 'block';
-			body.style.backgroundColor = 'black';
-			stars.style.opacity = 1;
-		} else {
-			const normalizedSunY = Math.max(0, sunY / adjustedRadius);
-			const starsOpacity = 1 - normalizedSunY;
-			stars.style.opacity = starsOpacity;
-		}
-
+		// Check if the sun is above the horizon (i.e., sunY > 0)
 		if (sunY > 0) {
+			// Sun is visible
 			sun.style.display = 'block';
 			moon.style.display = 'none';
-			body.style.backgroundColor = 'rgb(0, 155, 207)';
+			body.style.backgroundColor = 'rgb(0, 155, 207)'; // Blue sky during the day
 			updateTextColor(true);
 
 			// Make clouds visible when the sun is up
 			document.querySelectorAll('.cloud').forEach(cloud => {
-				cloud.style.transition = 'opacity 0.5s ease-out';
+				cloud.style.transition = 'opacity 1s ease-out'; // Slow cloud transition
 				cloud.style.opacity = 1; // Clouds are fully visible during the day
 			});
+
+			// Make stars disappear smoothly during the day
+			document.querySelectorAll('.stars').forEach(star => {
+				star.style.transition = 'opacity 1s ease-out'; // Smooth transition
+				star.style.opacity = 0; // Stars are hidden during the day
+			});
 		} else {
+			// Moon is visible (night)
 			sun.style.display = 'none';
 			moon.style.display = 'block';
+			body.style.backgroundColor = 'black'; // Black sky during the night
 			updateTextColor(false);
 
 			// Make clouds invisible when the moon is up
 			document.querySelectorAll('.cloud').forEach(cloud => {
-				cloud.style.transition = 'opacity 0.5s ease-out';
+				cloud.style.transition = 'opacity 1s ease-out'; // Slow cloud transition
 				cloud.style.opacity = 0; // Clouds are hidden during the night
+			});
+
+			// Make stars appear smoothly at night
+			document.querySelectorAll('.stars').forEach(star => {
+				star.style.transition = 'opacity 1s ease-out'; // Smooth transition
+				star.style.opacity = 1; // Stars are visible during the night
 			});
 		}
 
@@ -148,6 +149,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				clouds.style.backgroundPositionY = `${scrollPosition * 0.8}px`; // Faster movement
 			}
 		});
+	}
+
+	function scrollToProjects() {
+		const projectsSection = document.getElementById('projects');
+		projectsSection.scrollIntoView({ behavior: 'smooth' });
+	}
+
+	// Add event listener to the button
+	const scrollButton = document.getElementById('scrollToProjects');
+	if (scrollButton) {
+		scrollButton.addEventListener('click', scrollToProjects);
 	}
 
 	// Start the animation
