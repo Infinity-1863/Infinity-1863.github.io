@@ -1,4 +1,7 @@
+/* -------------------------------- */
 /* Global Styles */
+/* -------------------------------- */
+
 body {
 	margin: 0;
 	font-family: 'Arial', sans-serif;
@@ -14,7 +17,10 @@ p {
 	margin: 0;
 }
 
-/* Header */
+/* -------------------------------- */
+/* Header Section */
+/* -------------------------------- */
+
 #header {
 	height: 100vh;
 	display: flex;
@@ -26,6 +32,7 @@ p {
 	overflow: hidden;
 }
 
+/* Floating background elements */
 .bg-element {
 	position: absolute;
 	width: 50px;
@@ -35,8 +42,20 @@ p {
 	pointer-events: none;
 	opacity: 0.6;
 	animation: float 8s infinite ease-in-out;
+	z-index: 1;
 }
 
+main {
+	position: relative;
+}
+
+.bg-element.square {
+	border-radius: 0%;
+	width: 30px;
+	height: 30px;
+}
+
+/* Floating animation */
 @keyframes float {
 
 	0%,
@@ -49,6 +68,7 @@ p {
 	}
 }
 
+/* Header Content */
 .header-content h1 {
 	font-size: 3rem;
 	margin-bottom: 1rem;
@@ -64,9 +84,10 @@ p {
 	border: none;
 	color: #ffffff;
 	padding: 0.75rem 2rem;
-	font-size: 1rem;
+	font-size: 2rem;
 	cursor: pointer;
 	transition: transform 0.3s ease, background 0.3s ease;
+	border-radius: 20px;
 }
 
 .header-content button:hover {
@@ -74,11 +95,15 @@ p {
 	transform: scale(1.1);
 }
 
+/* -------------------------------- */
 /* Projects Section */
+/* -------------------------------- */
+
 #projects {
 	padding: 4rem 2rem;
 	text-align: center;
 	background: #222;
+	z-index: 2;
 }
 
 #projects h2 {
@@ -114,10 +139,11 @@ p {
 	color: #ddd;
 }
 
-.project-card img{
+.project-card img {
 	width: 100%;
-    height: auto;
-    object-fit: cover;
+	height: auto;
+	object-fit: cover;
+	border-radius: 10px;
 }
 
 .project-link {
@@ -131,7 +157,79 @@ p {
 	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* Footer */
+/* -------------------------------- */
+/* About Section */
+/* -------------------------------- */
+
+#about {
+	padding: 4rem 2rem;
+	text-align: center;
+	background: #222;
+	color: #fff;
+}
+
+#about h2 {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+}
+
+#about p {
+	font-size: 1.2rem;
+	color: #ddd;
+}
+
+/* -------------------------------- */
+/* Services Section */
+/* -------------------------------- */
+
+#services {
+	padding: 4rem 2rem;
+	text-align: center;
+	background: #333;
+	color: #fff;
+}
+
+#services h2 {
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+}
+
+.service-list {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	gap: 2rem;
+}
+
+.service-card {
+	background: #444;
+	border-radius: 10px;
+	padding: 1.5rem;
+	width: calc(33% - 2rem);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card h3 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.service-card p {
+	font-size: 1rem;
+	margin-bottom: 1.5rem;
+	color: #ddd;
+}
+
+.service-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* -------------------------------- */
+/* Footer Section */
+/* -------------------------------- */
+
 footer {
 	text-align: center;
 	padding: 2rem;
@@ -143,10 +241,29 @@ footer p {
 	font-size: 1rem;
 }
 
+/* -------------------------------- */
+/* Animations */
+/* -------------------------------- */
+
+.animate-from-bottom {
+	opacity: 0;
+	transform: translateY(100px);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-from-bottom.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* -------------------------------- */
+/* Responsive Design */
+/* -------------------------------- */
+
 /* Mobile Optimization */
 @media (max-width: 768px) {
 
-	/* Header */
+	/* General Adjustments */
 	.header-content h1 {
 		font-size: 2rem;
 	}
@@ -160,34 +277,28 @@ footer p {
 		font-size: 0.9rem;
 	}
 
-	/* Projects Section */
-	#projects h2 {
+	#projects h2,
+	#about h2,
+	#services h2 {
 		font-size: 2rem;
 	}
 
-	.project-list {
+	.project-list,
+	.service-list {
 		justify-content: center;
 	}
 
-	.project-card {
+	.project-card,
+	.service-card {
 		width: 100%;
 		padding: 1rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.project-card h3 {
-		font-size: 1.2rem;
-	}
-
-	.project-card p {
-		font-size: 0.9rem;
 	}
 }
 
-/* Extra Small Mobile Devices */
+/* Extra Small Devices */
 @media (max-width: 480px) {
 
-	/* Header */
+	/* General Adjustments */
 	.header-content h1 {
 		font-size: 1.5rem;
 	}
@@ -201,7 +312,6 @@ footer p {
 		font-size: 0.8rem;
 	}
 
-	/* Projects Section */
 	#projects h2 {
 		font-size: 1.75rem;
 	}
@@ -214,13 +324,5 @@ footer p {
 	.project-card {
 		width: 90%;
 		padding: 1rem;
-	}
-
-	.project-card h3 {
-		font-size: 1rem;
-	}
-
-	.project-card p {
-		font-size: 0.8rem;
 	}
 }

@@ -45,6 +45,23 @@ header p {
 	background-color: rgba(255, 255, 255, 0.553);
 }
 
+#scrollToServices{
+	padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+    margin: auto;
+    font-size: 20px;
+}
+
+#scrollToServices:hover {
+    background-color: rgba(255, 255, 255, 0.553);
+}
+
 nav a {
 	color: gold;
 	margin: 0 15px;
@@ -87,7 +104,90 @@ section {
 	padding: 100px 20px;
 	text-align: center;
 	transition: color 1s ease;
+	position: relative;
+	/* Ensures the section can move */
 }
+
+#services,
+#projects {
+	transition: transform 0.5s ease-out;
+	will-change: transform;
+	/* Optimizes performance during scrolling */
+}
+
+#services {
+	padding: 100px 20px;
+	text-align: center;
+	margin: 0 0 200px 0;
+}
+
+#services h2 {
+	font-size: 36px;
+	margin-bottom: 50px;
+	color: gold;
+}
+
+.service-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+}
+
+.service {
+	width: 23%;
+	background-color: rgba(255, 255, 255, 0.2);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	transition: transform 0.3s ease;
+}
+
+.service img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.service h3 {
+	font-size: 24px;
+	color: gold;
+	margin: 15px 0;
+}
+
+.service p {
+	font-size: 16px;
+	color: white;
+	line-height: 1.5;
+}
+
+.service:hover {
+	transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+	.service {
+		width: 80%;
+		/* Make services take more space on smaller screens */
+	}
+}
+
+/* Style the search input */
+#projectSearch {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	transition: border-color 0.3s ease;
+}
+
+#projectSearch:focus {
+	border-color: #007bff;
+}
+
 
 #projects .project-list {
 	display: flex;
@@ -199,6 +299,19 @@ input[type="text"] {
 	z-index: -10;
 }
 
+.animate-from-bottom {
+	opacity: 0;
+	transform: translateY(100px);
+	/* Initially below the viewport */
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-from-bottom.visible {
+	opacity: 1;
+	transform: translateY(0);
+	/* Move to original position */
+}
+
 @media (max-width: 768px) {
 	.project {
 		width: 80%;
@@ -227,3 +340,4 @@ input[type="text"] {
         height: 100px;
     }
 }
+

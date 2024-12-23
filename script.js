@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	const moon = document.querySelector('#moon');
 	const body = document.body;
 	const stars = document.createElement('div');
-	const radius = Math.max(window.innerHeight / 1.2, 500); // Adjust radius for small screens
 	stars.classList.add('stars');
 	body.appendChild(stars);
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	body.appendChild(clouds);
 
 	let distanceFactor = 2;
-	let verticalCenterFactor = 1;
 
 	// Speed for celestial bodies, can be changed dynamically
 	let celestialSpeed = 0.4; // Slower movement speed
@@ -24,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			{ top: '20vh', left: '10vw', height: '15vh', width: '30vw' },
 			{ top: '30vh', left: '50vw', height: '8vh', width: '35vw' },
 			{ top: '50vh', left: '60vw', height: '10vh', width: '40vw' },
+			{ top: '10vh', left: '70vw', height: '20vh', width: '40vw' },
+			{ top: '60vh', left: '90vw', height: '15vh', width: '30vw' },
 			{ top: '70vh', left: '30vw', height: '12vh', width: '25vw' }
 		];
 
@@ -156,13 +156,64 @@ document.addEventListener('DOMContentLoaded', function () {
 		projectsSection.scrollIntoView({ behavior: 'smooth' });
 	}
 
-	// Add event listener to the button
-	const scrollButton = document.getElementById('scrollToProjects');
-	if (scrollButton) {
-		scrollButton.addEventListener('click', scrollToProjects);
+	const scrollToProject = document.getElementById('scrollToProjects');
+	if (scrollToProject) {
+		scrollToProject.addEventListener('click', scrollToProjects);
 	}
 
+	function scrollToServices() {
+		const servicesSection = document.getElementById('services');
+		servicesSection.scrollIntoView({ behavior: 'smooth' });
+	}
+
+	const scrollToService = document.getElementById('scrollToServices');
+	if (scrollToService) {
+		scrollToService.addEventListener('click', scrollToServices);
+	}
 	// Start the animation
 	applyParallaxEffect();
 	toggleCelestialBodies();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+	const searchInput = document.getElementById("projectSearch");
+	const projects = document.querySelectorAll(".project");
+
+	// Function to filter projects based on search input
+	function filterProjects() {
+		const searchQuery = searchInput.value.toLowerCase(); // Get the lowercase search query
+
+		projects.forEach(project => {
+			const projectTitle = project.getAttribute("data-title").toLowerCase(); // Get the project title
+
+			// If the search query matches part of the project title, show the project; otherwise, hide it
+			if (projectTitle.includes(searchQuery)) {
+				project.style.display = "block";  // Show the project
+			} else {
+				project.style.display = "none";  // Hide the project
+			}
+		});
+	}
+
+	// Add event listener to the search input to trigger filtering when typing
+	searchInput.addEventListener("input", filterProjects);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	const elements = document.querySelectorAll('.animate-from-bottom');
+
+	const observer = new IntersectionObserver((entries, observer) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+				observer.unobserve(entry.target); // Stop observing once the element is visible
+			}
+		});
+	}, {
+		threshold: 0.4 // Adjust this to your needs; here 50% of the element needs to be visible
+	});
+
+	elements.forEach(element => {
+		observer.observe(element);
+	});
 });

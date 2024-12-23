@@ -4,65 +4,60 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="assets/images/icon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
 	<link rel="stylesheet" href="style.css">
 	<title>Celestial Portfolio</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 </head>
 
 <body>
-		<div class="celestial-body" id="sun"></div>
-		<div class="celestial-body" id="moon"></div>
+	<div class="celestial-body" id="sun"></div>
+	<div class="celestial-body" id="moon"></div>
 	<div class="container">
 		<header id="header">
-			<p>Hello, I am Olexandr. <br> Welcome to my universe! Explore my work and skills through celestial wonders.</p>
+			<p>Hello, I am Olexandr. <br> Welcome to my universe! Explore my work and skills through celestial wonders.
+			</p>
+			<button id="scrollToServices">View Services</button><br><br>
 			<button id="scrollToProjects">View Projects</button>
 		</header>
+
+		<section id="services">
+			<h2>Services</h2>
+			<div class="service-list animate-from-bottom">
+				<div class="service">
+					<img src="assets/images/web-design.jpg" alt="Web Design">
+					<h3>Web Design</h3>
+					<p>I create visually appealing and user-friendly websites tailored to your brand.</p>
+				</div>
+				<div class="service">
+					<img src="assets/images/seo.jpg" alt="SEO Optimization">
+					<h3>SEO Optimization</h3>
+					<p>Optimize your website for search engines to increase visibility and traffic.</p>
+				</div>
+				<div class="service">
+					<img src="assets/images/development.jpg" alt="Web Development">
+					<h3>Web Development</h3>
+					<p>Develop functional and responsive websites with custom features to suit your needs.</p>
+				</div>
+			</div>
+		</section>
 
 		<section id="projects">
 			<h2>Projects</h2>
 			<input type="text" id="projectSearch" placeholder="Search projects...">
-			<div class="project-list">
-				<div class="project" data-title="Project One">
+			<div class="project-list animate-from-bottom">
+				<div class="project" data-title="Portfolio Landing">
 					<a href="/Portfolio Landing/index.html">
 						<img src="assets/images/Portfolio.png" alt="Project One">
 					</a>
 					<h3>Portfolio Landing</h3>
 				</div>
-				<div class="project" data-title="Project Two">
+				<div class="project" data-title="Product Landing">
 					<a href="/Product Landing/index.html">
 						<img src="assets/images/Product.png" alt="Project Two">
 					</a>
 					<h3>Product Landing</h3>
-				</div>
-				<div class="project" data-title="Project Two">
-					<a href="project-two-link.html">
-						<img src="assets/images/Portfolio.png" alt="Project Two">
-					</a>
-					<h3>Project Two</h3>
-				</div>
-				<div class="project" data-title="Project Two">
-					<a href="project-two-link.html">
-						<img src="assets/images/Portfolio.png" alt="Project Two">
-					</a>
-					<h3>Project Two</h3>
-				</div>
-				<div class="project" data-title="Project Two">
-					<a href="project-two-link.html">
-						<img src="assets/images/Portfolio.png" alt="Project Two">
-					</a>
-					<h3>Project Two</h3>
-				</div>
-				<div class="project" data-title="Project Two">
-					<a href="project-two-link.html">
-						<img src="assets/images/Portfolio.png" alt="Project Two">
-					</a>
-					<h3>Project Two</h3>
-				</div>
-				<div class="project" data-title="Project Two">
-					<a href="project-two-link.html">
-						<img src="assets/images/Portfolio.png" alt="Project Two">
-					</a>
-					<h3>Project Two</h3>
 				</div>
 			</div>
 		</section>
