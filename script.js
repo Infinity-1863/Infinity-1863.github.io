@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		// Increment rotation angle to keep the celestial bodies moving clockwise
-		rotationAngle += 0.1 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
+		rotationAngle += 0.2 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
 		if (rotationAngle >= 360) {
 			rotationAngle = 0; // Reset angle to prevent overflow
 		}
@@ -179,12 +179,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		if ('ontouchstart' in document.documentElement) {
 			document.addEventListener('touchmove', () => {
 				moveCloudsOnScroll();
-				toggleCelestialBodies();
 			});
 		} else {
 			window.addEventListener('scroll', () => {
 				moveCloudsOnScroll();
-				toggleCelestialBodies();
 			});
 		}
 	}
