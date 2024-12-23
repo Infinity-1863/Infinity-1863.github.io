@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	clouds.style.zIndex = '-10'; // Set clouds to be under other elements
 	body.appendChild(clouds);
 
-	let distanceFactor = 1;
+	let distanceFactor = 2;
 	let verticalCenterFactor = 1;
 
 	// Speed for celestial bodies, can be changed dynamically
@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Generate clouds
 	function generateClouds() {
 		const cloudData = [
-			{ top: '20vh', left: '10vw', speed: 5, height: '15vh', width: '30vw' },
-			{ top: '30vh', left: '50vw', speed: 4.5, height: '8vh', width: '35vw' },
-			{ top: '50vh', left: '70vw', speed: 5.5, height: '10vh', width: '40vw' },
-			{ top: '70vh', left: '30vw', speed: 4, height: '12vh', width: '25vw' }
+			{ top: '20vh', left: '10vw', height: '15vh', width: '30vw' },
+			{ top: '30vh', left: '50vw', height: '8vh', width: '35vw' },
+			{ top: '50vh', left: '60vw', height: '10vh', width: '40vw' },
+			{ top: '70vh', left: '30vw', height: '12vh', width: '25vw' }
 		];
 
 		cloudData.forEach(data => {
@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			cloud.style.top = data.top;
 			cloud.style.left = data.left;
 			cloud.style.width = data.width;
-			cloud.dataset.speed = data.speed;
 			clouds.appendChild(cloud);
 		});
 	}
@@ -106,27 +105,26 @@ document.addEventListener('DOMContentLoaded', function () {
 			moon.style.display = 'none';
 			body.style.backgroundColor = 'rgb(0, 155, 207)';
 			updateTextColor(true);
+
+			// Make clouds visible when the sun is up
+			document.querySelectorAll('.cloud').forEach(cloud => {
+				cloud.style.transition = 'opacity 0.5s ease-out';
+				cloud.style.opacity = 1; // Clouds are fully visible during the day
+			});
 		} else {
 			sun.style.display = 'none';
 			moon.style.display = 'block';
 			updateTextColor(false);
+
+			// Make clouds invisible when the moon is up
+			document.querySelectorAll('.cloud').forEach(cloud => {
+				cloud.style.transition = 'opacity 0.5s ease-out';
+				cloud.style.opacity = 0; // Clouds are hidden during the night
+			});
 		}
 
-		// Smoothly update stars and other transitions
-		const normalizedSunY = Math.max(0, sunY / (adjustedRadius * celestialSpeed));
-		const starsOpacity = 1 - normalizedSunY;
-		stars.style.transition = 'opacity 0.5s ease-out';
-		stars.style.opacity = starsOpacity;
-
-		// Control cloud opacity based on sun position
-		const cloudOpacity = Math.min(1, Math.max(0, sunY / adjustedRadius));
-		document.querySelectorAll('.cloud').forEach(cloud => {
-			cloud.style.transition = 'opacity 0.5s ease-out';
-			cloud.style.opacity = cloudOpacity;
-		});
-
 		// Increment rotation angle to keep the celestial bodies moving clockwise
-		rotationAngle += 0.2 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
+		rotationAngle += 1 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
 		if (rotationAngle >= 360) {
 			rotationAngle = 0; // Reset angle to prevent overflow
 		}
@@ -135,79 +133,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		requestAnimationFrame(toggleCelestialBodies);
 	}
 
-	// Start the animation
-	toggleCelestialBodies();
+	function applyParallaxEffect() {
+		const stars = document.querySelector('.stars');
+		const clouds = document.querySelector('.clouds');
 
-	function moveCelestialsVerticallyWithScroll() {
-		const scrollPosition = window.scrollY; // Get the current scroll position
-		const viewHeight = Math.max(window.innerHeight, 500);
+		window.addEventListener('scroll', () => {
+			const scrollPosition = window.scrollY;
 
-		// Limit the vertical scroll range to prevent infinite movement
-		const verticalOffset = Math.min(scrollPosition, viewHeight * 2);
-
-		// Apply the vertical movement to the celestial bodies (sun and moon)
-		sun.style.transition = 'transform 0.1s ease-out';
-		moon.style.transition = 'transform 0.1s ease-out';
-
-		sun.style.transform = `translateY(${verticalOffset}px)`;
-		moon.style.transform = `translateY(${verticalOffset}px)`;
-	}
-
-	// Listen for scroll events to trigger the vertical movement
-	window.addEventListener('scroll', () => {
-		moveCelestialsVerticallyWithScroll();
-		toggleCelestialBodies(); // Call to continue the circular motion even during scroll
-	});
-
-	function moveCloudsOnScroll() {
-		const scrollPosition = window.scrollY;
-
-		document.querySelectorAll('.cloud').forEach(cloud => {
-			const speed = cloud.dataset.speed;
-
-			// Scale movement speed for mobile devices
-			const scaleFactor = window.innerWidth <= 768 ? 0.8 : 1; // Reduce speed on smaller screens
-			const cloudYPosition = (scrollPosition * speed * scaleFactor) / 5;
-
-			cloud.style.transform = `translateY(${cloudYPosition}px)`;
+			// Adjust background positions based on scroll
+			if (stars) {
+				stars.style.backgroundPositionY = `${scrollPosition * 0.5}px`; // Slower movement
+			}
+			if (clouds) {
+				clouds.style.backgroundPositionY = `${scrollPosition * 0.8}px`; // Faster movement
+			}
 		});
 	}
 
-	// Event listeners for mobile optimization
-	function initScrollListeners() {
-		// Detect touch devices for smooth scroll
-		if ('ontouchstart' in document.documentElement) {
-			document.addEventListener('touchmove', () => {
-				moveCloudsOnScroll();
-			});
-		} else {
-			window.addEventListener('scroll', () => {
-				moveCloudsOnScroll();
-			});
-		}
-	}
-
-	// Initialize listeners on page load
-	initScrollListeners();
-
-	function adjustResolutionBasedMovement() {
-		const width = window.innerWidth;
-		const height = window.innerHeight;
-
-		// For mobile devices, scale down the distances and speeds
-		if (width <= 768) {
-			distanceFactor = 1;  // Reduce the scaling factor on mobile
-			celestialSpeed = 1;  // Slow down the movement on smaller screens
-		} else if (width <= 1200) {
-			distanceFactor = 1;  // Slightly reduce the scaling factor on medium screens
-			celestialSpeed = 1;  // Adjust speed for larger screens
-		} else {
-			distanceFactor = 1;  // Default scaling factor
-			celestialSpeed = 1;  // Default speed for desktop
-		}
-	}
-
-	// Adjust resolution-based movement settings on resize
-	window.addEventListener('resize', adjustResolutionBasedMovement);
-	adjustResolutionBasedMovement();
+	// Start the animation
+	applyParallaxEffect();
+	toggleCelestialBodies();
 });
