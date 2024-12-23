@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let verticalCenterFactor = 1;
 
 	// Speed for celestial bodies, can be changed dynamically
-	let celestialSpeed = 0.5; // Slower movement speed
+	let celestialSpeed = 1; // Default speed
 
 	// Generate clouds
 	function generateClouds() {
@@ -65,32 +65,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	let rotationAngle = 0; // To track the rotation angle over time
-
 	function toggleCelestialBodies() {
+		const scrollPosition = window.scrollY;
 		const viewHeight = Math.max(window.innerHeight, 500);
-		const degree = rotationAngle; // Use the rotationAngle instead of scrollPosition
+		const degree = (scrollPosition / viewHeight) * 360;
 		const radian = (Math.PI / 180) * degree;
 
 		const adjustedRadius = Math.max(viewHeight / 1.2, 200);
-		const verticalOffset = viewHeight - 100; // Keep it fixed or adjust as needed
+		const verticalOffset = viewHeight - 100 + scrollPosition; // Align at the bottom and move with scrolling
 
-		// Smooth celestial body positions
 		const sunX = Math.sin(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const sunY = Math.cos(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const moonX = -Math.sin(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const moonY = -Math.cos(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 
-		// Apply smooth translation
-		sun.style.transition = 'transform 0.1s ease-out';
-		moon.style.transition = 'transform 0.1s ease-out';
-
+		// Keep the celestial bodies moving in a circular path, with only vertical offset
 		sun.style.transform = `translate(${sunX}px, ${verticalOffset - sunY}px)`;
 		moon.style.transform = `translate(${moonX}px, ${verticalOffset - moonY}px)`;
 
 		const footerTop = footer.getBoundingClientRect().top + window.scrollY;
 
-		if (window.scrollY + window.innerHeight >= footerTop) {
+		if (scrollPosition + window.innerHeight >= footerTop) {
 			sun.style.display = 'none';
 			moon.style.display = 'block';
 			body.style.backgroundColor = 'black';
@@ -124,40 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			cloud.style.transition = 'opacity 0.5s ease-out';
 			cloud.style.opacity = cloudOpacity;
 		});
-
-		// Increment rotation angle to keep the celestial bodies moving clockwise
-		rotationAngle += 0.1 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
-		if (rotationAngle >= 360) {
-			rotationAngle = 0; // Reset angle to prevent overflow
-		}
-
-		// Continue the animation
-		requestAnimationFrame(toggleCelestialBodies);
 	}
-
-	// Start the animation
-	toggleCelestialBodies();
-
-	function moveCelestialsVerticallyWithScroll() {
-		const scrollPosition = window.scrollY; // Get the current scroll position
-		const viewHeight = Math.max(window.innerHeight, 500);
-
-		// Limit the vertical scroll range to prevent infinite movement
-		const verticalOffset = Math.min(scrollPosition, viewHeight * 2);
-
-		// Apply the vertical movement to the celestial bodies (sun and moon)
-		sun.style.transition = 'transform 0.1s ease-out';
-		moon.style.transition = 'transform 0.1s ease-out';
-
-		sun.style.transform = `translateY(${verticalOffset}px)`;
-		moon.style.transform = `translateY(${verticalOffset}px)`;
-	}
-
-	// Listen for scroll events to trigger the vertical movement
-	window.addEventListener('scroll', () => {
-		moveCelestialsVerticallyWithScroll();
-		toggleCelestialBodies(); // Call to continue the circular motion even during scroll
-	});
 
 	function moveCloudsOnScroll() {
 		const scrollPosition = window.scrollY;
@@ -178,13 +140,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Detect touch devices for smooth scroll
 		if ('ontouchstart' in document.documentElement) {
 			document.addEventListener('touchmove', () => {
-				moveCloudsOnScroll();
 				toggleCelestialBodies();
+				moveCloudsOnScroll();
 			});
 		} else {
 			window.addEventListener('scroll', () => {
-				moveCloudsOnScroll();
 				toggleCelestialBodies();
+				moveCloudsOnScroll();
+				moveStarsOnScroll();
 			});
 		}
 	}
@@ -198,18 +161,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// For mobile devices, scale down the distances and speeds
 		if (width <= 768) {
-			distanceFactor = 1;  // Reduce the scaling factor on mobile
-			celestialSpeed = 1;  // Slow down the movement on smaller screens
+			distanceFactor = 0.5;  // Reduce the scaling factor on mobile
+			celestialSpeed = 0.5;  // Slow down the movement on smaller screens
 		} else if (width <= 1200) {
-			distanceFactor = 1;  // Slightly reduce the scaling factor on medium screens
-			celestialSpeed = 1;  // Adjust speed for larger screens
+			distanceFactor = 0.75;  // Slightly reduce the scaling factor on medium screens
+			celestialSpeed = 0.75;  // Slightly reduce the speed
 		} else {
-			distanceFactor = 1;  // Default scaling factor
-			celestialSpeed = 1;  // Default speed for desktop
+			distanceFactor = 1;  // Full scaling factor for large screens
+			celestialSpeed = 1;  // Normal speed
 		}
+
+		// Adjust radius and movement based on both width and height for consistency
+		const radius = Math.max(height / 1.2, 500); // Use max height or a fixed value for consistency
+		return radius;
 	}
 
-	// Adjust resolution-based movement settings on resize
-	window.addEventListener('resize', adjustResolutionBasedMovement);
 	adjustResolutionBasedMovement();
+	toggleCelestialBodies();
+
+	// Ensure all movements are smooth and continuous
+	window.addEventListener('resize', adjustResolutionBasedMovement);
+	// Function to move stars with the scroll
+	function moveStarsOnScroll() {
+		const scrollPosition = window.scrollY;
+
+		// Select the container that holds the stars (the .stars div)
+		const starsContainer = document.querySelector('.stars');
+
+		// Ensure the stars container is positioned fixed to always stay in one place
+		starsContainer.style.position = 'fixed';
+
+		// Adjust the speed factor to control the vertical movement
+		starsContainer.style.transform = `translateY(${scrollPosition * 0}px)`; // Adjust speed as needed
+	}
 });
