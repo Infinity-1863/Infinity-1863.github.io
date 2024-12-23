@@ -59,7 +59,7 @@ nav a:hover {
 	left: 50%;
 	transform: translate(-50%, -100%);
 	z-index: 9999;
-	transition: transform 0.2s ease;
+	transition: transform 0.1s ease;
 }
 
 #sun {
@@ -137,8 +137,6 @@ input[type="text"] {
 	background-color: black;
 	z-index: -1;
 	overflow: hidden;
-	display: none;
-	/* Hide stars initially */
 }
 
 .star {
