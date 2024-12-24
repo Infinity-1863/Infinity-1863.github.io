@@ -272,11 +272,6 @@ footer p {
 		font-size: 1.1rem;
 	}
 
-	.header-content button {
-		padding: 0.5rem 1.5rem;
-		font-size: 0.9rem;
-	}
-
 	#projects h2,
 	#about h2,
 	#services h2 {
@@ -305,11 +300,6 @@ footer p {
 
 	.header-content p {
 		font-size: 1rem;
-	}
-
-	.header-content button {
-		padding: 0.5rem 1rem;
-		font-size: 0.8rem;
 	}
 
 	#projects h2 {
