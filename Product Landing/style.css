@@ -15,7 +15,7 @@ body {
 
 /* Header Section */
 .hero {
-	background-image: url('img/background.jpg');
+	background-image: url('images/background.jpg');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -23,9 +23,6 @@ body {
 	color: #ffffff;
 	text-align: center;
 	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .hero-content {
@@ -41,10 +38,8 @@ body {
 	align-items: center;
 	padding: 0 20px 0 20px;
 	background-color: #2c3e50;
-	position: fixed;
 	width: 100%;
-	top: 0;
-	z-index: 999;
+	margin: 0 0 200px 0;
 }
 
 .navbar .logo img {
@@ -119,11 +114,12 @@ body {
 	border-radius: 10px;
 	width: 30%;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	transition: box-shadow 0.3s ease;
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .feature-card:hover {
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	transform: translateY(10px);
 }
 
 .feature-card h3 {
@@ -135,6 +131,13 @@ body {
 	font-size: 16px;
 }
 
+.feature-card img{
+	width: 100%;
+    height: auto;
+    object-fit: cover;
+	border-radius: 10px;
+}
+
 /* Testimonials Section */
 .testimonial-slider {
 	margin-top: 20px;
@@ -144,18 +147,53 @@ body {
 	text-align: center;
 }
 
+.testimonial-slider {
+	position: relative;
+	width: 300px;
+	height: 150px;
+	overflow: hidden;
+	margin: 0 auto;
+	border-radius: 8px;
+	background: #ffffff50;
+}
+
 .testimonial {
-	background-color: #f5f5f530;
-	padding: 20px;
-	border-radius: 10px;
-	font-style: italic;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	color: #ffffff;
+	transition: transform 1s ease, opacity 1s ease;
+}
+
+.testimonial p {
+	margin: 10px 0;
 }
 
 .testimonial cite {
-	display: block;
-	margin-top: 10px;
-	font-size: 16px;
-	color: #e67e22;
+	font-size: 14px;
+	color: #f78800;
+}
+
+/* Visible testimonial styles */
+.testimonial.active {
+	top: 0;
+	transform: translateY(0);
+	opacity: 1;
+}
+
+/* Transitioning-out testimonial */
+.testimonial.hidden {
+	top: -100%;
+	opacity: 0;
+}
+
+/* Prepare the next testimonial */
+.testimonial.next {
+	top: 100%;
+	transform: translateY(-100%);
+	opacity: 0;
 }
 
 /* Contact Form Section */
@@ -256,11 +294,8 @@ footer {
 	.navbar .menu a {
 		padding: 10px 20px;
 	}
-}
 
-/* Parallax Effect on Mobile */
-@media (max-width: 768px) {
-	.hero {
-		background-attachment: scroll;
+	.contact-form{
+		width: 90%;
 	}
 }

@@ -1,7 +1,7 @@
 // Smooth Scroll to Projects Section
-function scrollToProjects() {
-	const projectsSection = document.getElementById('about');
-	projectsSection.scrollIntoView({ behavior: 'smooth' });
+function scrollDown() {
+	const aboutSection = document.getElementById('about');
+	aboutSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 document.addEventListener("DOMContentLoaded", () => {

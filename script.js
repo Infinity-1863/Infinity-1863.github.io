@@ -6,37 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	stars.classList.add('stars');
 	body.appendChild(stars);
 
-	const clouds = document.createElement('div');
-	clouds.classList.add('clouds');
-	clouds.style.zIndex = '-10'; // Set clouds to be under other elements
-	body.appendChild(clouds);
-
-	let distanceFactor = 2;
+	let distanceFactor = 3;
 
 	// Speed for celestial bodies, can be changed dynamically
-	let celestialSpeed = 0.4; // Slower movement speed
-
-	// Generate clouds
-	function generateClouds() {
-		const cloudData = [
-			{ top: '20vh', left: '10vw', height: '15vh', width: '30vw' },
-			{ top: '30vh', left: '50vw', height: '8vh', width: '35vw' },
-			{ top: '50vh', left: '60vw', height: '10vh', width: '40vw' },
-			{ top: '10vh', left: '70vw', height: '20vh', width: '40vw' },
-			{ top: '60vh', left: '90vw', height: '15vh', width: '30vw' },
-			{ top: '70vh', left: '30vw', height: '12vh', width: '25vw' }
-		];
-
-		cloudData.forEach(data => {
-			const cloud = document.createElement('div');
-			cloud.classList.add('cloud');
-			cloud.style.height = data.height;
-			cloud.style.top = data.top;
-			cloud.style.left = data.left;
-			cloud.style.width = data.width;
-			clouds.appendChild(cloud);
-		});
-	}
+	let celestialSpeed = 0.3; // Slower movement speed
 
 	// Function to generate stars
 	function generateStars() {
@@ -52,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	generateStars();
-	generateClouds();
 
 	function updateTextColor(sunAtTop) {
 		const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, button');
@@ -66,77 +38,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function toggleCelestialBodies() {
 		const viewHeight = Math.max(window.innerHeight, 500);
-		const degree = rotationAngle; // Use the rotationAngle instead of scrollPosition
+		const degree = rotationAngle;
 		const radian = (Math.PI / 180) * degree;
 
 		const adjustedRadius = Math.max(viewHeight / 1.2, 200);
-		const verticalOffset = viewHeight - 100; // Keep it fixed or adjust as needed
+		const verticalOffset = viewHeight - 100;
 
-		// Smooth celestial body positions
 		const sunX = Math.sin(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const sunY = Math.cos(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const moonX = -Math.sin(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 		const moonY = -Math.cos(radian) * adjustedRadius * distanceFactor * celestialSpeed;
 
-		// Apply smooth translation
 		sun.style.transition = 'transform 0.1s ease-out';
 		moon.style.transition = 'transform 0.1s ease-out';
 
 		sun.style.transform = `translate(${sunX}px, ${verticalOffset - sunY}px)`;
 		moon.style.transform = `translate(${moonX}px, ${verticalOffset - moonY}px)`;
 
-		// Check if the sun is above the horizon (i.e., sunY > 0)
 		if (sunY > 0) {
-			// Sun is visible
+			// Daytime
 			sun.style.display = 'block';
 			moon.style.display = 'none';
-			body.style.backgroundColor = 'rgb(0, 155, 207)'; // Blue sky during the day
+			body.classList.add('day-gradient');
+			body.classList.remove('night-gradient');
+
 			updateTextColor(true);
-
-			// Make clouds visible when the sun is up
-			document.querySelectorAll('.cloud').forEach(cloud => {
-				cloud.style.transition = 'opacity 1s ease-out'; // Slow cloud transition
-				cloud.style.opacity = 1; // Clouds are fully visible during the day
-			});
-
-			// Make stars disappear smoothly during the day
 			document.querySelectorAll('.stars').forEach(star => {
-				star.style.transition = 'opacity 1s ease-out'; // Smooth transition
-				star.style.opacity = 0; // Stars are hidden during the day
+				star.style.transition = 'opacity 1s ease-out';
+				star.style.opacity = 0;
 			});
 		} else {
-			// Moon is visible (night)
+			// Nighttime
 			sun.style.display = 'none';
 			moon.style.display = 'block';
-			body.style.backgroundColor = 'black'; // Black sky during the night
+			stars.classList.add('night-gradient');
+			body.classList.remove('day-gradient');
+
 			updateTextColor(false);
-
-			// Make clouds invisible when the moon is up
-			document.querySelectorAll('.cloud').forEach(cloud => {
-				cloud.style.transition = 'opacity 1s ease-out'; // Slow cloud transition
-				cloud.style.opacity = 0; // Clouds are hidden during the night
-			});
-
-			// Make stars appear smoothly at night
 			document.querySelectorAll('.stars').forEach(star => {
-				star.style.transition = 'opacity 1s ease-out'; // Smooth transition
-				star.style.opacity = 1; // Stars are visible during the night
+				star.style.transition = 'opacity 1s ease-out';
+				star.style.opacity = 1;
 			});
 		}
 
-		// Increment rotation angle to keep the celestial bodies moving clockwise
-		rotationAngle += 1 * celestialSpeed; // Slow down the rotation increment to make the movement smooth
-		if (rotationAngle >= 360) {
-			rotationAngle = 0; // Reset angle to prevent overflow
-		}
+		rotationAngle += 1 * celestialSpeed;
+		if (rotationAngle >= 360) rotationAngle = 0;
 
-		// Continue the animation
 		requestAnimationFrame(toggleCelestialBodies);
 	}
 
 	function applyParallaxEffect() {
 		const stars = document.querySelector('.stars');
-		const clouds = document.querySelector('.clouds');
 
 		window.addEventListener('scroll', () => {
 			const scrollPosition = window.scrollY;
@@ -144,9 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Adjust background positions based on scroll
 			if (stars) {
 				stars.style.backgroundPositionY = `${scrollPosition * 0.5}px`; // Slower movement
-			}
-			if (clouds) {
-				clouds.style.backgroundPositionY = `${scrollPosition * 0.8}px`; // Faster movement
 			}
 		});
 	}

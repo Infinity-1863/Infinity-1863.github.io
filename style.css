@@ -5,7 +5,36 @@ html {
 	font-family: Arial, sans-serif;
 	overflow-x: hidden;
 	scroll-behavior: smooth;
-	transition: color 1s ease, background-color 1s ease;
+	transition: color 1s ease, background 1s ease;
+}
+
+.day-gradient {
+	background: linear-gradient(180deg, #00aaff, #87cefa, #0f8adc, #0a77e4);
+	background-size: 300% 300%;
+	animation: moveGradient 15s linear infinite;
+	background-attachment: fixed;
+}
+
+/* Nighttime gradient with animation */
+.night-gradient {
+	background: linear-gradient(180deg, #001d3d, #002e63, #3a3a52, #000000);
+	background-size: 300% 300%;
+	animation: moveGradient 20s linear infinite;
+}
+
+/* Gradient animation keyframes */
+@keyframes moveGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .container {
@@ -221,6 +250,10 @@ footer {
 	position: relative;
 }
 
+footer p {
+	font-size: 18px;
+}
+
 .footer-body {
 	width: 50px;
 	height: 50px;
@@ -245,9 +278,9 @@ input[type="text"] {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: black;
 	z-index: -10;
 	overflow: hidden;
+	transition: background-color 2s ease;
 }
 
 .star {
@@ -276,27 +309,6 @@ input[type="text"] {
 	100% {
 		opacity: 0.8;
 	}
-}
-
-.clouds{
-	position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-    overflow: hidden;
-}
-
-.cloud {
-	position: absolute;
-	background-image: url(assets/images/cloud_24dp_E8EAED.png);
-	background-repeat: no-repeat;
-	/* Prevents the background from repeating */
-	background-size: contain;
-	/* Adjusts the background image to fit within the cloud element */
-	transition: transform 0.1s ease-out;
-	z-index: -10;
 }
 
 .animate-from-bottom {
