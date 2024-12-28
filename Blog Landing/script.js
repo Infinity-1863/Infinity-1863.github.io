@@ -66,3 +66,23 @@ window.onload = function () {
     // Start the animation loop
     animate();
 };
+
+function searchPosts() {
+	// Get the search input value
+	const searchValue = document.getElementById('searchBar').value.toLowerCase();
+
+	// Get all post elements
+	const posts = document.querySelectorAll('.post-preview');
+
+	// Loop through posts and show/hide based on the search value
+	posts.forEach(post => {
+		const title = post.querySelector('.post-title').textContent.toLowerCase();
+		const excerpt = post.querySelector('.post-excerpt').textContent.toLowerCase();
+
+		if (title.includes(searchValue) || excerpt.includes(searchValue)) {
+			post.style.display = ''; // Show the post
+		} else {
+			post.style.display = 'none'; // Hide the post
+		}
+	});
+}
