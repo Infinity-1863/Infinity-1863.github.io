@@ -10,11 +10,56 @@ body {
 	overflow-x: hidden;
 }
 
+body.no-scroll {
+	overflow: hidden;
+}
+
 h1,
 h2,
 h3,
 p {
 	margin: 0;
+}
+
+/* Modal Section */
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.modal-content {
+	background: #444;
+	padding: 20px;
+	max-width: 600px;
+	width: 90%;
+	text-align: center;
+	border-radius: 10px;
+}
+
+#modal-description{
+	margin: 30px 0;
+}
+
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 50px;
+	cursor: pointer;
+	color: #fff;
+}
+
+#modal-image{
+	width: 100%;
 }
 
 /* -------------------------------- */
@@ -156,15 +201,25 @@ main {
 	border-radius: 10px;
 }
 
-.project-link {
-	color: #6a0572;
-	text-decoration: none;
-	font-weight: bold;
-}
-
 .project-card:hover {
 	transform: translateY(-10px);
 	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.view-more{
+	background: #6a0572;
+    border: none;
+    color: #ffffff;
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border-radius: 20px;
+}
+
+.view-more:hover {
+    background: #4a0267;
+    transform: scale(1.1);
 }
 
 /* -------------------------------- */

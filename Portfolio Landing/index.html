@@ -125,6 +125,14 @@
 		</section>
 
 		<!-- Projects Section -->
+		<div id="project-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-button">&times;</span>
+				<h3 id="modal-title">Project Title</h3>
+				<p id="modal-description">Detailed project information will appear here.</p>
+				<img id="modal-image" src="" alt="Project Image">
+			</div>
+		</div>
 		<section id="projects">
 			<h2>My Works</h2>
 			<div class="project-list animate-from-bottom">
@@ -132,19 +140,19 @@
 					<h3>My work 1</h3>
 					<img src="images/Portfolio.png" alt="">
 					<p>Description of this project.</p>
-					<a href="#" class="project-link">View Full</a>
+					<button class="view-more" data-project="1">View More</button>
 				</div>
 				<div class="project-card">
 					<h3>My work 2</h3>
 					<img src="images/Portfolio.png" alt="">
 					<p>Description of this project.</p>
-					<a href="#" class="project-link">View Full</a>
+					<button class="view-more" data-project="2">View More</button>
 				</div>
 				<div class="project-card">
 					<h3>My work 3</h3>
 					<img src="images/Portfolio.png" alt="">
 					<p>Description of this project.</p>
-					<a href="#" class="project-link">View Full</a>
+					<button class="view-more" data-project="3">View More</button>
 				</div>
 				<!-- (Other project cards) -->
 			</div>
@@ -172,9 +180,6 @@
 				</div>
 		
 				<div class="social-icons">
-					<a href="https://twitter.com/yourprofile" target="_blank">
-						<i class="fab fa-twitter"></i>
-					</a>
 					<a href="https://facebook.com/yourprofile" target="_blank">
 						<i class="fab fa-facebook"></i>
 					</a>
