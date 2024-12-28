@@ -44,7 +44,7 @@ nav a:hover {
 .hover-effect {
 	position: relative;
 	display: inline-block;
-	padding: 10px 20px;
+	padding: 10px 10px;
 	font-size: 18px;
 	font-weight: bold;
 	text-align: center;
@@ -79,7 +79,7 @@ section {
 /* Search input Styles */
 
 input{
-	width: 100%;
+	width: 70%;
 	height: 40px;
     padding: 10px;
     border: 1px solid goldenrod;
@@ -241,7 +241,6 @@ article h3 {
 	}
 
 	nav ul {
-		flex-direction: column;
 		padding: 10px;
 	}
 
@@ -253,7 +252,6 @@ article h3 {
 		padding: 20px 10px;
 	}
 
-	/* Adjust for smaller screens */
 	article h2 {
 		font-size: 24px;
 	}
@@ -262,7 +260,6 @@ article h3 {
 		font-size: 20px;
 	}
 
-	/* Contact Info section */
 	#contact-info {
 		font-size: 16px;
 	}
