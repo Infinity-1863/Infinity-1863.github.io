@@ -100,6 +100,7 @@ input:focus{
 	border-bottom: 1px solid goldenrod;
 	margin-bottom: 20px;
 	padding-bottom: 20px;
+	width: 90%;
 }
 
 .post-title {
@@ -267,4 +268,5 @@ article h3 {
 	#contact-info a {
 		font-size: 16px;
 	}
+
 }
