@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cognito Callback</title>
+	<title>Google Sign-In Callback</title>
 	<style>
 		body {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -49,6 +49,29 @@
 			margin-top: 20px;
 			text-align: left;
 			max-width: 100%;
+			position: relative;
+		}
+
+		.code-box button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			padding: 5px 10px;
+			background-color: #d4af37;
+			color: #0c0f16;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 0.9em;
+		}
+
+		.code-box button:hover {
+			background-color: #b8972f;
+		}
+
+		.instructions {
+			margin-bottom: 15px;
+			font-size: 1.1em;
 		}
 
 		.celestial {
@@ -97,12 +120,12 @@
 	</div>
 
 	<div class="container">
-		<h1>Cognito Authentication</h1>
-		<div class="auth-status" id="authStatus">Processing authentication...</div>
-
+		<h1>Google Sign-In</h1>
+		<div class="auth-status" id="authStatus">Processing Google Sign-In...</div>
 		<div id="codeContainer" class="code-box" style="display: none;">
-			<p><strong>Authorization Code:</strong></p>
+			<p class="instructions"><strong>Copy this code and paste it into the Unity application:</strong></p>
 			<code id="authCode"></code>
+			<button onclick="copyCode()">Copy Code</button>
 		</div>
 	</div>
 
@@ -119,7 +142,17 @@
 			return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 		}
 
-		// Get the code from URL
+		// Copy code to clipboard
+		function copyCode() {
+			const code = document.getElementById('authCode').textContent;
+			navigator.clipboard.writeText(code).then(() => {
+				alert('Code copied to clipboard!');
+			}).catch(err => {
+				console.error('Failed to copy code:', err);
+			});
+		}
+
+		// Get URL parameters
 		const authCode = getUrlParameter('code');
 		const errorDescription = getUrlParameter('error_description');
 		const error = getUrlParameter('error');
@@ -130,29 +163,18 @@
 		const authCodeElement = document.getElementById('authCode');
 
 		if (authCode) {
-			// Success case
-			authStatusElement.textContent = 'Authentication successful!';
+			authStatusElement.textContent = 'Sign-In Successful!';
 			authStatusElement.style.backgroundColor = 'rgba(40, 167, 69, 0.3)';
-
-			// Display code
 			codeContainer.style.display = 'block';
 			authCodeElement.textContent = authCode;
-
-			// Log to console for debugging
 			console.log('Authorization Code:', authCode);
 		} else if (error || errorDescription) {
-			// Error case
-			authStatusElement.textContent = `Authentication Error: ${errorDescription || error || 'Unknown error'}`;
+			authStatusElement.textContent = `Sign-In Error: ${errorDescription || error || 'Unknown error'}`;
 			authStatusElement.style.backgroundColor = 'rgba(220, 53, 69, 0.3)';
-
-			// Log to console
-			console.error('Authentication Error:', error, errorDescription);
+			console.error('Sign-In Error:', error, errorDescription);
 		} else {
-			// No parameters case
-			authStatusElement.textContent = 'No authorization code found. The redirect may be incorrect.';
+			authStatusElement.textContent = 'No authorization code found. Please try signing in again.';
 			authStatusElement.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
-
-			// Log to console
 			console.warn('No authorization parameters found in URL');
 		}
 
