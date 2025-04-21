@@ -1,3 +1,0 @@
-A simple, dark, and minimalistic blog site consisting of a landing page, about page, contact page, and individual blog post pages. The design emphasizes readability with a clean interface and easy navigation.
-
-To create a new blog post, duplicate an existing blog post file in the posts directory and also duplicate the .post-preview <div> element in index.html, ensuring you update the href attribute.

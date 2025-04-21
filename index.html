@@ -4,76 +4,176 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="assets/images/icon.png" type="image/x-icon">
-	<link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
-	<link rel="stylesheet" href="style.css">
-	<meta name='freelancehunt' content='78d223ffeb76f6b'>
-	<title>Olexandr Portfolio</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+	<title>Cognito Callback</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #0c0f16;
+			color: #ffffff;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+			padding: 20px;
+			text-align: center;
+		}
+
+		.container {
+			max-width: 800px;
+			padding: 30px;
+			background-color: rgba(20, 30, 51, 0.7);
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+		}
+
+		h1 {
+			color: #d4af37;
+			margin-bottom: 20px;
+		}
+
+		.auth-status {
+			margin: 20px 0;
+			padding: 15px;
+			border-radius: 5px;
+			background-color: rgba(255, 255, 255, 0.1);
+			word-break: break-all;
+		}
+
+		.code-box {
+			padding: 15px;
+			background-color: rgba(0, 0, 0, 0.3);
+			border-radius: 5px;
+			overflow-wrap: break-word;
+			margin-top: 20px;
+			text-align: left;
+			max-width: 100%;
+		}
+
+		.celestial {
+			position: absolute;
+			border-radius: 50%;
+			z-index: -1;
+		}
+
+		.star {
+			background-color: #ffffff;
+			width: 2px;
+			height: 2px;
+			opacity: 0.7;
+		}
+
+		.planet {
+			width: 100px;
+			height: 100px;
+			background: radial-gradient(circle at 30% 30%, #4a6fa5, #172a46);
+			box-shadow: 0 0 20px rgba(74, 111, 165, 0.5);
+			opacity: 0.3;
+		}
+
+		.footer {
+			margin-top: 30px;
+			font-size: 0.8em;
+			opacity: 0.7;
+		}
+
+		a {
+			color: #d4af37;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="celestial-body" id="sun"></div>
-	<div class="celestial-body" id="moon"></div>
-	<div class="container">
-		<header id="header">
-			<p>Hello, I am Olexandr. <br> Welcome to my universe! Explore my work and skills through celestial wonders.
-			</p>
-			<button id="scrollToServices">View Services</button><br><br>
-			<button id="scrollToProjects">View Projects</button>
-		</header>
-
-		<section id="services">
-			<h2>Services</h2>
-			<div class="service-list animate-from-bottom">
-				<div class="service">
-					<img src="assets/images/web-design.jpg" alt="Web Design">
-					<h3>Web Design</h3>
-					<p>I create visually appealing and user-friendly websites tailored to your brand.</p>
-				</div>
-				<div class="service">
-					<img src="assets/images/seo.jpg" alt="SEO Optimization">
-					<h3>SEO Optimization</h3>
-					<p>Optimize your website for search engines to increase visibility and traffic.</p>
-				</div>
-				<div class="service">
-					<img src="assets/images/development.jpg" alt="Web Development">
-					<h3>Web Development</h3>
-					<p>Develop functional and responsive websites with custom features to suit your needs.</p>
-				</div>
-			</div>
-		</section>
-
-		<section id="projects">
-			<h2>Projects</h2>
-			<input type="text" id="projectSearch" placeholder="Search projects...">
-			<div class="project-list animate-from-bottom">
-				<div class="project" data-title="Portfolio Landing">
-					<a href="/Portfolio Landing/index.html" target="_blank">
-						<img src="assets/images/Portfolio.png" alt="Project One">
-					</a>
-					<h3>Portfolio Landing</h3>
-				</div>
-				<div class="project" data-title="Blog Landing">
-					<a href="/Blog Landing/index.html" target="_blank">
-						<img src="assets/images/Blog.png" alt="Project Two">
-					</a>
-					<h3>Blog Landing</h3>
-				</div>
-				<div class="project" data-title="Product Page">
-					<a href="/Product Page/index.html" target="_blank">
-						<img src="assets/images/Product.png" alt="Project Three">
-					</a>
-					<h3>Product Page</h3>
-			</div>
-		</section>
-
-		<footer>
-			<p>Contact me at:</p>
-			<p>Email: olexandr2410@gmail.com</p>
-		</footer>
+	<!-- Celestial background elements -->
+	<div class="celestial planet" style="top: 10%; left: 5%;"></div>
+	<div class="celestial planet"
+		style="bottom: 15%; right: 8%; width: 150px; height: 150px; background: radial-gradient(circle at 30% 30%, #a57c4a, #462a17);">
 	</div>
-	<script src="script.js"></script>
+
+	<div class="container">
+		<h1>Cognito Authentication</h1>
+		<div class="auth-status" id="authStatus">Processing authentication...</div>
+
+		<div id="codeContainer" class="code-box" style="display: none;">
+			<p><strong>Authorization Code:</strong></p>
+			<code id="authCode"></code>
+		</div>
+	</div>
+
+	<div class="footer">
+		<a href="https://infinity-1863.github.io/">Return to Homepage</a>
+	</div>
+
+	<script>
+		// Function to get URL parameters
+		function getUrlParameter(name) {
+			name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+			var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+			var results = regex.exec(location.search);
+			return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+		}
+
+		// Get the code from URL
+		const authCode = getUrlParameter('code');
+		const errorDescription = getUrlParameter('error_description');
+		const error = getUrlParameter('error');
+
+		// Display results
+		const authStatusElement = document.getElementById('authStatus');
+		const codeContainer = document.getElementById('codeContainer');
+		const authCodeElement = document.getElementById('authCode');
+
+		if (authCode) {
+			// Success case
+			authStatusElement.textContent = 'Authentication successful!';
+			authStatusElement.style.backgroundColor = 'rgba(40, 167, 69, 0.3)';
+
+			// Display code
+			codeContainer.style.display = 'block';
+			authCodeElement.textContent = authCode;
+
+			// Log to console for debugging
+			console.log('Authorization Code:', authCode);
+		} else if (error || errorDescription) {
+			// Error case
+			authStatusElement.textContent = `Authentication Error: ${errorDescription || error || 'Unknown error'}`;
+			authStatusElement.style.backgroundColor = 'rgba(220, 53, 69, 0.3)';
+
+			// Log to console
+			console.error('Authentication Error:', error, errorDescription);
+		} else {
+			// No parameters case
+			authStatusElement.textContent = 'No authorization code found. The redirect may be incorrect.';
+			authStatusElement.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
+
+			// Log to console
+			console.warn('No authorization parameters found in URL');
+		}
+
+		// Create star background
+		function createStars() {
+			const starsCount = 200;
+			for (let i = 0; i < starsCount; i++) {
+				const star = document.createElement('div');
+				star.classList.add('celestial', 'star');
+				star.style.top = `${Math.random() * 100}%`;
+				star.style.left = `${Math.random() * 100}%`;
+				star.style.width = `${Math.random() * 2 + 1}px`;
+				star.style.height = star.style.width;
+				star.style.opacity = Math.random() * 0.8 + 0.2;
+				document.body.appendChild(star);
+			}
+		}
+
+		// Create stars when page loads
+		window.onload = createStars;
+	</script>
 </body>
 
 </html>
