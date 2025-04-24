@@ -163,11 +163,19 @@
 		const authCodeElement = document.getElementById('authCode');
 
 		if (authCode) {
-			authStatusElement.textContent = 'Sign-In Successful!';
+			authStatusElement.textContent = 'Sign-In Successful! Code has been automatically copied to clipboard.';
 			authStatusElement.style.backgroundColor = 'rgba(40, 167, 69, 0.3)';
 			codeContainer.style.display = 'block';
 			authCodeElement.textContent = authCode;
 			console.log('Authorization Code:', authCode);
+			
+			// Automatically copy the code to clipboard
+			navigator.clipboard.writeText(authCode).then(() => {
+				console.log('Code automatically copied to clipboard');
+			}).catch(err => {
+				console.error('Failed to auto-copy code:', err);
+				authStatusElement.textContent += ' (Auto-copy failed. Please use the copy button.)';
+			});
 		} else if (error || errorDescription) {
 			authStatusElement.textContent = `Sign-In Error: ${errorDescription || error || 'Unknown error'}`;
 			authStatusElement.style.backgroundColor = 'rgba(220, 53, 69, 0.3)';
