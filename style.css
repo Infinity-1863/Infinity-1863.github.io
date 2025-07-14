@@ -1,0 +1,44 @@
+body {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.panel {
+  background: #2b2b2b;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+button {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button:disabled {
+  background: #555;
+  cursor: default;
+}
+
+#quest-list > div {
+  border-bottom: 1px solid #444;
+  padding: 10px 0;
+}
+
+#quest-list > div:last-child {
+  border-bottom: none;
+}
+
+ul { list-style: none; padding-left: 0; }
