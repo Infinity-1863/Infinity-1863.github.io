@@ -1,401 +1,248 @@
-        // Система сохранения прогресса
-        class GameProgress {
-            constructor() {
-                this.stats = this.loadStats();
-                this.updateDisplay();
-            }
+const STORAGE_KEY = 'innerRpgSaveV2';
 
-            loadStats() {
-                const saved = localStorage.getItem('rpg-stats');
-                return saved ? JSON.parse(saved) : {
-                    attention: { value: 50, scores: [] },
-                    memory: { value: 50, scores: [] },
-                    reaction: { value: 50, scores: [] },
-                    logic: { value: 50, scores: [] }
-                };
-            }
+const DEFAULT_STATE = {
+    attention: 0,
+    memory: 0,
+    reaction: 0,
+    logic: 0,
+    xp: 0,
+    level: 0,
+    nextLevelXp: 100,
+    difficultyMultiplier: 1
+};
 
-            saveStats() {
-                localStorage.setItem('rpg-stats', JSON.stringify(this.stats));
-            }
+let state = load();
+updateDifficulty();
+updateUI();
 
-            updateStat(statName, score) {
-                const stat = this.stats[statName];
-                stat.scores.push(score);
-                
-                // Оставляем только последние 20 результатов
-                if (stat.scores.length > 20) {
-                    stat.scores = stat.scores.slice(-20);
-                }
-                
-                // Вычисляем среднее
-                const average = stat.scores.reduce((a, b) => a + b, 0) / stat.scores.length;
-                stat.value = Math.round(average);
-                
-                this.saveStats();
-                this.updateDisplay();
-            }
+function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
 
-            updateDisplay() {
-                ['attention', 'memory', 'reaction', 'logic'].forEach(stat => {
-                    const value = this.stats[stat].value;
-                    document.getElementById(`${stat}-stat`).textContent = value;
-                    document.getElementById(`${stat}-progress`).style.width = `${value}%`;
-                });
-            }
-        }
+function load() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? { ...DEFAULT_STATE, ...JSON.parse(saved) } : { ...DEFAULT_STATE };
+}
 
-        const gameProgress = new GameProgress();
+function updateDifficulty() {
+    const avgStat = (state.attention + state.memory + state.reaction + state.logic) / 4;
+    state.difficultyMultiplier = 1 + avgStat / 50;
+}
 
-        // Игра на внимательность
-        let attentionGame = {
-            score: 0,
-            timeLeft: 30,
-            interval: null,
-            targetInterval: null,
-            active: false
-        };
-
-        function startAttentionGame() {
-            attentionGame.score = 0;
-            attentionGame.timeLeft = 30;
-            attentionGame.active = true;
-            
-            document.getElementById('attention-game').style.display = 'block';
-            document.querySelector('[onclick="startAttentionGame()"]').style.display = 'none';
-            
-            createAttentionGrid();
-            updateAttentionDisplay();
-            
-            attentionGame.interval = setInterval(() => {
-                attentionGame.timeLeft--;
-                updateAttentionDisplay();
-                
-                if (attentionGame.timeLeft <= 0) {
-                    endAttentionGame();
-                }
-            }, 1000);
-            
-            spawnTarget();
-        }
-
-        function createAttentionGrid() {
-            const grid = document.getElementById('attention-grid');
-            grid.innerHTML = '';
-            
-            for (let i = 0; i < 25; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'attention-cell';
-                cell.onclick = () => cellClick(cell);
-                grid.appendChild(cell);
-            }
-        }
-
-        function spawnTarget() {
-            if (!attentionGame.active) return;
-            
-            const cells = document.querySelectorAll('.attention-cell');
-            const randomCell = cells[Math.floor(Math.random() * cells.length)];
-            
-            // Убираем предыдущие цели
-            cells.forEach(cell => cell.classList.remove('target'));
-            
-            randomCell.classList.add('target');
-            
-            // Цель исчезает через 1.5 секунды
-            setTimeout(() => {
-                if (randomCell.classList.contains('target')) {
-                    randomCell.classList.remove('target');
-                    spawnTarget();
-                }
-            }, 1500);
-        }
-
-        function cellClick(cell) {
-            if (!attentionGame.active) return;
-            
-            if (cell.classList.contains('target')) {
-                attentionGame.score++;
-                cell.classList.remove('target');
-                updateAttentionDisplay();
-                spawnTarget();
-            }
-        }
-
-        function updateAttentionDisplay() {
-            document.getElementById('attention-timer').textContent = attentionGame.timeLeft;
-            document.getElementById('attention-score').textContent = `Очки: ${attentionGame.score}`;
-        }
-
-        function endAttentionGame() {
-            attentionGame.active = false;
-            clearInterval(attentionGame.interval);
-            
-            const score = Math.min(100, Math.max(1, attentionGame.score * 3));
-            gameProgress.updateStat('attention', score);
-            
-            alert(`Игра окончена! Ваш счет: ${attentionGame.score}\nОчки характеристики: ${score}`);
-            
-            document.getElementById('attention-game').style.display = 'none';
-            document.querySelector('[onclick="startAttentionGame()"]').style.display = 'block';
-        }
-
-        // Игра на память
-        let memoryGame = {
-            sequence: [],
-            playerSequence: [],
-            level: 1,
-            showingSequence: false,
-            gameActive: false
-        };
-
-        function startMemoryGame() {
-            memoryGame.sequence = [];
-            memoryGame.playerSequence = [];
-            memoryGame.level = 1;
-            memoryGame.gameActive = true;
-            
-            document.getElementById('memory-game').style.display = 'block';
-            document.querySelector('[onclick="startMemoryGame()"]').style.display = 'none';
-            
-            createMemoryGrid();
-            nextMemoryLevel();
-        }
-
-        function createMemoryGrid() {
-            const grid = document.getElementById('memory-grid');
-            grid.innerHTML = '';
-            
-            for (let i = 0; i < 16; i++) {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.textContent = i + 1;
-                card.onclick = () => memoryCardClick(i);
-                grid.appendChild(card);
-            }
-        }
-
-        function nextMemoryLevel() {
-            // Добавляем новый элемент в последовательность
-            memoryGame.sequence.push(Math.floor(Math.random() * 16));
-            memoryGame.playerSequence = [];
-            
-            updateMemoryDisplay();
-            showMemorySequence();
-        }
-
-        function showMemorySequence() {
-            memoryGame.showingSequence = true;
-            document.getElementById('memory-status').textContent = 'Смотрите и запоминайте!';
-            
-            let index = 0;
-            const interval = setInterval(() => {
-                if (index < memoryGame.sequence.length) {
-                    highlightMemoryCard(memoryGame.sequence[index]);
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    memoryGame.showingSequence = false;
-                    document.getElementById('memory-status').textContent = 'Повторите последовательность!';
-                }
-            }, 800);
-        }
-
-        function highlightMemoryCard(index) {
-            const cards = document.querySelectorAll('.memory-card');
-            const card = cards[index];
-            
-            card.classList.add('flipped');
-            setTimeout(() => {
-                card.classList.remove('flipped');
-            }, 400);
-        }
-
-        function memoryCardClick(index) {
-            if (memoryGame.showingSequence || !memoryGame.gameActive) return;
-            
-            memoryGame.playerSequence.push(index);
-            
-            // Проверяем правильность
-            const currentIndex = memoryGame.playerSequence.length - 1;
-            
-            if (memoryGame.playerSequence[currentIndex] !== memoryGame.sequence[currentIndex]) {
-                // Ошибка
-                endMemoryGame();
-                return;
-            }
-            
-            // Если последовательность завершена
-            if (memoryGame.playerSequence.length === memoryGame.sequence.length) {
-                memoryGame.level++;
-                
-                if (memoryGame.level > 5) {
-                    // Игра завершена успешно
-                    endMemoryGame();
-                } else {
-                    setTimeout(() => {
-                        nextMemoryLevel();
-                    }, 1000);
-                }
-            }
-        }
-
-        function updateMemoryDisplay() {
-            document.getElementById('memory-score').textContent = `Уровень: ${memoryGame.level}`;
-        }
-
-        function endMemoryGame() {
-            memoryGame.gameActive = false;
-            
-            const score = Math.min(100, Math.max(1, memoryGame.level * 20));
-            gameProgress.updateStat('memory', score);
-            
-            alert(`Игра окончена! Достигнут уровень: ${memoryGame.level}\nОчки характеристики: ${score}`);
-            
-            document.getElementById('memory-game').style.display = 'none';
-            document.querySelector('[onclick="startMemoryGame()"]').style.display = 'block';
-        }
-
-        // Игра на реакцию
-        let reactionGame = {
-            attempt: 1,
-            maxAttempts: 5,
-            startTime: 0,
-            times: [],
-            waiting: false
-        };
-
-        function startReactionGame() {
-            reactionGame.attempt = 1;
-            reactionGame.times = [];
-            reactionGame.waiting = false;
-            
-            document.getElementById('reaction-game').style.display = 'block';
-            document.querySelector('[onclick="startReactionGame()"]').style.display = 'none';
-            
-            nextReactionRound();
-        }
-
-        function nextReactionRound() {
-            if (reactionGame.attempt > reactionGame.maxAttempts) {
-                endReactionGame();
-                return;
-            }
-            
-            updateReactionDisplay();
-            
-            document.getElementById('reaction-button').style.display = 'none';
-            document.getElementById('reaction-status').textContent = 'Приготовьтесь...';
-            
-            // Случайная задержка от 1 до 5 секунд
-            const delay = Math.random() * 4000 + 1000;
-            
-            setTimeout(() => {
-                if (reactionGame.attempt <= reactionGame.maxAttempts) {
-                    document.getElementById('reaction-status').textContent = 'КЛИКНИТЕ СЕЙЧАС!';
-                    document.getElementById('reaction-button').style.display = 'block';
-                    reactionGame.startTime = Date.now();
-                    reactionGame.waiting = true;
-                }
-            }, delay);
-        }
-
-        function reactionClick() {
-            if (!reactionGame.waiting) return;
-            
-            const reactionTime = Date.now() - reactionGame.startTime;
-            reactionGame.times.push(reactionTime);
-            reactionGame.waiting = false;
-            
-            document.getElementById('reaction-status').textContent = `Время реакции: ${reactionTime}мс`;
-            document.getElementById('reaction-button').style.display = 'none';
-            
-            reactionGame.attempt++;
-            
-            setTimeout(() => {
-                nextReactionRound();
-            }, 1500);
-        }
-
-        function updateReactionDisplay() {
-            document.getElementById('reaction-score').textContent = `Попытка: ${reactionGame.attempt}/${reactionGame.maxAttempts}`;
-        }
-
-        function endReactionGame() {
-            const averageTime = reactionGame.times.reduce((a, b) => a + b, 0) / reactionGame.times.length;
-            
-            // Преобразуем время в очки (чем меньше время, тем больше очков)
-            const score = Math.min(100, Math.max(1, Math.round(1000 / averageTime * 100)));
-            
-            gameProgress.updateStat('reaction', score);
-            
-            alert(`Игра окончена! Среднее время реакции: ${Math.round(averageTime)}мс\nОчки характеристики: ${score}`);
-            
-            document.getElementById('reaction-game').style.display = 'none';
-            document.querySelector('[onclick="startReactionGame()"]').style.display = 'block';
-        }
-
-        // Игра на логику
-        let logicGame = {
-            task: 1,
-            maxTasks: 5,
-            currentSequence: [],
-            correctAnswer: 0,
-            correctAnswers: 0
-        };
-
-        function startLogicGame() {
-            logicGame.task = 1;
-            logicGame.correctAnswers = 0;
-            
-            document.getElementById('logic-game').style.display = 'block';
-            document.querySelector('[onclick="startLogicGame()"]').style.display = 'none';
-            
-            nextLogicTask();
-        }
-
-function nextLogicTask() {
-    if (logicGame.task > logicGame.maxTasks) {
-        endLogicGame();
-        return;
+function addXp(amount) {
+    state.xp += amount;
+    let leveled = false;
+    while (state.xp >= state.nextLevelXp) {
+        state.xp -= state.nextLevelXp;
+        state.level++;
+        state.nextLevelXp = Math.ceil(state.nextLevelXp * 1.5) || 100;
+        leveled = true;
     }
+    if (leveled) showLevelModal();
+    save();
+    updateUI();
+}
 
-    const start = Math.floor(Math.random() * 10) + 1;
-    const diff = Math.floor(Math.random() * 5) + 1;
-    logicGame.currentSequence = [start, start + diff, start + 2 * diff, start + 3 * diff];
-    logicGame.correctAnswer = start + 4 * diff;
+function incrementStat(stat) {
+    state[stat]++;
+    updateDifficulty();
+    save();
+    updateUI();
+}
 
-    const seq = document.getElementById('logic-sequence');
-    seq.innerHTML = '';
-    logicGame.currentSequence.forEach(num => {
-        const el = document.createElement('div');
-        el.className = 'logic-number';
-        el.textContent = num;
-        seq.appendChild(el);
+function updateUI() {
+    document.getElementById('attention-stat').textContent = state.attention;
+    document.getElementById('memory-stat').textContent = state.memory;
+    document.getElementById('reaction-stat').textContent = state.reaction;
+    document.getElementById('logic-stat').textContent = state.logic;
+
+    document.getElementById('attention-progress').style.width = `${state.attention}%`;
+    document.getElementById('memory-progress').style.width = `${state.memory}%`;
+    document.getElementById('reaction-progress').style.width = `${state.reaction}%`;
+    document.getElementById('logic-progress').style.width = `${state.logic}%`;
+
+    document.getElementById('level-value').textContent = state.level;
+    document.getElementById('xp-value').textContent = `${state.xp}/${state.nextLevelXp}`;
+}
+
+function showLevelModal() {
+    const modal = document.getElementById('level-modal');
+    document.getElementById('level-modal-text').textContent = `Уровень ${state.level}!`;
+    modal.classList.remove('hidden');
+    setTimeout(() => modal.classList.add('hidden'), 2000);
+}
+
+// ---------------- Мини-игра 1. Анаграммы ----------------
+const anagramWords = [
+    'dragon','sword','castle','forest','magic','quest','puzzle','memory','logic','shield','health','potion','knight','victory','battle'
+];
+const anagramGame = { word: '', timeout: null };
+
+function startAnagramGame() {
+    const len = 4 + Math.floor(state.difficultyMultiplier);
+    const candidates = anagramWords.filter(w => w.length >= len);
+    const raw = candidates[Math.floor(Math.random() * candidates.length)];
+    anagramGame.word = raw.slice(0, len).toLowerCase();
+    const arr = anagramGame.word.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    document.getElementById('anagram-question').textContent = arr.join('');
+    document.getElementById('anagram-input').value = '';
+    document.getElementById('anagram-result').textContent = '';
+    document.getElementById('anagram-game').classList.remove('hidden');
+}
+
+function submitAnagram() {
+    const val = document.getElementById('anagram-input').value.trim().toLowerCase();
+    if (val === anagramGame.word) {
+        incrementStat('attention');
+        addXp(10);
+        document.getElementById('anagram-result').textContent = 'Верно!';
+    } else {
+        document.getElementById('anagram-result').textContent = `Неверно! Слово: ${anagramGame.word}`;
+    }
+    setTimeout(() => document.getElementById('anagram-game').classList.add('hidden'), 1500);
+}
+
+// ---------------- Мини-игра 2. Запомни последовательность ----------------
+const memoryGame = { sequence: [], deadline: 0, timeout: null };
+
+function startMemoryGame() {
+    generateMemorySequence();
+    document.getElementById('memory-input').value = '';
+    document.getElementById('memory-result').textContent = '';
+    document.getElementById('memory-game').classList.remove('hidden');
+    displayMemorySequence();
+}
+
+function generateMemorySequence() {
+    const length = 3 + Math.floor(state.difficultyMultiplier);
+    const symbols = ['A','B','C','D','E','F','G','H'];
+    memoryGame.sequence = [];
+    for (let i = 0; i < length; i++) {
+        let s;
+        do { s = symbols[Math.floor(Math.random() * symbols.length)]; } while (i > 0 && s === memoryGame.sequence[i - 1]);
+        memoryGame.sequence.push(s);
+    }
+}
+
+function displayMemorySequence() {
+    const el = document.getElementById('memory-sequence');
+    el.textContent = memoryGame.sequence.join(' ');
+    setTimeout(() => {
+        el.textContent = '';
+        memoryGame.deadline = Date.now() + 1000 * state.difficultyMultiplier;
+        memoryGame.timeout = setTimeout(() => submitMemory(), 1000 * state.difficultyMultiplier);
+    }, 1000);
+}
+
+function submitMemory() {
+    clearTimeout(memoryGame.timeout);
+    const val = document.getElementById('memory-input').value.trim().toUpperCase().split(/\s+/).join(' ');
+    const correct = memoryGame.sequence.join(' ');
+    if (Date.now() <= memoryGame.deadline && val === correct) {
+        incrementStat('memory');
+        addXp(10);
+        document.getElementById('memory-result').textContent = 'Верно!';
+    } else {
+        document.getElementById('memory-result').textContent = `Неверно! ${correct}`;
+    }
+    setTimeout(() => document.getElementById('memory-game').classList.add('hidden'), 1500);
+}
+
+// ---------------- Мини-игра 3. Числовая последовательность ----------------
+const logicGame = { expected: [] };
+
+function startLogicGame() {
+    document.getElementById('logic-game').classList.remove('hidden');
+    newLogicTask();
+}
+
+function newLogicTask() {
+    const length = 4 + Math.floor(state.difficultyMultiplier);
+    const isArith = Math.random() < 0.5;
+    const step = Math.floor(Math.random() * 8) + 2;
+    let start = Math.floor(Math.random() * 5) + 1;
+    const seq = [start];
+    for (let i = 1; i < length; i++) {
+        seq[i] = isArith ? seq[i - 1] + step : seq[i - 1] * step;
+    }
+    logicGame.expected = [
+        isArith ? seq[seq.length - 1] + step : seq[seq.length - 1] * step,
+        isArith ? seq[seq.length - 1] + 2 * step : seq[seq.length - 1] * step * step
+    ];
+    const cont = document.getElementById('logic-sequence');
+    cont.innerHTML = '';
+    seq.forEach(n => {
+        const d = document.createElement('div');
+        d.className = 'logic-number';
+        d.textContent = n;
+        cont.appendChild(d);
     });
-
-    document.getElementById('logic-score').textContent = `Задача: ${logicGame.task}/${logicGame.maxTasks}`;
-    document.getElementById('logic-input').value = '';
+    document.getElementById('logic-input1').value = '';
+    document.getElementById('logic-input2').value = '';
 }
 
 function checkLogicAnswer() {
-    const value = parseInt(document.getElementById('logic-input').value, 10);
-    if (value === logicGame.correctAnswer) {
-        logicGame.correctAnswers++;
+    const a = parseInt(document.getElementById('logic-input1').value, 10);
+    const b = parseInt(document.getElementById('logic-input2').value, 10);
+    if (a === logicGame.expected[0] && b === logicGame.expected[1]) {
+        incrementStat('logic');
+        addXp(10);
         alert('Верно!');
     } else {
-        alert(`Неверно! Правильный ответ: ${logicGame.correctAnswer}`);
+        alert(`Неверно! Правильный ответ: ${logicGame.expected[0]} ${logicGame.expected[1]}`);
     }
-    logicGame.task++;
-    nextLogicTask();
+    newLogicTask();
 }
 
-function endLogicGame() {
-    const score = Math.min(100, Math.max(1, logicGame.correctAnswers * 20));
-    gameProgress.updateStat('logic', score);
+// ---------------- Мини-игра 4. Логические связки ----------------
+const logicLinksGame = { result: false, timeout: null };
 
-    alert(`Игра окончена! Правильных ответов: ${logicGame.correctAnswers}/${logicGame.maxTasks}\nОчки характеристики: ${score}`);
+function startLogicLinksGame() {
+    const count = 1 + Math.floor(state.difficultyMultiplier);
+    const ops = [];
+    const operands = [];
+    for (let i = 0; i < count + 1; i++) {
+        const val = Math.random() < 0.5;
+        const useNot = Math.random() < 0.5;
+        operands.push({ val, not: useNot });
+        if (i < count) ops.push(Math.random() < 0.5 ? 'AND' : 'OR');
+    }
+    let display = '';
+    let expr = '';
+    for (let i = 0; i < operands.length; i++) {
+        const o = operands[i];
+        display += (o.not ? 'NOT ' : '') + (o.val ? 'True' : 'False');
+        expr += (o.not ? '!' : '') + (o.val ? 'true' : 'false');
+        if (i < ops.length) {
+            display += ' ' + ops[i] + ' ';
+            expr += ops[i] === 'AND' ? ' && ' : ' || ';
+        }
+    }
+    logicLinksGame.result = eval(expr);
+    document.getElementById('logiclinks-question').textContent = display;
+    document.getElementById('logiclinks-game').classList.remove('hidden');
+    const time = 2000 / state.difficultyMultiplier;
+    clearTimeout(logicLinksGame.timeout);
+    logicLinksGame.timeout = setTimeout(() => endLogicLinksGame(false), time);
+    document.getElementById('logiclinks-timer').textContent = (time / 1000).toFixed(1);
+}
 
-    document.getElementById('logic-game').style.display = 'none';
-    document.querySelector('[onclick="startLogicGame()"]').style.display = 'block';
+function answerLogicLinks(val) {
+    clearTimeout(logicLinksGame.timeout);
+    endLogicLinksGame(val === logicLinksGame.result);
+}
+
+function endLogicLinksGame(success) {
+    document.getElementById('logiclinks-game').classList.add('hidden');
+    if (success) {
+        incrementStat('reaction');
+        addXp(10);
+        alert('Верно!');
+    } else {
+        alert('Неверно!');
+    }
 }

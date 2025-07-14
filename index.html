@@ -40,46 +40,47 @@
 
         <!-- Статистики -->
         <div id="stats" class="row mb-5">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Ваши характеристики</h2>
+            <div class="col-12 text-center mb-3">
+                <h2 class="mb-3">Ваши характеристики</h2>
+                <div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
                     <i class="fas fa-eye stat-icon text-primary"></i>
-                    <div class="stat-value" id="attention-stat">50</div>
+                    <div class="stat-value" id="attention-stat">0</div>
                     <div class="stat-label">Внимательность</div>
                     <div class="progress mt-2">
-                        <div class="progress-bar" id="attention-progress" style="width: 50%"></div>
+                        <div class="progress-bar" id="attention-progress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
                     <i class="fas fa-brain stat-icon text-success"></i>
-                    <div class="stat-value" id="memory-stat">50</div>
+                    <div class="stat-value" id="memory-stat">0</div>
                     <div class="stat-label">Память</div>
                     <div class="progress mt-2">
-                        <div class="progress-bar" id="memory-progress" style="width: 50%"></div>
+                        <div class="progress-bar" id="memory-progress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
                     <i class="fas fa-bolt stat-icon text-warning"></i>
-                    <div class="stat-value" id="reaction-stat">50</div>
+                    <div class="stat-value" id="reaction-stat">0</div>
                     <div class="stat-label">Реакция</div>
                     <div class="progress mt-2">
-                        <div class="progress-bar" id="reaction-progress" style="width: 50%"></div>
+                        <div class="progress-bar" id="reaction-progress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
                     <i class="fas fa-puzzle-piece stat-icon text-danger"></i>
-                    <div class="stat-value" id="logic-stat">50</div>
+                    <div class="stat-value" id="logic-stat">0</div>
                     <div class="stat-label">Логика</div>
                     <div class="progress mt-2">
-                        <div class="progress-bar" id="logic-progress" style="width: 50%"></div>
+                        <div class="progress-bar" id="logic-progress" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
@@ -91,47 +92,52 @@
                 <h2 class="text-center mb-4">Тренировочные квесты</h2>
             </div>
 
-            <!-- Игра на внимательность -->
+            <!-- Игра &laquo;Анаграммы&raquo; -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
-                    <h3><i class="fas fa-eye text-primary"></i> Поиск цели</h3>
-                    <p>Найдите и кликните на выделенные ячейки как можно быстрее!</p>
-                    <button class="btn btn-game" onclick="startAttentionGame()">Начать тренировку</button>
-                    
-                    <div id="attention-game" class="game-area" style="display: none;">
-                        <div class="timer" id="attention-timer">30</div>
-                        <div class="score" id="attention-score">Очки: 0</div>
-                        <div class="attention-grid" id="attention-grid"></div>
+                    <h3><i class="fas fa-eye text-primary"></i> Анаграммы</h3>
+                    <p>Соберите правильное слово из перемешанных букв.</p>
+                    <button class="btn btn-game" onclick="startAnagramGame()">Начать тренировку</button>
+
+                    <div id="anagram-game" class="game-area hidden">
+                        <div class="score" id="anagram-question"></div>
+                        <input type="text" id="anagram-input" class="logic-input" placeholder="...">
+                        <button class="game-button" onclick="submitAnagram()">Ответить</button>
+                        <div id="anagram-result" class="mt-2"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Игра на память -->
+            <!-- Игра &laquo;Запомни последовательность&raquo; -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
                     <h3><i class="fas fa-brain text-success"></i> Запомни последовательность</h3>
-                    <p>Запомните последовательность карточек и повторите её!</p>
+                    <p>Повторите показанную цепочку символов.</p>
                     <button class="btn btn-game" onclick="startMemoryGame()">Начать тренировку</button>
-                    
-                    <div id="memory-game" class="game-area" style="display: none;">
-                        <div class="score" id="memory-score">Уровень: 1</div>
-                        <div id="memory-status">Смотрите и запоминайте!</div>
-                        <div class="memory-grid" id="memory-grid"></div>
+
+                    <div id="memory-game" class="game-area hidden">
+                        <div class="score" id="memory-sequence"></div>
+                        <input type="text" id="memory-input" class="logic-input" placeholder="...">
+                        <button class="game-button" onclick="submitMemory()">Ответить</button>
+                        <div id="memory-result" class="mt-2"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Игра на реакцию -->
+            <!-- Игра &laquo;Логические связки&raquo; -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
-                    <h3><i class="fas fa-bolt text-warning"></i> Скорость реакции</h3>
-                    <p>Кликните на кнопку как можно быстрее после её появления!</p>
-                    <button class="btn btn-game" onclick="startReactionGame()">Начать тренировку</button>
-                    
-                    <div id="reaction-game" class="game-area" style="display: none;">
-                        <div class="score" id="reaction-score">Попытка: 1/5</div>
-                        <div id="reaction-status">Приготовьтесь...</div>
-                        <button class="game-button" id="reaction-button" style="display: none;" onclick="reactionClick()">КЛИК!</button>
+                    <h3><i class="fas fa-bolt text-warning"></i> Логические связки</h3>
+                    <p>Определите результат логического выражения.</p>
+                    <button class="btn btn-game" onclick="startLogicLinksGame()">Начать тренировку</button>
+
+                    <div id="logiclinks-game" class="game-area hidden">
+                        <div class="score" id="logiclinks-question"></div>
+                        <div id="logiclinks-timer" class="timer"></div>
+                        <div>
+                            <button class="game-button" onclick="answerLogicLinks(true)">Истина</button>
+                            <button class="game-button" onclick="answerLogicLinks(false)">Ложь</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,16 +149,22 @@
                     <p>Найдите закономерность и продолжите последовательность!</p>
                     <button class="btn btn-game" onclick="startLogicGame()">Начать тренировку</button>
                     
-                    <div id="logic-game" class="game-area" style="display: none;">
-                        <div class="score" id="logic-score">Задача: 1/5</div>
+                    <div id="logic-game" class="game-area hidden">
                         <div class="logic-sequence" id="logic-sequence"></div>
-                        <div>
-                            <input type="number" class="logic-input" id="logic-input" placeholder="?">
+                        <div class="mt-2">
+                            <input type="number" class="logic-input" id="logic-input1" placeholder="?">
+                            <input type="number" class="logic-input" id="logic-input2" placeholder="?">
                             <button class="game-button" onclick="checkLogicAnswer()">Проверить</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="level-modal" class="modal hidden">
+        <div class="modal-content">
+            <div id="level-modal-text"></div>
         </div>
     </div>
 
