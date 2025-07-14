@@ -1,203 +1,954 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPG Саморазвитие</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RPG Саморазвитие</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--primary-color: #2c3e50;
+			--secondary-color: #3498db;
+			--accent-color: #e74c3c;
+			--success-color: #27ae60;
+			--warning-color: #f39c12;
+			--bg-dark: #1a1a1a;
+			--bg-light: #2c2c2c;
+			--text-light: #ecf0f1;
+			--border-color: #34495e;
+		}
+
+		html {
+			background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-color) 100%);
+		}
+
+		html,
+		body {
+			background-attachment: fixed;
+			/* keeps gradient visible even when rubber‑band scrolling */
+		}
+
+		body {
+			background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-color) 100%);
+			color: var(--text-light);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			min-height: 100vh;
+		}
+
+		.navbar {
+			background: rgba(44, 62, 80, 0.9);
+			backdrop-filter: blur(10px);
+			border-bottom: 2px solid var(--secondary-color);
+		}
+
+		.navbar-brand {
+			font-size: 1.8rem;
+			font-weight: bold;
+			color: var(--secondary-color) !important;
+		}
+
+		.stats-card {
+			background: linear-gradient(145deg, var(--bg-light), var(--primary-color));
+			border: 2px solid var(--border-color);
+			border-radius: 15px;
+			padding: 1.5rem;
+			margin-bottom: 1rem;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.stats-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+		}
+
+		.stat-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.stat-value {
+			font-size: 2.5rem;
+			font-weight: bold;
+			margin-bottom: 0.5rem;
+		}
+
+		.stat-label {
+			font-size: 1.1rem;
+			opacity: 0.8;
+		}
+
+		.game-card {
+			background: linear-gradient(145deg, var(--bg-light), var(--primary-color));
+			border: 2px solid var(--border-color);
+			border-radius: 15px;
+			padding: 2rem;
+			margin-bottom: 2rem;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.game-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+		}
+
+		.btn-game {
+			background: linear-gradient(45deg, var(--secondary-color), var(--success-color));
+			border: none;
+			color: white;
+			padding: 12px 24px;
+			border-radius: 25px;
+			font-weight: bold;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+			margin: 5px;
+		}
+
+		.btn-game:hover {
+			background: linear-gradient(45deg, var(--success-color), var(--secondary-color));
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+			color: white;
+		}
+
+		.progress-bar {
+			background: linear-gradient(90deg, var(--secondary-color), var(--success-color));
+			height: 20px;
+			border-radius: 10px;
+		}
+
+		.game-area {
+			background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-color) 100%);
+			border: 2px solid var(--border-color);
+			border-radius: 10px;
+			padding: 2rem;
+			margin: 1rem 0;
+			min-height: 200px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.game-button {
+			background: linear-gradient(45deg, var(--accent-color), var(--warning-color));
+			border: none;
+			color: white;
+			padding: 15px 30px;
+			border-radius: 50px;
+			font-size: 1.2rem;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			margin: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.game-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+		}
+
+		.game-button:active {
+			transform: translateY(0);
+		}
+
+		.timer {
+			font-size: 2rem;
+			font-weight: bold;
+			color: var(--warning-color);
+			margin: 1rem 0;
+		}
+
+		.score {
+			font-size: 1.5rem;
+			font-weight: bold;
+			color: var(--success-color);
+			margin: 1rem 0;
+		}
+
+		.memory-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 10px;
+			max-width: 300px;
+			margin: 20px auto;
+		}
+
+		.memory-card {
+			width: 60px;
+			height: 60px;
+			background: var(--secondary-color);
+			border: 2px solid var(--border-color);
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.memory-card:hover {
+			transform: scale(1.05);
+		}
+
+		.memory-card.flipped {
+			background: var(--success-color);
+			transform: rotateY(180deg);
+		}
+
+		.memory-card.matched {
+			background: var(--warning-color);
+			cursor: default;
+		}
+
+		.word-cloud {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			margin: 20px;
+		}
+
+		.word-item {
+			background: var(--secondary-color);
+			padding: 10px 20px;
+			border-radius: 25px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			user-select: none;
+		}
+
+		.word-item:hover {
+			background: var(--success-color);
+			transform: scale(1.05);
+		}
+
+		.word-item.selected {
+			background: var(--accent-color);
+		}
+
+		.math-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 15px;
+			max-width: 300px;
+			margin: 20px auto;
+		}
+
+		.math-card {
+			background: var(--secondary-color);
+			border: 2px solid var(--border-color);
+			border-radius: 10px;
+			padding: 20px;
+			text-align: center;
+			font-size: 1.2rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.math-card:hover {
+			transform: scale(1.05);
+			background: var(--success-color);
+		}
+
+		.math-card.correct {
+			background: var(--success-color);
+			animation: pulse 0.5s ease-in-out;
+		}
+
+		.math-card.wrong {
+			background: var(--accent-color);
+			animation: shake 0.5s ease-in-out;
+		}
+
+		.color-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 10px;
+			max-width: 320px;
+			margin: 20px auto;
+		}
+
+		.color-card {
+			width: 70px;
+			height: 70px;
+			border: 3px solid var(--border-color);
+			border-radius: 10px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		.color-card:hover {
+			transform: scale(1.1);
+			border-color: var(--warning-color);
+		}
+
+		.pattern-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 5px;
+			max-width: 300px;
+			margin: 20px auto;
+		}
+
+		.pattern-cell {
+			width: 50px;
+			height: 50px;
+			border: 2px solid var(--border-color);
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+		}
+
+		.pattern-cell:hover {
+			transform: scale(1.1);
+		}
+
+		.pattern-cell.active {
+			background: var(--success-color);
+			transform: scale(1.1);
+		}
+
+		.input-field {
+			background: var(--bg-light);
+			border: 2px solid var(--border-color);
+			border-radius: 10px;
+			color: var(--text-light);
+			padding: 15px;
+			margin: 10px;
+			font-size: 1.1rem;
+			text-align: center;
+		}
+
+		.input-field:focus {
+			outline: none;
+			border-color: var(--secondary-color);
+		}
+
+		.hidden {
+			display: none !important;
+		}
+
+		.modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.7);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 1000;
+		}
+
+		.modal-content {
+			background: var(--bg-light);
+			padding: 2rem 3rem;
+			border: 2px solid var(--secondary-color);
+			border-radius: 10px;
+			animation: fadeIn 0.5s ease;
+		}
+
+		.overlay-mask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary-color) 100%);
+			z-index: 998;
+		}
+
+		.game-area.overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			max-width: none;
+			max-height: none;
+			transform: none;
+			z-index: 999;
+			overflow: auto;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: scale(0.8);
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.1);
+			}
+		}
+
+		@keyframes shake {
+
+			0%,
+			100% {
+				transform: translateX(0);
+			}
+
+			25% {
+				transform: translateX(-5px);
+			}
+
+			75% {
+				transform: translateX(5px);
+			}
+		}
+
+		@media (max-width: 768px) {
+			.stats-card {
+				margin-bottom: 1rem;
+			}
+
+			.stat-icon {
+				font-size: 2rem;
+			}
+
+			.stat-value {
+				font-size: 1.8rem;
+			}
+
+			.game-card {
+				padding: 1.5rem;
+			}
+		}
+	</style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a id="brand" class="navbar-brand" href="#"><i class="fas fa-dragon"></i> RPG Саморазвитие</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a id="nav-stats" class="nav-link" href="#stats">Статистики</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="nav-games" class="nav-link" href="#games">Игры</a>
-                    </li>
-                    <li class="nav-item">
-                        <select id="language-select" class="form-select form-select-sm ms-2">
-                            <option value="ru">RU</option>
-                            <option value="en">EN</option>
-                        </select>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+		<div class="container">
+			<a id="brand" class="navbar-brand" href="#"><i class="fas fa-dragon"></i> RPG Саморазвитие</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a id="nav-stats" class="nav-link" href="#stats">Статистики</a>
+					</li>
+					<li class="nav-item">
+						<a id="nav-games" class="nav-link" href="#games">Игры</a>
+					</li>
+					<li class="nav-item">
+						<select id="language-select" class="form-select form-select-sm ms-2">
+							<option value="ru">RU</option>
+							<option value="en">EN</option>
+						</select>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-    <div class="container" style="margin-top: 80px;">
-        <div class="row">
-            <div class="col-12">
-                <h1 id="tagline" class="text-center mb-5">
-                    <i class="fas fa-crown text-warning"></i>
-                    Развивайте свои навыки в RPG стиле
-                </h1>
-            </div>
-        </div>
+	<div class="container" style="margin-top: 80px;">
+		<div class="row">
+			<div class="col-12">
+				<h1 id="tagline" class="text-center mb-5">
+					<i class="fas fa-crown text-warning"></i>
+					Развивайте свои навыки в RPG стиле
+				</h1>
+			</div>
+		</div>
 
-        <!-- Статистики -->
-        <div id="stats" class="row mb-5">
-            <div class="col-12 text-center mb-3">
-                <h2 id="stats-heading" class="mb-3">Ваши характеристики</h2>
-                <div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
-                <button id="reset-btn" class="btn btn-danger btn-sm mt-2" onclick="resetStats()">Сбросить статы</button>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-card text-center">
-                    <i class="fas fa-eye stat-icon text-primary"></i>
-                    <div class="stat-value" id="attention-stat">0</div>
-                    <div id="attention-label" class="stat-label">Внимательность</div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar" id="attention-progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-card text-center">
-                    <i class="fas fa-brain stat-icon text-success"></i>
-                    <div class="stat-value" id="memory-stat">0</div>
-                    <div id="memory-label" class="stat-label">Память</div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar" id="memory-progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-card text-center">
-                    <i class="fas fa-bolt stat-icon text-warning"></i>
-                    <div class="stat-value" id="reaction-stat">0</div>
-                    <div id="reaction-label" class="stat-label">Реакция</div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar" id="reaction-progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stats-card text-center">
-                    <i class="fas fa-puzzle-piece stat-icon text-danger"></i>
-                    <div class="stat-value" id="logic-stat">0</div>
-                    <div id="logic-label" class="stat-label">Логика</div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar" id="logic-progress" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<!-- Статистики -->
+		<div id="stats" class="row mb-5">
+			<div class="col-12 text-center mb-3">
+				<h2 id="stats-heading" class="mb-3">Ваши характеристики</h2>
+				<div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
+				<button id="reset-btn" class="btn btn-danger btn-sm mt-2" onclick="resetStats()">Сбросить статы</button>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stats-card text-center">
+					<i class="fas fa-eye stat-icon text-primary"></i>
+					<div class="stat-value" id="attention-stat">0</div>
+					<div id="attention-label" class="stat-label">Внимательность</div>
+					<div class="progress mt-2">
+						<div class="progress-bar" id="attention-progress" style="width: 0%"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stats-card text-center">
+					<i class="fas fa-brain stat-icon text-success"></i>
+					<div class="stat-value" id="memory-stat">0</div>
+					<div id="memory-label" class="stat-label">Память</div>
+					<div class="progress mt-2">
+						<div class="progress-bar" id="memory-progress" style="width: 0%"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stats-card text-center">
+					<i class="fas fa-bolt stat-icon text-warning"></i>
+					<div class="stat-value" id="reaction-stat">0</div>
+					<div id="reaction-label" class="stat-label">Реакция</div>
+					<div class="progress mt-2">
+						<div class="progress-bar" id="reaction-progress" style="width: 0%"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stats-card text-center">
+					<i class="fas fa-puzzle-piece stat-icon text-danger"></i>
+					<div class="stat-value" id="logic-stat">0</div>
+					<div id="logic-label" class="stat-label">Логика</div>
+					<div class="progress mt-2">
+						<div class="progress-bar" id="logic-progress" style="width: 0%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- Игры -->
-        <div id="games" class="row">
-            <div class="col-12">
-                <h2 id="games-heading" class="text-center mb-4">Тренировочные квесты</h2>
-            </div>
+		<!-- Игры -->
+		<div id="games" class="row">
+			<div class="col-12">
+				<h2 id="games-heading" class="text-center mb-4">Тренировочные квесты</h2>
+			</div>
 
-            <!-- Игра &laquo;Запомни последовательность&raquo; -->
-            <div class="col-lg-6 col-md-12">
-                <div class="game-card">
-                    <h3 id="memory-title"><i class="fas fa-brain text-success"></i> Запомни последовательность</h3>
-                    <p id="memory-desc">Повторите показанную цепочку символов.</p>
-                    <button class="btn btn-game btn-start" onclick="openMemoryGame()">Начать тренировку</button>
+			<!-- Игры на внимательность -->
+			<div class="col-12 mb-4">
+				<h3 class="text-center text-primary"><i class="fas fa-eye"></i> Игры на внимательность</h3>
+			</div>
 
-                    <div id="memory-game" class="game-area hidden">
-                        <div id="memory-play" class="play-screen">
-                            <button class="game-button btn-play" onclick="startMemoryGame()">Играть</button>
-                        </div>
-                        <div id="memory-content" class="game-content hidden">
-                            <div class="score" id="memory-sequence"></div>
-                            <input type="text" id="memory-input" class="logic-input" placeholder="...">
-                            <button class="game-button btn-check" onclick="submitMemory()">Проверить</button>
-                            <div id="memory-result" class="mt-2"></div>
-                        </div>
-                        <button class="game-button btn-close" onclick="closeOverlay('memory-game')">Закрыть</button>
-                    </div>
-                </div>
-            </div>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-search text-primary"></i> Найди отличия</h4>
+					<p>Найдите все отличия между картинками</p>
+					<button class="btn btn-game" onclick="openGame('find-differences')">Играть</button>
+				</div>
+			</div>
 
-            <!-- Игра «Числовая клетка» -->
-            <div class="col-lg-6 col-md-12">
-                <div class="game-card">
-                    <h3 id="numbercell-title"><i class="fas fa-th text-info"></i> Числовая клетка</h3>
-                    <p id="numbercell-desc">Нужно быстро найти все числа, кратные 3, или все чётные.</p>
-                    <button class="btn btn-game btn-start" onclick="openNumberCellGame()">Начать тренировку</button>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-palette text-primary"></i> Цветовая память</h4>
+					<p>Запомните цвета и найдите нужные</p>
+					<button class="btn btn-game" onclick="openGame('color-memory')">Играть</button>
+				</div>
+			</div>
 
-                    <div id="numbercell-game" class="game-area hidden">
-                        <div id="numbercell-play" class="play-screen">
-                            <button class="game-button btn-play" onclick="startNumberCellGame()">Играть</button>
-                        </div>
-                        <div id="numbercell-content" class="game-content hidden">
-                            <div class="score" id="numbercell-task"></div>
-                            <div id="numbercell-grid" class="numbercell-grid"></div>
-                        </div>
-                        <button class="game-button btn-close" onclick="closeOverlay('numbercell-game')">Закрыть</button>
-                    </div>
-                </div>
-            </div>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-th text-primary"></i> Числовая клетка</h4>
+					<p>Найдите числа по заданному условию</p>
+					<button class="btn btn-game" onclick="openGame('number-cell')">Играть</button>
+				</div>
+			</div>
 
+			<!-- Игры на память -->
+			<div class="col-12 mb-4">
+				<h3 class="text-center text-success"><i class="fas fa-brain"></i> Игры на память</h3>
+			</div>
 
-            <!-- Игра на логику -->
-            <div class="col-lg-6 col-md-12">
-                <div class="game-card">
-                    <h3 id="sequence-title"><i class="fas fa-puzzle-piece text-danger"></i> Числовая последовательность</h3>
-                    <p id="sequence-desc">Найдите закономерность и продолжите последовательность!</p>
-                    <button class="btn btn-game btn-start" onclick="openLogicGame()">Начать тренировку</button>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-layer-group text-success"></i> Парные карты</h4>
+					<p>Найдите все пары одинаковых карт</p>
+					<button class="btn btn-game" onclick="openGame('memory-cards')">Играть</button>
+				</div>
+			</div>
 
-                    <div id="logic-game" class="game-area hidden">
-                        <div id="logic-play" class="play-screen">
-                            <button class="game-button btn-play" onclick="startLogicGame()">Играть</button>
-                        </div>
-                        <div id="logic-content" class="game-content hidden">
-                            <div class="logic-sequence" id="logic-sequence"></div>
-                            <div class="mt-2">
-                                <input type="number" class="logic-input" id="logic-input1" placeholder="?">
-                                <input type="number" class="logic-input" id="logic-input2" placeholder="?">
-                                <button class="game-button btn-check" onclick="checkLogicAnswer()">Проверить</button>
-                            </div>
-                    </div>
-                    <button class="game-button btn-close" onclick="closeOverlay('logic-game')">Закрыть</button>
-                </div>
-            </div>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-list text-success"></i> Последовательность</h4>
+					<p>Повторите показанную последовательность</p>
+					<button class="btn btn-game" onclick="openGame('sequence-memory')">Играть</button>
+				</div>
+			</div>
 
-            <!-- Тест реакции -->
-            <div class="col-lg-6 col-md-12">
-                <div class="game-card">
-                    <h3 id="reaction-title"><i class="fas fa-bolt text-warning"></i> Тест реакции</h3>
-                    <p id="reaction-desc">Нажмите, когда увидите сигнал!</p>
-                    <button class="btn btn-game btn-start" onclick="openReactionGame()">Начать тренировку</button>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-font text-success"></i> Запомни слова</h4>
+					<p>Запомните и выберите показанные слова</p>
+					<button class="btn btn-game" onclick="openGame('word-memory')">Играть</button>
+				</div>
+			</div>
 
-                    <div id="reaction-game" class="game-area hidden">
-                        <div id="reaction-play" class="play-screen">
-                            <button class="game-button btn-play" onclick="startReactionGame()">Играть</button>
-                        </div>
-                        <div id="reaction-content" class="game-content hidden">
-                            <div id="reaction-message" class="score"></div>
-                            <button id="reaction-click" class="game-button hidden" onclick="finishReactionGame()">Жми!</button>
-                        </div>
-                        <button class="game-button btn-close" onclick="closeOverlay('reaction-game')">Закрыть</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+			<!-- Игры на реакцию -->
+			<div class="col-12 mb-4">
+				<h3 class="text-center text-warning"><i class="fas fa-bolt"></i> Игры на реакцию</h3>
+			</div>
 
-    <div id="level-modal" class="modal hidden">
-        <div class="modal-content">
-            <div id="level-modal-text"></div>
-        </div>
-    </div>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-mouse-pointer text-warning"></i> Быстрый клик</h4>
+					<p>Нажмите как можно быстрее на сигнал</p>
+					<button class="btn btn-game" onclick="openGame('reaction-test')">Играть</button>
+				</div>
+			</div>
 
-    <div id="overlay-mask" class="hidden"></div>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-circle text-warning"></i> Цветная реакция</h4>
+					<p>Нажмите только на определенный цвет</p>
+					<button class="btn btn-game" onclick="openGame('color-reaction')">Играть</button>
+				</div>
+			</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-stopwatch text-warning"></i> Множественные цели</h4>
+					<p>Нажмите на все цели как можно быстрее</p>
+					<button class="btn btn-game" onclick="openGame('multi-target')">Играть</button>
+				</div>
+			</div>
+
+			<!-- Игры на логику -->
+			<div class="col-12 mb-4">
+				<h3 class="text-center text-danger"><i class="fas fa-puzzle-piece"></i> Игры на логику</h3>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-calculator text-danger"></i> Быстрая математика</h4>
+					<p>Решайте математические примеры на скорость</p>
+					<button class="btn btn-game" onclick="openGame('math-speed')">Играть</button>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-sort-numeric-up text-danger"></i> Числовые последовательности</h4>
+					<p>Найдите закономерность в числах</p>
+					<button class="btn btn-game" onclick="openGame('number-sequence')">Играть</button>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="game-card">
+					<h4><i class="fas fa-shapes text-danger"></i> Логические паттерны</h4>
+					<p>Найдите закономерность в фигурах</p>
+					<button class="btn btn-game" onclick="openGame('pattern-logic')">Играть</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Универсальная игровая область -->
+	<div class="overlay-mask hidden" id="overlay-mask"></div>
+	<div class="game-area hidden overlay" id="game-overlay">
+		<div class="text-center">
+			<h3 id="game-title">Игра</h3>
+			<div id="game-content"></div>
+			<div class="mt-3">
+				<button class="game-button" onclick="closeGame()">Закрыть</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Модальное окно для повышения уровня -->
+	<div id="level-modal" class="modal hidden">
+		<div class="modal-content">
+			<div id="level-modal-text"></div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script>
+
+		/* === Глобальные константы и начальное состояние === */
+		const STORAGE_KEY = 'rpgSelfDevelopmentSave';
+		const DEFAULT_STATE = {
+			attention: 0,
+			memory: 0,
+			reaction: 0,
+			logic: 0,
+			xp: 0,
+			level: 0,
+			nextLevelXp: 100,
+			difficultyMultiplier: 1
+		};
+
+		/* === Локализация === */
+		const translations = { /* … как в вашем фрагменте … */ };
+		let lang = 'ru';
+
+		/* === Текущее состояние игры === */
+		let state = loadGame();
+		let currentGame = null; // ключ открытой игры
+		let gameData = {}; // внутренняя «сессия» игры
+
+		/* === Инициализация интерфейса === */
+		applyTranslations();
+		updateDifficulty();
+		updateUI();
+
+		/* === События DOM === */
+		document.getElementById('language-select')
+			.addEventListener('change', e => {
+				lang = e.target.value;
+				applyTranslations();
+			});
+
+		/* === Сохранение / загрузка === */
+		function saveGame() {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+		}
+		function loadGame() {
+			try {
+				const raw = localStorage.getItem(STORAGE_KEY);
+				return raw ? { ...DEFAULT_STATE, ...JSON.parse(raw) } : { ...DEFAULT_STATE };
+			} catch {
+				return { ...DEFAULT_STATE };
+			}
+		}
+
+		/* === Логика прокачки === */
+		function addXp(amount) {
+			state.xp += amount;
+			while (state.xp >= state.nextLevelXp) {
+				state.xp -= state.nextLevelXp;
+				state.level++;
+				state.nextLevelXp = Math.floor(state.nextLevelXp * 1.25);
+				showLevelModal();
+				updateDifficulty();
+			}
+			saveGame();
+			updateUI();
+		}
+		function updateDifficulty() {
+			state.difficultyMultiplier = 1 + state.level * 0.15;
+		}
+
+		/* === UI - helpers === */
+		function qs(id) { return document.getElementById(id); }
+		function updateUI() {
+			qs('level-value').textContent = state.level;
+			qs('xp-value').textContent = `${state.xp}/${state.nextLevelXp}`;
+
+			// статты + прогресс-бары
+			const stats = ['attention', 'memory', 'reaction', 'logic'];
+			stats.forEach(key => {
+				qs(`${key}-stat`).textContent = state[key];
+				qs(`${key}-progress`).style.width =
+					`${Math.min(100, state[key])}%`;
+			});
+		}
+		function applyTranslations() {
+			const t = translations[lang];
+			qs('brand').textContent = t.brand;
+			qs('nav-stats').textContent = t.nav_stats;
+			qs('nav-games').textContent = t.nav_games;
+			qs('tagline').innerHTML = `<i class="fas fa-crown text-warning"></i> ${t.tagline}`;
+			qs('stats-heading').textContent = t.stats_heading;
+			qs('games-heading').textContent = t.games_heading;
+			qs('attention-label').textContent = t.stat_attention;
+			qs('memory-label').textContent = t.stat_memory;
+			qs('reaction-label').textContent = t.stat_reaction;
+			qs('logic-label').textContent = t.stat_logic;
+			qs('reset-btn').textContent = t.reset_button;
+		}
+
+		/* === Сброс характеристик === */
+		function resetStats() {
+			if (!confirm(translations[lang].reset_confirm)) return;
+			state = { ...DEFAULT_STATE };
+			saveGame(); updateDifficulty(); updateUI();
+		}
+
+		/* === Модалка «уровень повышен» === */
+		function showLevelModal() {
+			const box = qs('level-modal');
+			const text = qs('level-modal-text');
+			text.textContent = `${translations[lang].level_up} (${state.level})`;
+			box.classList.remove('hidden');
+			setTimeout(() => box.classList.add('hidden'), 2500);
+		}
+
+		/* === Открытие / закрытие игр === */
+		function openGame(key) {
+			currentGame = key;
+			qs('overlay-mask').classList.remove('hidden');
+			const overlay = qs('game-overlay');
+			overlay.classList.remove('hidden');
+			qs('game-title').textContent =
+				document.querySelector(`[onclick="openGame('${key}')"]`)
+					.parentElement.querySelector('h4').innerText;
+
+			// запускаем конкретную мини-игру
+			if (miniGames[key]) {
+				gameData = {}; // очистить сессию
+				miniGames[key].start();
+			} else {
+				overlay.querySelector('#game-content').innerHTML =
+					'<p class="text-center">Coming soon…</p>';
+			}
+		}
+		function closeGame() {
+			qs('overlay-mask').classList.add('hidden');
+			qs('game-overlay').classList.add('hidden');
+			qs('game-content').innerHTML = ''; // очистка
+			currentGame = null;
+		}
+
+		/* === Мини-игры === */
+		const miniGames = {
+
+			/* ---------- 1. Реакция: «Click when signal» ---------- */
+			'reaction-test': {
+				start() {
+					const t = translations[lang];
+					const area = qs('game-content');
+					area.innerHTML =
+						`<p>${t.click_when_ready}</p>
+	<button class="game-button" id="startBtn">${t.start_game}</button>
+	<p class="timer" id="reactTimer">0.000 s</p>`;
+					qs('startBtn').addEventListener('click', this.waitForSignal);
+				},
+				waitForSignal() {
+					this.remove(); // убрать кнопку
+					const t = translations[lang];
+					qs('game-content').insertAdjacentHTML('afterbegin',
+						`<p id="signal">${t.wait_for_signal}</p>`);
+					const delay = 1000 + Math.random() * 2500 / state.difficultyMultiplier;
+					setTimeout(() => {
+						const stamp = performance.now();
+						const btn =
+							document.createElement('button');
+						btn.className = 'game-button';
+						btn.textContent = t.click_now;
+						btn.onclick = () => {
+							const ms = performance.now() - stamp;
+							qs('reactTimer').textContent = (ms / 1000).toFixed(3) + ' s';
+							addXp(Math.max(5, Math.floor(3000 / ms)));
+							state.reaction += 1;
+							saveGame(); updateUI();
+							setTimeout(closeGame, 1200);
+						};
+						const sig = qs('signal');
+						sig.replaceWith(btn);
+					}, delay);
+				}
+			},
+
+			/* ---------- 2. Парные карточки памяти ---------- */
+			'memory-cards': {
+				start() {
+					const size = 6; // 3 × 4
+					const icons = ['🍎', '🍋', '🍇', '🥑', '🌶️', '🥕', '🍉', '🍌'];
+					const picks = shuffle([...icons, ...icons]) // пары
+						.slice(0, size);
+					gameData.flips = 0;
+					const grid = document.createElement('div');
+					grid.className = 'memory-grid';
+					picks.forEach(icon => {
+						const c = document.createElement('div');
+						c.className = 'memory-card';
+						c.dataset.icon = icon;
+						c.onclick = this.flip;
+						grid.appendChild(c);
+					});
+					qs('game-content').replaceChildren(grid);
+				},
+				flip() {
+					if (this.classList.contains('flipped') ||
+						this.classList.contains('matched')) return;
+					this.textContent = this.dataset.icon;
+					this.classList.add('flipped');
+					if (!gameData.first) { // первый клик
+						gameData.first = this;
+					} else {
+						// второй клик
+						const second = this;
+						if (second.dataset.icon === gameData.first.dataset.icon) {
+							second.classList.add('matched');
+							gameData.first.classList.add('matched');
+							state.memory += 2;
+							addXp(8);
+							if (![...document.querySelectorAll('.memory-card')]
+								.some(c => !c.classList.contains('matched')))
+								setTimeout(closeGame, 700);
+						} else {
+							setTimeout(() => {
+								second.textContent = '';
+								gameData.first.textContent = '';
+								second.classList.remove('flipped');
+								gameData.first.classList.remove('flipped');
+								gameData.first = null;
+							}, 600 / state.difficultyMultiplier);
+						}
+						gameData.flips++;
+						gameData.first = null;
+					}
+				}
+			},
+
+			/* ---------- 3. Быстрая математика ---------- */
+			'math-speed': {
+				start() { this.nextRound(); },
+				nextRound() {
+					const a = rand(1, 10 * state.difficultyMultiplier | 0);
+					const b = rand(1, 10 * state.difficultyMultiplier | 0);
+					gameData.answer = a + b;
+					const t = translations[lang];
+					qs('game-content').innerHTML =
+						`<p class="mb-3">${t.solve_example}: <strong>${a} + ${b}</strong></p>
+	<input type="number" id="ans" class="input-field" style="max-width:120px">
+	<button class="game-button mt-2">${t.next_round}</button>
+	<p id="feedback"></p>`;
+					const btn = qs('game-content').querySelector('button');
+					btn.onclick = () => {
+						const val = Number(qs('ans').value);
+						const fb = qs('feedback');
+						if (val === gameData.answer) {
+							fb.textContent = translations[lang].correct;
+							state.logic += 1; addXp(5);
+							setTimeout(() => this.nextRound(), 800);
+						} else {
+							fb.textContent = translations[lang].incorrect;
+							setTimeout(closeGame, 1200);
+						}
+						updateUI(); saveGame();
+					};
+					qs('ans').focus();
+				}
+			}
+		};
+
+		/* === Вспомогательные утилиты === */
+		function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+		function shuffle(arr) {
+			for (let i = arr.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[arr[i], arr[j]] = [arr[j], arr[i]];
+			}
+			return arr;
+		}
+	</script>
 </body>
+
 </html>
-            
