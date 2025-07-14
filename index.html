@@ -49,6 +49,7 @@
             <div class="col-12 text-center mb-3">
                 <h2 id="stats-heading" class="mb-3">Ваши характеристики</h2>
                 <div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
+                <button id="reset-btn" class="btn btn-danger btn-sm mt-2" onclick="resetStats()">Сбросить статы</button>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
@@ -103,13 +104,19 @@
                 <div class="game-card">
                     <h3 id="memory-title"><i class="fas fa-brain text-success"></i> Запомни последовательность</h3>
                     <p id="memory-desc">Повторите показанную цепочку символов.</p>
-                    <button class="btn btn-game btn-start" onclick="startMemoryGame()">Начать тренировку</button>
+                    <button class="btn btn-game btn-start" onclick="openMemoryGame()">Начать тренировку</button>
 
                     <div id="memory-game" class="game-area hidden">
-                        <div class="score" id="memory-sequence"></div>
-                        <input type="text" id="memory-input" class="logic-input" placeholder="...">
-                        <button class="game-button btn-check" onclick="submitMemory()">Проверить</button>
-                        <div id="memory-result" class="mt-2"></div>
+                        <div id="memory-play" class="play-screen">
+                            <button class="game-button btn-play" onclick="startMemoryGame()">Играть</button>
+                        </div>
+                        <div id="memory-content" class="game-content hidden">
+                            <div class="score" id="memory-sequence"></div>
+                            <input type="text" id="memory-input" class="logic-input" placeholder="...">
+                            <button class="game-button btn-check" onclick="submitMemory()">Проверить</button>
+                            <div id="memory-result" class="mt-2"></div>
+                        </div>
+                        <button class="game-button btn-close" onclick="closeOverlay('memory-game')">Закрыть</button>
                     </div>
                 </div>
             </div>
@@ -119,11 +126,16 @@
                 <div class="game-card">
                     <h3 id="numbercell-title"><i class="fas fa-th text-info"></i> Числовая клетка</h3>
                     <p id="numbercell-desc">Нужно быстро найти все числа, кратные 3, или все чётные.</p>
-                    <button class="btn btn-game btn-start" onclick="startNumberCellGame()">Начать тренировку</button>
+                    <button class="btn btn-game btn-start" onclick="openNumberCellGame()">Начать тренировку</button>
 
                     <div id="numbercell-game" class="game-area hidden">
-                        <div class="score" id="numbercell-task"></div>
-                        <div id="numbercell-grid" class="numbercell-grid"></div>
+                        <div id="numbercell-play" class="play-screen">
+                            <button class="game-button btn-play" onclick="startNumberCellGame()">Играть</button>
+                        </div>
+                        <div id="numbercell-content" class="game-content hidden">
+                            <div class="score" id="numbercell-task"></div>
+                            <div id="numbercell-grid" class="numbercell-grid"></div>
+                        </div>
                         <button class="game-button btn-close" onclick="closeOverlay('numbercell-game')">Закрыть</button>
                     </div>
                 </div>
@@ -135,20 +147,45 @@
                 <div class="game-card">
                     <h3 id="sequence-title"><i class="fas fa-puzzle-piece text-danger"></i> Числовая последовательность</h3>
                     <p id="sequence-desc">Найдите закономерность и продолжите последовательность!</p>
-                    <button class="btn btn-game btn-start" onclick="startLogicGame()">Начать тренировку</button>
+                    <button class="btn btn-game btn-start" onclick="openLogicGame()">Начать тренировку</button>
 
                     <div id="logic-game" class="game-area hidden">
-                        <div class="logic-sequence" id="logic-sequence"></div>
-                        <div class="mt-2">
-                            <input type="number" class="logic-input" id="logic-input1" placeholder="?">
-                            <input type="number" class="logic-input" id="logic-input2" placeholder="?">
-                            <button class="game-button btn-check" onclick="checkLogicAnswer()">Проверить</button>
-                            <button class="game-button btn-close" onclick="closeOverlay('logic-game')">Закрыть</button>
+                        <div id="logic-play" class="play-screen">
+                            <button class="game-button btn-play" onclick="startLogicGame()">Играть</button>
                         </div>
+                        <div id="logic-content" class="game-content hidden">
+                            <div class="logic-sequence" id="logic-sequence"></div>
+                            <div class="mt-2">
+                                <input type="number" class="logic-input" id="logic-input1" placeholder="?">
+                                <input type="number" class="logic-input" id="logic-input2" placeholder="?">
+                                <button class="game-button btn-check" onclick="checkLogicAnswer()">Проверить</button>
+                            </div>
+                    </div>
+                    <button class="game-button btn-close" onclick="closeOverlay('logic-game')">Закрыть</button>
+                </div>
+            </div>
+
+            <!-- Тест реакции -->
+            <div class="col-lg-6 col-md-12">
+                <div class="game-card">
+                    <h3 id="reaction-title"><i class="fas fa-bolt text-warning"></i> Тест реакции</h3>
+                    <p id="reaction-desc">Нажмите, когда увидите сигнал!</p>
+                    <button class="btn btn-game btn-start" onclick="openReactionGame()">Начать тренировку</button>
+
+                    <div id="reaction-game" class="game-area hidden">
+                        <div id="reaction-play" class="play-screen">
+                            <button class="game-button btn-play" onclick="startReactionGame()">Играть</button>
+                        </div>
+                        <div id="reaction-content" class="game-content hidden">
+                            <div id="reaction-message" class="score"></div>
+                            <button id="reaction-click" class="game-button hidden" onclick="finishReactionGame()">Жми!</button>
+                        </div>
+                        <button class="game-button btn-close" onclick="closeOverlay('reaction-game')">Закрыть</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div id="level-modal" class="modal hidden">

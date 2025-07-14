@@ -33,7 +33,12 @@ const translations = {
         sequence_title: 'Числовая последовательность',
         sequence_desc: 'Найдите закономерность и продолжите последовательность!',
         numbercell_title: 'Числовая клетка',
-        numbercell_desc: 'Нужно быстро найти все числа, кратные 3, или все чётные.'
+        numbercell_desc: 'Нужно быстро найти все числа, кратные 3, или все чётные.',
+        reaction_title: 'Тест реакции',
+        reaction_desc: 'Нажмите, когда увидите сигнал!',
+        click_now: 'Жми!',
+        reset_button: 'Сбросить статы',
+        reset_confirm: 'Вы уверены?'
     },
     en: {
         find_evens: 'Find all even numbers',
@@ -56,7 +61,12 @@ const translations = {
         sequence_title: 'Number Sequence',
         sequence_desc: 'Find the pattern and continue!',
         numbercell_title: 'Number Cell',
-        numbercell_desc: 'Quickly find all numbers divisible by 3 or all even ones.'
+        numbercell_desc: 'Quickly find all numbers divisible by 3 or all even ones.',
+        reaction_title: 'Reaction Test',
+        reaction_desc: 'Press when you see the signal!',
+        click_now: 'Click!',
+        reset_button: 'Reset stats',
+        reset_confirm: 'Are you sure?'
     }
 };
 
@@ -80,6 +90,14 @@ function save() {
 function load() {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? { ...DEFAULT_STATE, ...JSON.parse(saved) } : { ...DEFAULT_STATE };
+}
+
+function resetStats() {
+    if (confirm(translations[lang].reset_confirm)) {
+        state = { ...DEFAULT_STATE };
+        save();
+        updateUI();
+    }
 }
 
 function updateDifficulty() {
@@ -161,6 +179,9 @@ function applyTranslations() {
     document.getElementById('sequence-desc').textContent = translations[lang].sequence_desc;
     document.getElementById('numbercell-title').innerHTML = `<i class="fas fa-th text-info"></i> ${translations[lang].numbercell_title}`;
     document.getElementById('numbercell-desc').textContent = translations[lang].numbercell_desc;
+    document.getElementById('reaction-title').innerHTML = `<i class="fas fa-bolt text-warning"></i> ${translations[lang].reaction_title}`;
+    document.getElementById('reaction-desc').textContent = translations[lang].reaction_desc;
+    document.getElementById('reset-btn').textContent = translations[lang].reset_button;
     document.querySelectorAll('.btn-start').forEach(btn => btn.textContent = translations[lang].start_button);
     document.querySelectorAll('.btn-check').forEach(btn => btn.textContent = translations[lang].check_button);
     document.querySelectorAll('.btn-close').forEach(btn => btn.textContent = translations[lang].close_button);
@@ -170,11 +191,20 @@ function applyTranslations() {
 // ---------------- Мини-игра 2. Запомни последовательность ----------------
 const memoryGame = { sequence: [], deadline: 0, timeout: null };
 
+function openMemoryGame() {
+    openOverlay('memory-game');
+    clearTimeout(memoryGame.timeout);
+    document.getElementById('memory-play').classList.remove('hidden');
+    document.getElementById('memory-content').classList.add('hidden');
+    document.getElementById('memory-result').textContent = '';
+}
+
 function startMemoryGame() {
     generateMemorySequence();
     document.getElementById('memory-input').value = '';
     document.getElementById('memory-result').textContent = '';
-    openOverlay('memory-game');
+    document.getElementById('memory-play').classList.add('hidden');
+    document.getElementById('memory-content').classList.remove('hidden');
     displayMemorySequence();
 }
 
@@ -216,8 +246,15 @@ function submitMemory() {
 // ---------------- Мини-игра 3. Числовая последовательность ----------------
 const logicGame = { expected: [] };
 
-function startLogicGame() {
+function openLogicGame() {
     openOverlay('logic-game');
+    document.getElementById('logic-play').classList.remove('hidden');
+    document.getElementById('logic-content').classList.add('hidden');
+}
+
+function startLogicGame() {
+    document.getElementById('logic-play').classList.add('hidden');
+    document.getElementById('logic-content').classList.remove('hidden');
     newLogicTask();
 }
 
@@ -262,6 +299,12 @@ function checkLogicAnswer() {
 // ---------------- Мини-игра. Числовая клетка ----------------
 const numberCellGame = { target: 'even', remaining: 0 };
 
+function openNumberCellGame() {
+    openOverlay('numbercell-game');
+    document.getElementById('numbercell-play').classList.remove('hidden');
+    document.getElementById('numbercell-content').classList.add('hidden');
+}
+
 function startNumberCellGame() {
     const size = Math.random() < 0.5 ? 3 : 4;
     numberCellGame.target = Math.random() < 0.5 ? 'even' : 'mult3';
@@ -283,7 +326,8 @@ function startNumberCellGame() {
     document.getElementById('numbercell-task').textContent = numberCellGame.target === 'even'
         ? translations[lang].find_evens
         : translations[lang].find_mult3;
-    openOverlay('numbercell-game');
+    document.getElementById('numbercell-play').classList.add('hidden');
+    document.getElementById('numbercell-content').classList.remove('hidden');
 }
 
 function handleNumberCellClick(e) {
@@ -300,5 +344,41 @@ function handleNumberCellClick(e) {
     } else {
         el.classList.add('wrong');
     }
+}
+
+// ---------------- Мини-игра. Тест реакции ----------------
+const reactionGame = { timeout: null, start: 0 };
+
+function openReactionGame() {
+    openOverlay('reaction-game');
+    clearTimeout(reactionGame.timeout);
+    document.getElementById('reaction-play').classList.remove('hidden');
+    document.getElementById('reaction-content').classList.add('hidden');
+    document.getElementById('reaction-click').classList.add('hidden');
+    document.getElementById('reaction-message').textContent = '';
+}
+
+function startReactionGame() {
+    document.getElementById('reaction-play').classList.add('hidden');
+    document.getElementById('reaction-content').classList.remove('hidden');
+    document.getElementById('reaction-message').textContent = '...';
+    reactionGame.timeout = setTimeout(() => {
+        document.getElementById('reaction-message').textContent = translations[lang].click_now || 'Жми!';
+        document.getElementById('reaction-click').classList.remove('hidden');
+        reactionGame.start = Date.now();
+    }, 1000 + Math.random() * 2000);
+}
+
+function finishReactionGame() {
+    const t = Date.now() - reactionGame.start;
+    document.getElementById('reaction-click').classList.add('hidden');
+    if (t < 500) {
+        incrementStat('reaction');
+        addXp(10);
+        document.getElementById('reaction-message').textContent = `Отлично! ${t}мс`;
+    } else {
+        document.getElementById('reaction-message').textContent = `Медленно: ${t}мс`;
+    }
+    setTimeout(() => closeOverlay('reaction-game'), 1500);
 }
 
