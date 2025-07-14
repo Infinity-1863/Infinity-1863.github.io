@@ -11,9 +11,67 @@ const DEFAULT_STATE = {
     difficultyMultiplier: 1
 };
 
+const translations = {
+    ru: {
+        find_evens: 'Найдите все чётные числа',
+        find_mult3: 'Найдите все числа, кратные 3',
+        start_button: 'Начать тренировку',
+        check_button: 'Проверить',
+        close_button: 'Закрыть',
+        brand: 'RPG Саморазвитие',
+        nav_stats: 'Статистики',
+        nav_games: 'Игры',
+        tagline: 'Развивайте свои навыки в RPG стиле',
+        stats_heading: 'Ваши характеристики',
+        stat_attention: 'Внимательность',
+        stat_memory: 'Память',
+        stat_reaction: 'Реакция',
+        stat_logic: 'Логика',
+        games_heading: 'Тренировочные квесты',
+        memory_title: 'Запомни последовательность',
+        memory_desc: 'Повторите показанную цепочку символов.',
+        sequence_title: 'Числовая последовательность',
+        sequence_desc: 'Найдите закономерность и продолжите последовательность!',
+        numbercell_title: 'Числовая клетка',
+        numbercell_desc: 'Нужно быстро найти все числа, кратные 3, или все чётные.'
+    },
+    en: {
+        find_evens: 'Find all even numbers',
+        find_mult3: 'Find all numbers divisible by 3',
+        start_button: 'Start',
+        check_button: 'Check',
+        close_button: 'Close',
+        brand: 'RPG Self-Development',
+        nav_stats: 'Stats',
+        nav_games: 'Games',
+        tagline: 'Improve your skills RPG-style',
+        stats_heading: 'Your Attributes',
+        stat_attention: 'Attention',
+        stat_memory: 'Memory',
+        stat_reaction: 'Reaction',
+        stat_logic: 'Logic',
+        games_heading: 'Training Quests',
+        memory_title: 'Remember the Sequence',
+        memory_desc: 'Repeat the shown sequence of symbols.',
+        sequence_title: 'Number Sequence',
+        sequence_desc: 'Find the pattern and continue!',
+        numbercell_title: 'Number Cell',
+        numbercell_desc: 'Quickly find all numbers divisible by 3 or all even ones.'
+    }
+};
+
+let lang = localStorage.getItem('lang') || 'ru';
+
 let state = load();
 updateDifficulty();
 updateUI();
+applyTranslations();
+document.getElementById('language-select').value = lang;
+document.getElementById('language-select').addEventListener('change', e => {
+    lang = e.target.value;
+    localStorage.setItem('lang', lang);
+    applyTranslations();
+});
 
 function save() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -72,38 +130,41 @@ function showLevelModal() {
     setTimeout(() => modal.classList.add('hidden'), 2000);
 }
 
-// ---------------- Мини-игра 1. Анаграммы ----------------
-const anagramWords = [
-    'dragon','sword','castle','forest','magic','quest','puzzle','memory','logic','shield','health','potion','knight','victory','battle'
-];
-const anagramGame = { word: '', timeout: null };
-
-function startAnagramGame() {
-    const len = 4 + Math.floor(state.difficultyMultiplier);
-    const candidates = anagramWords.filter(w => w.length >= len);
-    const raw = candidates[Math.floor(Math.random() * candidates.length)];
-    anagramGame.word = raw.slice(0, len).toLowerCase();
-    const arr = anagramGame.word.split('');
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    document.getElementById('anagram-question').textContent = arr.join('');
-    document.getElementById('anagram-input').value = '';
-    document.getElementById('anagram-result').textContent = '';
-    document.getElementById('anagram-game').classList.remove('hidden');
+function openOverlay(id) {
+    document.getElementById('overlay-mask').classList.remove('hidden');
+    const el = document.getElementById(id);
+    el.classList.remove('hidden');
+    el.classList.add('overlay');
 }
 
-function submitAnagram() {
-    const val = document.getElementById('anagram-input').value.trim().toLowerCase();
-    if (val === anagramGame.word) {
-        incrementStat('attention');
-        addXp(10);
-        document.getElementById('anagram-result').textContent = 'Верно!';
-    } else {
-        document.getElementById('anagram-result').textContent = `Неверно! Слово: ${anagramGame.word}`;
-    }
-    setTimeout(() => document.getElementById('anagram-game').classList.add('hidden'), 1500);
+function closeOverlay(id) {
+    document.getElementById('overlay-mask').classList.add('hidden');
+    const el = document.getElementById(id);
+    el.classList.add('hidden');
+    el.classList.remove('overlay');
+}
+
+function applyTranslations() {
+    document.getElementById('brand').textContent = translations[lang].brand || 'RPG';
+    document.getElementById('nav-stats').textContent = translations[lang].nav_stats;
+    document.getElementById('nav-games').textContent = translations[lang].nav_games;
+    document.getElementById('tagline').textContent = translations[lang].tagline;
+    document.getElementById('stats-heading').textContent = translations[lang].stats_heading;
+    document.getElementById('attention-label').textContent = translations[lang].stat_attention;
+    document.getElementById('memory-label').textContent = translations[lang].stat_memory;
+    document.getElementById('reaction-label').textContent = translations[lang].stat_reaction;
+    document.getElementById('logic-label').textContent = translations[lang].stat_logic;
+    document.getElementById('games-heading').textContent = translations[lang].games_heading;
+    document.getElementById('memory-title').innerHTML = `<i class="fas fa-brain text-success"></i> ${translations[lang].memory_title}`;
+    document.getElementById('memory-desc').textContent = translations[lang].memory_desc;
+    document.getElementById('sequence-title').innerHTML = `<i class="fas fa-puzzle-piece text-danger"></i> ${translations[lang].sequence_title}`;
+    document.getElementById('sequence-desc').textContent = translations[lang].sequence_desc;
+    document.getElementById('numbercell-title').innerHTML = `<i class="fas fa-th text-info"></i> ${translations[lang].numbercell_title}`;
+    document.getElementById('numbercell-desc').textContent = translations[lang].numbercell_desc;
+    document.querySelectorAll('.btn-start').forEach(btn => btn.textContent = translations[lang].start_button);
+    document.querySelectorAll('.btn-check').forEach(btn => btn.textContent = translations[lang].check_button);
+    document.querySelectorAll('.btn-close').forEach(btn => btn.textContent = translations[lang].close_button);
+    document.title = translations[lang].brand;
 }
 
 // ---------------- Мини-игра 2. Запомни последовательность ----------------
@@ -113,7 +174,7 @@ function startMemoryGame() {
     generateMemorySequence();
     document.getElementById('memory-input').value = '';
     document.getElementById('memory-result').textContent = '';
-    document.getElementById('memory-game').classList.remove('hidden');
+    openOverlay('memory-game');
     displayMemorySequence();
 }
 
@@ -149,14 +210,14 @@ function submitMemory() {
     } else {
         document.getElementById('memory-result').textContent = `Неверно! ${correct}`;
     }
-    setTimeout(() => document.getElementById('memory-game').classList.add('hidden'), 1500);
+    setTimeout(() => closeOverlay('memory-game'), 1500);
 }
 
 // ---------------- Мини-игра 3. Числовая последовательность ----------------
 const logicGame = { expected: [] };
 
 function startLogicGame() {
-    document.getElementById('logic-game').classList.remove('hidden');
+    openOverlay('logic-game');
     newLogicTask();
 }
 
@@ -198,51 +259,46 @@ function checkLogicAnswer() {
     newLogicTask();
 }
 
-// ---------------- Мини-игра 4. Логические связки ----------------
-const logicLinksGame = { result: false, timeout: null };
+// ---------------- Мини-игра. Числовая клетка ----------------
+const numberCellGame = { target: 'even', remaining: 0 };
 
-function startLogicLinksGame() {
-    const count = 1 + Math.floor(state.difficultyMultiplier);
-    const ops = [];
-    const operands = [];
-    for (let i = 0; i < count + 1; i++) {
-        const val = Math.random() < 0.5;
-        const useNot = Math.random() < 0.5;
-        operands.push({ val, not: useNot });
-        if (i < count) ops.push(Math.random() < 0.5 ? 'AND' : 'OR');
+function startNumberCellGame() {
+    const size = Math.random() < 0.5 ? 3 : 4;
+    numberCellGame.target = Math.random() < 0.5 ? 'even' : 'mult3';
+    numberCellGame.remaining = 0;
+    const grid = document.getElementById('numbercell-grid');
+    grid.innerHTML = '';
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    for (let i = 0; i < size * size; i++) {
+        const num = Math.floor(Math.random() * 30) + 1;
+        const div = document.createElement('div');
+        div.className = 'number-cell';
+        div.textContent = num;
+        const correct = numberCellGame.target === 'even' ? num % 2 === 0 : num % 3 === 0;
+        if (correct) numberCellGame.remaining++;
+        div.dataset.correct = correct;
+        div.addEventListener('click', handleNumberCellClick);
+        grid.appendChild(div);
     }
-    let display = '';
-    let expr = '';
-    for (let i = 0; i < operands.length; i++) {
-        const o = operands[i];
-        display += (o.not ? 'NOT ' : '') + (o.val ? 'True' : 'False');
-        expr += (o.not ? '!' : '') + (o.val ? 'true' : 'false');
-        if (i < ops.length) {
-            display += ' ' + ops[i] + ' ';
-            expr += ops[i] === 'AND' ? ' && ' : ' || ';
+    document.getElementById('numbercell-task').textContent = numberCellGame.target === 'even'
+        ? translations[lang].find_evens
+        : translations[lang].find_mult3;
+    openOverlay('numbercell-game');
+}
+
+function handleNumberCellClick(e) {
+    const el = e.target;
+    if (el.dataset.clicked) return;
+    el.dataset.clicked = true;
+    if (el.dataset.correct === 'true') {
+        el.classList.add('correct');
+        if (--numberCellGame.remaining === 0) {
+            incrementStat('attention');
+            addXp(10);
+            setTimeout(() => closeOverlay('numbercell-game'), 800);
         }
-    }
-    logicLinksGame.result = eval(expr);
-    document.getElementById('logiclinks-question').textContent = display;
-    document.getElementById('logiclinks-game').classList.remove('hidden');
-    const time = 2000 / state.difficultyMultiplier;
-    clearTimeout(logicLinksGame.timeout);
-    logicLinksGame.timeout = setTimeout(() => endLogicLinksGame(false), time);
-    document.getElementById('logiclinks-timer').textContent = (time / 1000).toFixed(1);
-}
-
-function answerLogicLinks(val) {
-    clearTimeout(logicLinksGame.timeout);
-    endLogicLinksGame(val === logicLinksGame.result);
-}
-
-function endLogicLinksGame(success) {
-    document.getElementById('logiclinks-game').classList.add('hidden');
-    if (success) {
-        incrementStat('reaction');
-        addXp(10);
-        alert('Верно!');
     } else {
-        alert('Неверно!');
+        el.classList.add('wrong');
     }
 }
+

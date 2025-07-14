@@ -11,17 +11,23 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-dragon"></i> RPG Саморазвитие</a>
+            <a id="brand" class="navbar-brand" href="#"><i class="fas fa-dragon"></i> RPG Саморазвитие</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#stats">Статистики</a>
+                        <a id="nav-stats" class="nav-link" href="#stats">Статистики</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#games">Игры</a>
+                        <a id="nav-games" class="nav-link" href="#games">Игры</a>
+                    </li>
+                    <li class="nav-item">
+                        <select id="language-select" class="form-select form-select-sm ms-2">
+                            <option value="ru">RU</option>
+                            <option value="en">EN</option>
+                        </select>
                     </li>
                 </ul>
             </div>
@@ -31,7 +37,7 @@
     <div class="container" style="margin-top: 80px;">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center mb-5">
+                <h1 id="tagline" class="text-center mb-5">
                     <i class="fas fa-crown text-warning"></i>
                     Развивайте свои навыки в RPG стиле
                 </h1>
@@ -41,14 +47,14 @@
         <!-- Статистики -->
         <div id="stats" class="row mb-5">
             <div class="col-12 text-center mb-3">
-                <h2 class="mb-3">Ваши характеристики</h2>
+                <h2 id="stats-heading" class="mb-3">Ваши характеристики</h2>
                 <div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card text-center">
                     <i class="fas fa-eye stat-icon text-primary"></i>
                     <div class="stat-value" id="attention-stat">0</div>
-                    <div class="stat-label">Внимательность</div>
+                    <div id="attention-label" class="stat-label">Внимательность</div>
                     <div class="progress mt-2">
                         <div class="progress-bar" id="attention-progress" style="width: 0%"></div>
                     </div>
@@ -58,7 +64,7 @@
                 <div class="stats-card text-center">
                     <i class="fas fa-brain stat-icon text-success"></i>
                     <div class="stat-value" id="memory-stat">0</div>
-                    <div class="stat-label">Память</div>
+                    <div id="memory-label" class="stat-label">Память</div>
                     <div class="progress mt-2">
                         <div class="progress-bar" id="memory-progress" style="width: 0%"></div>
                     </div>
@@ -68,7 +74,7 @@
                 <div class="stats-card text-center">
                     <i class="fas fa-bolt stat-icon text-warning"></i>
                     <div class="stat-value" id="reaction-stat">0</div>
-                    <div class="stat-label">Реакция</div>
+                    <div id="reaction-label" class="stat-label">Реакция</div>
                     <div class="progress mt-2">
                         <div class="progress-bar" id="reaction-progress" style="width: 0%"></div>
                     </div>
@@ -78,7 +84,7 @@
                 <div class="stats-card text-center">
                     <i class="fas fa-puzzle-piece stat-icon text-danger"></i>
                     <div class="stat-value" id="logic-stat">0</div>
-                    <div class="stat-label">Логика</div>
+                    <div id="logic-label" class="stat-label">Логика</div>
                     <div class="progress mt-2">
                         <div class="progress-bar" id="logic-progress" style="width: 0%"></div>
                     </div>
@@ -89,72 +95,55 @@
         <!-- Игры -->
         <div id="games" class="row">
             <div class="col-12">
-                <h2 class="text-center mb-4">Тренировочные квесты</h2>
-            </div>
-
-            <!-- Игра &laquo;Анаграммы&raquo; -->
-            <div class="col-lg-6 col-md-12">
-                <div class="game-card">
-                    <h3><i class="fas fa-eye text-primary"></i> Анаграммы</h3>
-                    <p>Соберите правильное слово из перемешанных букв.</p>
-                    <button class="btn btn-game" onclick="startAnagramGame()">Начать тренировку</button>
-
-                    <div id="anagram-game" class="game-area hidden">
-                        <div class="score" id="anagram-question"></div>
-                        <input type="text" id="anagram-input" class="logic-input" placeholder="...">
-                        <button class="game-button" onclick="submitAnagram()">Ответить</button>
-                        <div id="anagram-result" class="mt-2"></div>
-                    </div>
-                </div>
+                <h2 id="games-heading" class="text-center mb-4">Тренировочные квесты</h2>
             </div>
 
             <!-- Игра &laquo;Запомни последовательность&raquo; -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
-                    <h3><i class="fas fa-brain text-success"></i> Запомни последовательность</h3>
-                    <p>Повторите показанную цепочку символов.</p>
-                    <button class="btn btn-game" onclick="startMemoryGame()">Начать тренировку</button>
+                    <h3 id="memory-title"><i class="fas fa-brain text-success"></i> Запомни последовательность</h3>
+                    <p id="memory-desc">Повторите показанную цепочку символов.</p>
+                    <button class="btn btn-game btn-start" onclick="startMemoryGame()">Начать тренировку</button>
 
                     <div id="memory-game" class="game-area hidden">
                         <div class="score" id="memory-sequence"></div>
                         <input type="text" id="memory-input" class="logic-input" placeholder="...">
-                        <button class="game-button" onclick="submitMemory()">Ответить</button>
+                        <button class="game-button btn-check" onclick="submitMemory()">Проверить</button>
                         <div id="memory-result" class="mt-2"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Игра &laquo;Логические связки&raquo; -->
+            <!-- Игра «Числовая клетка» -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
-                    <h3><i class="fas fa-bolt text-warning"></i> Логические связки</h3>
-                    <p>Определите результат логического выражения.</p>
-                    <button class="btn btn-game" onclick="startLogicLinksGame()">Начать тренировку</button>
+                    <h3 id="numbercell-title"><i class="fas fa-th text-info"></i> Числовая клетка</h3>
+                    <p id="numbercell-desc">Нужно быстро найти все числа, кратные 3, или все чётные.</p>
+                    <button class="btn btn-game btn-start" onclick="startNumberCellGame()">Начать тренировку</button>
 
-                    <div id="logiclinks-game" class="game-area hidden">
-                        <div class="score" id="logiclinks-question"></div>
-                        <div id="logiclinks-timer" class="timer"></div>
-                        <div>
-                            <button class="game-button" onclick="answerLogicLinks(true)">Истина</button>
-                            <button class="game-button" onclick="answerLogicLinks(false)">Ложь</button>
-                        </div>
+                    <div id="numbercell-game" class="game-area hidden">
+                        <div class="score" id="numbercell-task"></div>
+                        <div id="numbercell-grid" class="numbercell-grid"></div>
+                        <button class="game-button btn-close" onclick="closeOverlay('numbercell-game')">Закрыть</button>
                     </div>
                 </div>
             </div>
 
+
             <!-- Игра на логику -->
             <div class="col-lg-6 col-md-12">
                 <div class="game-card">
-                    <h3><i class="fas fa-puzzle-piece text-danger"></i> Числовая последовательность</h3>
-                    <p>Найдите закономерность и продолжите последовательность!</p>
-                    <button class="btn btn-game" onclick="startLogicGame()">Начать тренировку</button>
-                    
+                    <h3 id="sequence-title"><i class="fas fa-puzzle-piece text-danger"></i> Числовая последовательность</h3>
+                    <p id="sequence-desc">Найдите закономерность и продолжите последовательность!</p>
+                    <button class="btn btn-game btn-start" onclick="startLogicGame()">Начать тренировку</button>
+
                     <div id="logic-game" class="game-area hidden">
                         <div class="logic-sequence" id="logic-sequence"></div>
                         <div class="mt-2">
                             <input type="number" class="logic-input" id="logic-input1" placeholder="?">
                             <input type="number" class="logic-input" id="logic-input2" placeholder="?">
-                            <button class="game-button" onclick="checkLogicAnswer()">Проверить</button>
+                            <button class="game-button btn-check" onclick="checkLogicAnswer()">Проверить</button>
+                            <button class="game-button btn-close" onclick="closeOverlay('logic-game')">Закрыть</button>
                         </div>
                     </div>
                 </div>
@@ -167,6 +156,8 @@
             <div id="level-modal-text"></div>
         </div>
     </div>
+
+    <div id="overlay-mask" class="hidden"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
