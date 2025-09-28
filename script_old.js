@@ -18,16 +18,16 @@ class ParticleSystem {
     }
     
     createParticles() {
-        const particleCount = Math.min(80, Math.floor(window.innerWidth / 25));
+        const particleCount = Math.min(100, Math.floor(window.innerWidth / 20));
         
         for (let i = 0; i < particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                size: Math.random() * 1.5 + 0.5,
-                opacity: Math.random() * 0.3 + 0.1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.2,
                 color: `hsl(${240 + Math.random() * 60}, 70%, 60%)`
             });
         }
@@ -42,7 +42,8 @@ class ParticleSystem {
     }
     
     updateParticles() {
-        this.particles.forEach((particle) => {
+        this.particles.forEach((particle, index) => {
+            // Update position
             particle.x += particle.vx;
             particle.y += particle.vy;
             
@@ -51,24 +52,25 @@ class ParticleSystem {
             const dy = this.mouse.y - particle.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 120) {
-                const force = (120 - distance) / 120;
-                particle.vx += (dx / distance) * force * 0.008;
-                particle.vy += (dy / distance) * force * 0.008;
+            if (distance < 100) {
+                const force = (100 - distance) / 100;
+                particle.vx += (dx / distance) * force * 0.01;
+                particle.vy += (dy / distance) * force * 0.01;
             }
             
             // Boundary check
             if (particle.x < 0 || particle.x > this.canvas.width) {
-                particle.vx *= -0.9;
+                particle.vx *= -0.8;
                 particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
             }
             if (particle.y < 0 || particle.y > this.canvas.height) {
-                particle.vy *= -0.9;
+                particle.vy *= -0.8;
                 particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
             }
             
-            particle.vx *= 0.998;
-            particle.vy *= 0.998;
+            // Friction
+            particle.vx *= 0.999;
+            particle.vy *= 0.999;
         });
     }
     
@@ -83,10 +85,10 @@ class ParticleSystem {
                 const dy = particle.y - other.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 100) {
-                    const opacity = (100 - distance) / 100 * 0.15;
+                if (distance < 120) {
+                    const opacity = (120 - distance) / 120 * 0.2;
                     this.ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
-                    this.ctx.lineWidth = 0.5;
+                    this.ctx.lineWidth = 1;
                     this.ctx.beginPath();
                     this.ctx.moveTo(particle.x, particle.y);
                     this.ctx.lineTo(other.x, other.y);
@@ -100,6 +102,19 @@ class ParticleSystem {
             this.ctx.fillStyle = particle.color.replace('60%)', `60%, ${particle.opacity})`);
             this.ctx.beginPath();
             this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Glow effect
+            const gradient = this.ctx.createRadialGradient(
+                particle.x, particle.y, 0,
+                particle.x, particle.y, particle.size * 3
+            );
+            gradient.addColorStop(0, particle.color.replace('60%)', `60%, ${particle.opacity * 0.3})`));
+            gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+            
+            this.ctx.fillStyle = gradient;
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
             this.ctx.fill();
         });
     }
@@ -183,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
+                // Unobserve after revealing to improve performance
                 revealObserver.unobserve(entry.target);
             }
         });
@@ -193,11 +209,19 @@ document.addEventListener('DOMContentLoaded', function() {
         revealObserver.observe(el);
     });
     
-    // Initialize enhanced features
+    // Initialize magnetic button effects
     initMagneticButtons();
+    
+    // Initialize tilt effects for cards
     initTiltCards();
+    
+    // Initialize counter animations
     initCounterAnimations();
+    
+    // Enhanced typewriter effect
     initTypewriterEffect();
+    
+    // Initialize parallax effects
     initParallaxEffects();
 });
 
@@ -229,8 +253,8 @@ function initTiltCards() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = (y - centerY) / 15;
-            const rotateY = (centerX - x) / 15;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
             
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
         });
@@ -248,7 +272,7 @@ function initTypewriterEffect() {
         setTimeout(() => {
             subtitle.style.opacity = '1';
             subtitle.style.width = '100%';
-        }, 1500);
+        }, 1000);
     }
 }
 
@@ -292,27 +316,17 @@ function animateCounter(element) {
 // Subtle parallax effects
 function initParallaxEffects() {
     const parallaxElements = document.querySelectorAll('.floating-element');
-    let ticking = false;
-    
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-        
-        parallaxElements.forEach((element, index) => {
-            const speed = (index + 1) * 0.1;
-            const yPos = -(scrolled * speed);
-            element.style.transform += ` translateY(${yPos}px)`;
-        });
-        
-        ticking = false;
-    }
     
     window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = (index + 1) * 0.2;
+            element.style.transform += ` translateY(${rate * speed}px)`;
+        });
     });
-}
+});
 
 // Utility function for notifications
 function showNotification(message, type = 'info') {
@@ -332,19 +346,17 @@ function showNotification(message, type = 'info') {
         background: ${type === 'success' ? '#10b981' : '#ef4444'};
         color: white;
         padding: 1rem 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         z-index: 10000;
-        animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        font-family: 'Inter', sans-serif;
-        font-weight: 500;
-        backdrop-filter: blur(10px);
+        animation: slideInRight 0.3s ease;
+        font-family: 'Roboto', sans-serif;
     `;
     
     document.body.appendChild(notification);
     
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
             if (document.body.contains(notification)) {
                 document.body.removeChild(notification);
@@ -358,7 +370,7 @@ const notificationStyles = document.createElement('style');
 notificationStyles.textContent = `
     @keyframes slideInRight {
         from { 
-            transform: translateX(100%) scale(0.9); 
+            transform: translateX(100%) scale(0.8); 
             opacity: 0;
         }
         to { 
@@ -373,7 +385,7 @@ notificationStyles.textContent = `
             opacity: 1;
         }
         to { 
-            transform: translateX(100%) scale(0.9); 
+            transform: translateX(100%) scale(0.8); 
             opacity: 0;
         }
     }
@@ -381,7 +393,7 @@ notificationStyles.textContent = `
     .notification-content {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
         font-family: 'Inter', sans-serif;
         font-weight: 500;
     }
@@ -406,9 +418,9 @@ document.addEventListener('keydown', function(e) {
         const rainbowStyle = document.createElement('style');
         rainbowStyle.textContent = `
             @keyframes rainbow {
-                0% { filter: hue-rotate(0deg) saturate(1.2); }
-                50% { filter: hue-rotate(180deg) saturate(1.8); }
-                100% { filter: hue-rotate(360deg) saturate(1.2); }
+                0% { filter: hue-rotate(0deg) saturate(1); }
+                50% { filter: hue-rotate(180deg) saturate(1.5); }
+                100% { filter: hue-rotate(360deg) saturate(1); }
             }
         `;
         document.head.appendChild(rainbowStyle);
@@ -426,17 +438,17 @@ document.addEventListener('keydown', function(e) {
 
 // Sparkle effect for easter egg
 function createSparkleEffect() {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
         const sparkle = document.createElement('div');
         sparkle.style.cssText = `
             position: fixed;
-            width: 6px;
-            height: 6px;
-            background: linear-gradient(45deg, #fff, #6366f1);
+            width: 4px;
+            height: 4px;
+            background: #fff;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            animation: sparkle 1.5s ease-out forwards;
+            animation: sparkle 1s ease-out forwards;
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
         `;
@@ -447,7 +459,7 @@ function createSparkleEffect() {
             if (document.body.contains(sparkle)) {
                 document.body.removeChild(sparkle);
             }
-        }, 1500);
+        }, 1000);
     }
     
     // Add sparkle animation
@@ -456,21 +468,9 @@ function createSparkleEffect() {
         sparkleStyles.id = 'sparkle-styles';
         sparkleStyles.textContent = `
             @keyframes sparkle {
-                0% { 
-                    transform: scale(0) rotate(0deg); 
-                    opacity: 1;
-                    box-shadow: 0 0 6px #6366f1;
-                }
-                50% { 
-                    transform: scale(1.2) rotate(180deg); 
-                    opacity: 0.8;
-                    box-shadow: 0 0 12px #6366f1;
-                }
-                100% { 
-                    transform: scale(0) rotate(360deg); 
-                    opacity: 0;
-                    box-shadow: 0 0 0 #6366f1;
-                }
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                50% { transform: scale(1) rotate(180deg); opacity: 0.8; }
+                100% { transform: scale(0) rotate(360deg); opacity: 0; }
             }
         `;
         document.head.appendChild(sparkleStyles);
@@ -488,3 +488,4 @@ function logPerformance() {
 
 // Initialize performance logging
 window.addEventListener('load', logPerformance);
+});

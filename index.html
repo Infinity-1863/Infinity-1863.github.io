@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Infinitum Realm - Unleash the Power of Innovation</title>
+	<meta name="description" content="Welcome to Infinitum Realm - Revolutionary applications powered by AI and analytics">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 	<style>
 		:root {
 			--primary-color: #2c3e50;
@@ -468,16 +469,16 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#home">Главная</a>
+						<a class="nav-link hover-glow" href="#home" data-text="Home">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#apps">Приложения</a>
+						<a class="nav-link hover-glow" href="#apps" data-text="Apps">Apps</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#about">О проекте</a>
+						<a class="nav-link hover-glow" href="#about" data-text="About">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#contact">Контакты</a>
+						<a class="nav-link hover-glow" href="#contact" data-text="Contact">Contact</a>
 					</li>
 				</ul>
 			</div>
@@ -489,23 +490,25 @@
 		<div class="container">
 			<div class="hero-content text-center">
 				<div class="hero-title mb-4">
-					<h1 class="display-1 mb-0">
-						<span class="text-gradient">Infinitum</span>
-						<span class="text-white">Realm</span>
+					<h1 class="display-1 mb-0 fade-in-letters">
+						<span class="text-gradient letter-animate">Infinitum</span>
+						<span class="text-white letter-animate">Realm</span>
 					</h1>
-					<p class="lead hero-subtitle">Unleash the Power of Innovation</p>
+					<p class="lead hero-subtitle typewriter">Unleash the Power of Innovation</p>
 				</div>
 				
-				<div class="hero-description mb-5">
-					<p class="fs-5">Добро пожаловать в мир бесконечных возможностей, где технологии встречаются с воображением</p>
+				<div class="hero-description mb-5 fade-in-up" style="animation-delay: 0.8s">
+					<p class="fs-5">Welcome to a world of infinite possibilities, where technology meets imagination</p>
 				</div>
 				
-				<div class="hero-buttons">
-					<a href="#apps" class="btn btn-primary btn-lg me-3 pulse-btn">
-						<i class="fas fa-rocket me-2"></i>Исследовать приложения
+				<div class="hero-buttons fade-in-up" style="animation-delay: 1.2s">
+					<a href="#apps" class="btn btn-primary btn-lg me-3 magnetic-btn">
+						<span class="btn-text">Explore Apps</span>
+						<i class="fas fa-rocket btn-icon"></i>
 					</a>
-					<a href="#about" class="btn btn-outline-light btn-lg glow-btn">
-						<i class="fas fa-info-circle me-2"></i>О проекте
+					<a href="#about" class="btn btn-outline-light btn-lg morphing-btn">
+						<span class="btn-text">Learn More</span>
+						<i class="fas fa-arrow-right btn-icon"></i>
 					</a>
 				</div>
 			</div>
@@ -520,71 +523,71 @@
 	<section id="apps" class="apps-section py-5">
 		<div class="container">
 			<div class="text-center mb-5">
-				<h2 class="section-title">
+				<h2 class="section-title reveal-on-scroll">
 					<span class="text-gradient">Infinitum</span> Applications
 				</h2>
-				<p class="section-subtitle">Революционные решения для современного мира</p>
+				<p class="section-subtitle reveal-on-scroll" style="animation-delay: 0.2s">Revolutionary solutions for the modern world</p>
 			</div>
 			
 			<div class="row g-4">
 				<!-- Infinitum AI App -->
 				<div class="col-lg-6">
-					<div class="app-card h-100" data-aos="fade-up" data-aos-delay="100">
-						<div class="app-icon mb-4">
+					<div class="app-card h-100 tilt-card reveal-on-scroll" style="animation-delay: 0.4s">
+						<div class="app-icon mb-4 pulse-glow">
 							<i class="fas fa-brain"></i>
 						</div>
 						<h3 class="app-title">Infinitum AI</h3>
 						<p class="app-description">
-							Передовое ИИ-приложение, которое использует машинное обучение для решения комплексных задач. 
-							Интеллектуальная обработка данных, предиктивная аналитика и автоматизация процессов.
+							Advanced AI application utilizing machine learning for complex problem solving. 
+							Intelligent data processing, predictive analytics, and process automation.
 						</p>
 						<div class="app-features">
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.1s">
 								<i class="fas fa-check-circle"></i>
-								<span>Машинное обучение</span>
+								<span>Machine Learning</span>
 							</div>
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.2s">
 								<i class="fas fa-check-circle"></i>
-								<span>Нейронные сети</span>
+								<span>Neural Networks</span>
 							</div>
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.3s">
 								<i class="fas fa-check-circle"></i>
-								<span>Обработка естественного языка</span>
+								<span>Natural Language Processing</span>
 							</div>
 						</div>
 						<div class="app-status mt-4">
-							<span class="status-badge developing">В разработке</span>
+							<span class="status-badge developing glow-badge">In Development</span>
 						</div>
 					</div>
 				</div>
 				
 				<!-- Infinitum Tracker App -->
 				<div class="col-lg-6">
-					<div class="app-card h-100" data-aos="fade-up" data-aos-delay="200">
-						<div class="app-icon mb-4">
+					<div class="app-card h-100 tilt-card reveal-on-scroll" style="animation-delay: 0.6s">
+						<div class="app-icon mb-4 pulse-glow">
 							<i class="fas fa-chart-line"></i>
 						</div>
 						<h3 class="app-title">Infinitum Tracker</h3>
 						<p class="app-description">
-							Комплексная система мониторинга пользовательской активности с возможностью создания 
-							реалистичных паттернов поведения. Анализ, визуализация и оптимизация активности.
+							Comprehensive user activity monitoring system with realistic behavior pattern generation. 
+							Analytics, visualization, and activity optimization.
 						</p>
 						<div class="app-features">
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.1s">
 								<i class="fas fa-check-circle"></i>
-								<span>Отслеживание активности</span>
+								<span>Activity Tracking</span>
 							</div>
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.2s">
 								<i class="fas fa-check-circle"></i>
-								<span>Генерация паттернов</span>
+								<span>Pattern Generation</span>
 							</div>
-							<div class="feature-item">
+							<div class="feature-item slide-in-feature" style="animation-delay: 0.3s">
 								<i class="fas fa-check-circle"></i>
-								<span>Аналитика поведения</span>
+								<span>Behavior Analytics</span>
 							</div>
 						</div>
 						<div class="app-status mt-4">
-							<span class="status-badge planning">В планах</span>
+							<span class="status-badge planning glow-badge">In Planning</span>
 						</div>
 					</div>
 				</div>
@@ -596,42 +599,42 @@
 	<section id="about" class="about-section py-5">
 		<div class="container">
 			<div class="row align-items-center">
-				<div class="col-lg-6" data-aos="fade-right">
-					<div class="about-content">
+				<div class="col-lg-6">
+					<div class="about-content reveal-on-scroll">
 						<h2 class="section-title mb-4">
-							О проекте <span class="text-gradient">Infinitum Realm</span>
+							About <span class="text-gradient">Infinitum Realm</span>
 						</h2>
-						<p class="mb-4">
-							Infinitum Realm — это экосистема инновационных приложений, объединяющих передовые технологии 
-							искусственного интеллекта и аналитики данных. Мы создаем инструменты будущего уже сегодня.
+						<p class="mb-4 fade-in-text">
+							Infinitum Realm is an ecosystem of innovative applications that combine cutting-edge 
+							artificial intelligence and data analytics technologies. We create tomorrow's tools today.
 						</p>
 						<div class="stats-grid">
-							<div class="stat-item">
-								<div class="stat-number">2</div>
-								<div class="stat-label">Приложения</div>
+							<div class="stat-item counter-animate" style="animation-delay: 0.2s">
+								<div class="stat-number" data-target="2">0</div>
+								<div class="stat-label">Applications</div>
 							</div>
-							<div class="stat-item">
+							<div class="stat-item counter-animate" style="animation-delay: 0.4s">
 								<div class="stat-number">∞</div>
-								<div class="stat-label">Возможности</div>
+								<div class="stat-label">Possibilities</div>
 							</div>
-							<div class="stat-item">
-								<div class="stat-number">1</div>
-								<div class="stat-label">Видение</div>
+							<div class="stat-item counter-animate" style="animation-delay: 0.6s">
+								<div class="stat-number" data-target="1">0</div>
+								<div class="stat-label">Vision</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6" data-aos="fade-left">
-					<div class="about-visual">
+				<div class="col-lg-6">
+					<div class="about-visual reveal-on-scroll" style="animation-delay: 0.8s">
 						<div class="floating-elements">
-							<div class="floating-element" style="--delay: 0s">
-								<i class="fas fa-cog"></i>
+							<div class="floating-element orbit-animation" style="--delay: 0s; --orbit-radius: 80px">
+								<i class="fas fa-cog rotate-slow"></i>
 							</div>
-							<div class="floating-element" style="--delay: 1s">
-								<i class="fas fa-lightbulb"></i>
+							<div class="floating-element orbit-animation" style="--delay: 1s; --orbit-radius: 120px">
+								<i class="fas fa-lightbulb pulse-light"></i>
 							</div>
-							<div class="floating-element" style="--delay: 2s">
-								<i class="fas fa-rocket"></i>
+							<div class="floating-element orbit-animation" style="--delay: 2s; --orbit-radius: 100px">
+								<i class="fas fa-rocket shake-subtle"></i>
 							</div>
 						</div>
 					</div>
@@ -644,32 +647,32 @@
 	<section id="contact" class="contact-section py-5">
 		<div class="container">
 			<div class="text-center mb-5">
-				<h2 class="section-title">Связаться с нами</h2>
-				<p class="section-subtitle">Готовы начать сотрудничество?</p>
+				<h2 class="section-title reveal-on-scroll">Get in Touch</h2>
+				<p class="section-subtitle reveal-on-scroll" style="animation-delay: 0.2s">Ready to start collaboration?</p>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
-					<div class="contact-card">
+					<div class="contact-card reveal-on-scroll" style="animation-delay: 0.4s">
 						<div class="row g-0">
 							<div class="col-md-6">
 								<div class="contact-info h-100 d-flex flex-column justify-content-center">
-									<h4 class="mb-4">Присоединяйтесь к Infinitum</h4>
-									<div class="contact-item mb-3">
+									<h4 class="mb-4 slide-in-left">Join Infinitum</h4>
+									<div class="contact-item mb-3 slide-in-left" style="animation-delay: 0.1s">
 										<i class="fas fa-envelope me-3"></i>
 										<span>info@infinitum-realm.dev</span>
 									</div>
-									<div class="contact-item mb-3">
+									<div class="contact-item mb-3 slide-in-left" style="animation-delay: 0.2s">
 										<i class="fab fa-github me-3"></i>
 										<span>github.com/Infinity-1863</span>
 									</div>
-									<div class="social-links mt-4">
-										<a href="#" class="social-link me-3">
+									<div class="social-links mt-4 slide-in-left" style="animation-delay: 0.3s">
+										<a href="#" class="social-link me-3 bounce-hover">
 											<i class="fab fa-twitter"></i>
 										</a>
-										<a href="#" class="social-link me-3">
+										<a href="#" class="social-link me-3 bounce-hover">
 											<i class="fab fa-linkedin"></i>
 										</a>
-										<a href="#" class="social-link">
+										<a href="#" class="social-link bounce-hover">
 											<i class="fab fa-discord"></i>
 										</a>
 									</div>
@@ -679,16 +682,17 @@
 								<div class="contact-form-container">
 									<form class="contact-form">
 										<div class="mb-3">
-											<input type="text" class="form-control" placeholder="Ваше имя" required>
+											<input type="text" class="form-control floating-input" placeholder="Your Name" required>
 										</div>
 										<div class="mb-3">
-											<input type="email" class="form-control" placeholder="Email" required>
+											<input type="email" class="form-control floating-input" placeholder="Email" required>
 										</div>
 										<div class="mb-3">
-											<textarea class="form-control" rows="4" placeholder="Сообщение" required></textarea>
+											<textarea class="form-control floating-input" rows="4" placeholder="Message" required></textarea>
 										</div>
-										<button type="submit" class="btn btn-primary w-100">
-											<i class="fas fa-paper-plane me-2"></i>Отправить
+										<button type="submit" class="btn btn-primary w-100 morphing-btn">
+											<span class="btn-text">Send Message</span>
+											<i class="fas fa-paper-plane btn-icon"></i>
 										</button>
 									</form>
 								</div>
@@ -706,12 +710,12 @@
 			<div class="row align-items-center">
 				<div class="col-md-6">
 					<div class="footer-brand">
-						<i class="fas fa-infinity me-2"></i>
+						<i class="fas fa-infinity me-2 rotate-slow"></i>
 						<span>Infinitum Realm</span>
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end">
-					<p class="mb-0">&copy; 2025 Infinitum Realm. Все права защищены.</p>
+					<p class="mb-0 fade-in-text">&copy; 2025 Infinitum Realm. All rights reserved.</p>
 				</div>
 			</div>
 		</div>
