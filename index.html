@@ -4,9 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>RPG Саморазвитие</title>
+	<title>Infinitum Realm - Unleash the Power of Innovation</title>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 	<style>
 		:root {
 			--primary-color: #2c3e50;
@@ -450,505 +451,277 @@
 </head>
 
 <body>
+	<!-- Particles Background -->
+	<canvas id="particles-canvas"></canvas>
+	
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 		<div class="container">
-			<a id="brand" class="navbar-brand" href="#"><i class="fas fa-dragon"></i> RPG Саморазвитие</a>
+			<a class="navbar-brand d-flex align-items-center" href="#home">
+				<div class="logo-container">
+					<i class="fas fa-infinity logo-icon"></i>
+				</div>
+				<span class="brand-text">Infinitum Realm</span>
+			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
-						<a id="nav-stats" class="nav-link" href="#stats">Статистики</a>
+						<a class="nav-link" href="#home">Главная</a>
 					</li>
 					<li class="nav-item">
-						<a id="nav-games" class="nav-link" href="#games">Игры</a>
+						<a class="nav-link" href="#apps">Приложения</a>
 					</li>
 					<li class="nav-item">
-						<select id="language-select" class="form-select form-select-sm ms-2">
-							<option value="ru">RU</option>
-							<option value="en">EN</option>
-						</select>
+						<a class="nav-link" href="#about">О проекте</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">Контакты</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<div class="container" style="margin-top: 80px;">
-		<div class="row">
-			<div class="col-12">
-				<h1 id="tagline" class="text-center mb-5">
-					<i class="fas fa-crown text-warning"></i>
-					Развивайте свои навыки в RPG стиле
-				</h1>
+	<!-- Hero Section -->
+	<section id="home" class="hero-section">
+		<div class="container">
+			<div class="hero-content text-center">
+				<div class="hero-title mb-4">
+					<h1 class="display-1 mb-0">
+						<span class="text-gradient">Infinitum</span>
+						<span class="text-white">Realm</span>
+					</h1>
+					<p class="lead hero-subtitle">Unleash the Power of Innovation</p>
+				</div>
+				
+				<div class="hero-description mb-5">
+					<p class="fs-5">Добро пожаловать в мир бесконечных возможностей, где технологии встречаются с воображением</p>
+				</div>
+				
+				<div class="hero-buttons">
+					<a href="#apps" class="btn btn-primary btn-lg me-3 pulse-btn">
+						<i class="fas fa-rocket me-2"></i>Исследовать приложения
+					</a>
+					<a href="#about" class="btn btn-outline-light btn-lg glow-btn">
+						<i class="fas fa-info-circle me-2"></i>О проекте
+					</a>
+				</div>
 			</div>
 		</div>
+		
+		<div class="scroll-indicator">
+			<div class="scroll-arrow"></div>
+		</div>
+	</section>
 
-		<!-- Статистики -->
-		<div id="stats" class="row mb-5">
-			<div class="col-12 text-center mb-3">
-				<h2 id="stats-heading" class="mb-3">Ваши характеристики</h2>
-				<div>Уровень: <span id="level-value">0</span> | XP: <span id="xp-value">0/100</span></div>
-				<button id="reset-btn" class="btn btn-danger btn-sm mt-2" onclick="resetStats()">Сбросить статы</button>
+	<!-- Applications Section -->
+	<section id="apps" class="apps-section py-5">
+		<div class="container">
+			<div class="text-center mb-5">
+				<h2 class="section-title">
+					<span class="text-gradient">Infinitum</span> Applications
+				</h2>
+				<p class="section-subtitle">Революционные решения для современного мира</p>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="stats-card text-center">
-					<i class="fas fa-eye stat-icon text-primary"></i>
-					<div class="stat-value" id="attention-stat">0</div>
-					<div id="attention-label" class="stat-label">Внимательность</div>
-					<div class="progress mt-2">
-						<div class="progress-bar" id="attention-progress" style="width: 0%"></div>
+			
+			<div class="row g-4">
+				<!-- Infinitum AI App -->
+				<div class="col-lg-6">
+					<div class="app-card h-100" data-aos="fade-up" data-aos-delay="100">
+						<div class="app-icon mb-4">
+							<i class="fas fa-brain"></i>
+						</div>
+						<h3 class="app-title">Infinitum AI</h3>
+						<p class="app-description">
+							Передовое ИИ-приложение, которое использует машинное обучение для решения комплексных задач. 
+							Интеллектуальная обработка данных, предиктивная аналитика и автоматизация процессов.
+						</p>
+						<div class="app-features">
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Машинное обучение</span>
+							</div>
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Нейронные сети</span>
+							</div>
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Обработка естественного языка</span>
+							</div>
+						</div>
+						<div class="app-status mt-4">
+							<span class="status-badge developing">В разработке</span>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Infinitum Tracker App -->
+				<div class="col-lg-6">
+					<div class="app-card h-100" data-aos="fade-up" data-aos-delay="200">
+						<div class="app-icon mb-4">
+							<i class="fas fa-chart-line"></i>
+						</div>
+						<h3 class="app-title">Infinitum Tracker</h3>
+						<p class="app-description">
+							Комплексная система мониторинга пользовательской активности с возможностью создания 
+							реалистичных паттернов поведения. Анализ, визуализация и оптимизация активности.
+						</p>
+						<div class="app-features">
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Отслеживание активности</span>
+							</div>
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Генерация паттернов</span>
+							</div>
+							<div class="feature-item">
+								<i class="fas fa-check-circle"></i>
+								<span>Аналитика поведения</span>
+							</div>
+						</div>
+						<div class="app-status mt-4">
+							<span class="status-badge planning">В планах</span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="stats-card text-center">
-					<i class="fas fa-brain stat-icon text-success"></i>
-					<div class="stat-value" id="memory-stat">0</div>
-					<div id="memory-label" class="stat-label">Память</div>
-					<div class="progress mt-2">
-						<div class="progress-bar" id="memory-progress" style="width: 0%"></div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section id="about" class="about-section py-5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6" data-aos="fade-right">
+					<div class="about-content">
+						<h2 class="section-title mb-4">
+							О проекте <span class="text-gradient">Infinitum Realm</span>
+						</h2>
+						<p class="mb-4">
+							Infinitum Realm — это экосистема инновационных приложений, объединяющих передовые технологии 
+							искусственного интеллекта и аналитики данных. Мы создаем инструменты будущего уже сегодня.
+						</p>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<div class="stat-number">2</div>
+								<div class="stat-label">Приложения</div>
+							</div>
+							<div class="stat-item">
+								<div class="stat-number">∞</div>
+								<div class="stat-label">Возможности</div>
+							</div>
+							<div class="stat-item">
+								<div class="stat-number">1</div>
+								<div class="stat-label">Видение</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6" data-aos="fade-left">
+					<div class="about-visual">
+						<div class="floating-elements">
+							<div class="floating-element" style="--delay: 0s">
+								<i class="fas fa-cog"></i>
+							</div>
+							<div class="floating-element" style="--delay: 1s">
+								<i class="fas fa-lightbulb"></i>
+							</div>
+							<div class="floating-element" style="--delay: 2s">
+								<i class="fas fa-rocket"></i>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="stats-card text-center">
-					<i class="fas fa-bolt stat-icon text-warning"></i>
-					<div class="stat-value" id="reaction-stat">0</div>
-					<div id="reaction-label" class="stat-label">Реакция</div>
-					<div class="progress mt-2">
-						<div class="progress-bar" id="reaction-progress" style="width: 0%"></div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact" class="contact-section py-5">
+		<div class="container">
+			<div class="text-center mb-5">
+				<h2 class="section-title">Связаться с нами</h2>
+				<p class="section-subtitle">Готовы начать сотрудничество?</p>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="contact-card">
+						<div class="row g-0">
+							<div class="col-md-6">
+								<div class="contact-info h-100 d-flex flex-column justify-content-center">
+									<h4 class="mb-4">Присоединяйтесь к Infinitum</h4>
+									<div class="contact-item mb-3">
+										<i class="fas fa-envelope me-3"></i>
+										<span>info@infinitum-realm.dev</span>
+									</div>
+									<div class="contact-item mb-3">
+										<i class="fab fa-github me-3"></i>
+										<span>github.com/Infinity-1863</span>
+									</div>
+									<div class="social-links mt-4">
+										<a href="#" class="social-link me-3">
+											<i class="fab fa-twitter"></i>
+										</a>
+										<a href="#" class="social-link me-3">
+											<i class="fab fa-linkedin"></i>
+										</a>
+										<a href="#" class="social-link">
+											<i class="fab fa-discord"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="contact-form-container">
+									<form class="contact-form">
+										<div class="mb-3">
+											<input type="text" class="form-control" placeholder="Ваше имя" required>
+										</div>
+										<div class="mb-3">
+											<input type="email" class="form-control" placeholder="Email" required>
+										</div>
+										<div class="mb-3">
+											<textarea class="form-control" rows="4" placeholder="Сообщение" required></textarea>
+										</div>
+										<button type="submit" class="btn btn-primary w-100">
+											<i class="fas fa-paper-plane me-2"></i>Отправить
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="stats-card text-center">
-					<i class="fas fa-puzzle-piece stat-icon text-danger"></i>
-					<div class="stat-value" id="logic-stat">0</div>
-					<div id="logic-label" class="stat-label">Логика</div>
-					<div class="progress mt-2">
-						<div class="progress-bar" id="logic-progress" style="width: 0%"></div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer py-4">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="footer-brand">
+						<i class="fas fa-infinity me-2"></i>
+						<span>Infinitum Realm</span>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<!-- Игры -->
-		<div id="games" class="row">
-			<div class="col-12">
-				<h2 id="games-heading" class="text-center mb-4">Тренировочные квесты</h2>
-			</div>
-
-			<!-- Игры на внимательность -->
-			<div class="col-12 mb-4">
-				<h3 class="text-center text-primary"><i class="fas fa-eye"></i> Игры на внимательность</h3>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-search text-primary"></i> Найди отличия</h4>
-					<p>Найдите все отличия между картинками</p>
-					<button class="btn btn-game" onclick="openGame('find-differences')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-palette text-primary"></i> Цветовая память</h4>
-					<p>Запомните цвета и найдите нужные</p>
-					<button class="btn btn-game" onclick="openGame('color-memory')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-th text-primary"></i> Числовая клетка</h4>
-					<p>Найдите числа по заданному условию</p>
-					<button class="btn btn-game" onclick="openGame('number-cell')">Играть</button>
-				</div>
-			</div>
-
-			<!-- Игры на память -->
-			<div class="col-12 mb-4">
-				<h3 class="text-center text-success"><i class="fas fa-brain"></i> Игры на память</h3>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-layer-group text-success"></i> Парные карты</h4>
-					<p>Найдите все пары одинаковых карт</p>
-					<button class="btn btn-game" onclick="openGame('memory-cards')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-list text-success"></i> Последовательность</h4>
-					<p>Повторите показанную последовательность</p>
-					<button class="btn btn-game" onclick="openGame('sequence-memory')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-font text-success"></i> Запомни слова</h4>
-					<p>Запомните и выберите показанные слова</p>
-					<button class="btn btn-game" onclick="openGame('word-memory')">Играть</button>
-				</div>
-			</div>
-
-			<!-- Игры на реакцию -->
-			<div class="col-12 mb-4">
-				<h3 class="text-center text-warning"><i class="fas fa-bolt"></i> Игры на реакцию</h3>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-mouse-pointer text-warning"></i> Быстрый клик</h4>
-					<p>Нажмите как можно быстрее на сигнал</p>
-					<button class="btn btn-game" onclick="openGame('reaction-test')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-circle text-warning"></i> Цветная реакция</h4>
-					<p>Нажмите только на определенный цвет</p>
-					<button class="btn btn-game" onclick="openGame('color-reaction')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-stopwatch text-warning"></i> Множественные цели</h4>
-					<p>Нажмите на все цели как можно быстрее</p>
-					<button class="btn btn-game" onclick="openGame('multi-target')">Играть</button>
-				</div>
-			</div>
-
-			<!-- Игры на логику -->
-			<div class="col-12 mb-4">
-				<h3 class="text-center text-danger"><i class="fas fa-puzzle-piece"></i> Игры на логику</h3>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-calculator text-danger"></i> Быстрая математика</h4>
-					<p>Решайте математические примеры на скорость</p>
-					<button class="btn btn-game" onclick="openGame('math-speed')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-sort-numeric-up text-danger"></i> Числовые последовательности</h4>
-					<p>Найдите закономерность в числах</p>
-					<button class="btn btn-game" onclick="openGame('number-sequence')">Играть</button>
-				</div>
-			</div>
-
-			<div class="col-lg-4 col-md-6">
-				<div class="game-card">
-					<h4><i class="fas fa-shapes text-danger"></i> Логические паттерны</h4>
-					<p>Найдите закономерность в фигурах</p>
-					<button class="btn btn-game" onclick="openGame('pattern-logic')">Играть</button>
+				<div class="col-md-6 text-md-end">
+					<p class="mb-0">&copy; 2025 Infinitum Realm. Все права защищены.</p>
 				</div>
 			</div>
 		</div>
-	</div>
+	</footer>
 
-	<!-- Универсальная игровая область -->
-	<div class="overlay-mask hidden" id="overlay-mask"></div>
-	<div class="game-area hidden overlay" id="game-overlay">
-		<div class="text-center">
-			<h3 id="game-title">Игра</h3>
-			<div id="game-content"></div>
-			<div class="mt-3">
-				<button class="game-button" onclick="closeGame()">Закрыть</button>
-			</div>
-		</div>
-	</div>
 
-	<!-- Модальное окно для повышения уровня -->
-	<div id="level-modal" class="modal hidden">
-		<div class="modal-content">
-			<div id="level-modal-text"></div>
-		</div>
-	</div>
+
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-	<script>
-
-		/* === Глобальные константы и начальное состояние === */
-		const STORAGE_KEY = 'rpgSelfDevelopmentSave';
-		const DEFAULT_STATE = {
-			attention: 0,
-			memory: 0,
-			reaction: 0,
-			logic: 0,
-			xp: 0,
-			level: 0,
-			nextLevelXp: 100,
-			difficultyMultiplier: 1
-		};
-
-		/* === Локализация === */
-		const translations = { /* … как в вашем фрагменте … */ };
-		let lang = 'ru';
-
-		/* === Текущее состояние игры === */
-		let state = loadGame();
-		let currentGame = null; // ключ открытой игры
-		let gameData = {}; // внутренняя «сессия» игры
-
-		/* === Инициализация интерфейса === */
-		applyTranslations();
-		updateDifficulty();
-		updateUI();
-
-		/* === События DOM === */
-		document.getElementById('language-select')
-			.addEventListener('change', e => {
-				lang = e.target.value;
-				applyTranslations();
-			});
-
-		/* === Сохранение / загрузка === */
-		function saveGame() {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-		}
-		function loadGame() {
-			try {
-				const raw = localStorage.getItem(STORAGE_KEY);
-				return raw ? { ...DEFAULT_STATE, ...JSON.parse(raw) } : { ...DEFAULT_STATE };
-			} catch {
-				return { ...DEFAULT_STATE };
-			}
-		}
-
-		/* === Логика прокачки === */
-		function addXp(amount) {
-			state.xp += amount;
-			while (state.xp >= state.nextLevelXp) {
-				state.xp -= state.nextLevelXp;
-				state.level++;
-				state.nextLevelXp = Math.floor(state.nextLevelXp * 1.25);
-				showLevelModal();
-				updateDifficulty();
-			}
-			saveGame();
-			updateUI();
-		}
-		function updateDifficulty() {
-			state.difficultyMultiplier = 1 + state.level * 0.15;
-		}
-
-		/* === UI - helpers === */
-		function qs(id) { return document.getElementById(id); }
-		function updateUI() {
-			qs('level-value').textContent = state.level;
-			qs('xp-value').textContent = `${state.xp}/${state.nextLevelXp}`;
-
-			// статты + прогресс-бары
-			const stats = ['attention', 'memory', 'reaction', 'logic'];
-			stats.forEach(key => {
-				qs(`${key}-stat`).textContent = state[key];
-				qs(`${key}-progress`).style.width =
-					`${Math.min(100, state[key])}%`;
-			});
-		}
-		function applyTranslations() {
-			const t = translations[lang];
-			qs('brand').textContent = t.brand;
-			qs('nav-stats').textContent = t.nav_stats;
-			qs('nav-games').textContent = t.nav_games;
-			qs('tagline').innerHTML = `<i class="fas fa-crown text-warning"></i> ${t.tagline}`;
-			qs('stats-heading').textContent = t.stats_heading;
-			qs('games-heading').textContent = t.games_heading;
-			qs('attention-label').textContent = t.stat_attention;
-			qs('memory-label').textContent = t.stat_memory;
-			qs('reaction-label').textContent = t.stat_reaction;
-			qs('logic-label').textContent = t.stat_logic;
-			qs('reset-btn').textContent = t.reset_button;
-		}
-
-		/* === Сброс характеристик === */
-		function resetStats() {
-			if (!confirm(translations[lang].reset_confirm)) return;
-			state = { ...DEFAULT_STATE };
-			saveGame(); updateDifficulty(); updateUI();
-		}
-
-		/* === Модалка «уровень повышен» === */
-		function showLevelModal() {
-			const box = qs('level-modal');
-			const text = qs('level-modal-text');
-			text.textContent = `${translations[lang].level_up} (${state.level})`;
-			box.classList.remove('hidden');
-			setTimeout(() => box.classList.add('hidden'), 2500);
-		}
-
-		/* === Открытие / закрытие игр === */
-		function openGame(key) {
-			currentGame = key;
-			qs('overlay-mask').classList.remove('hidden');
-			const overlay = qs('game-overlay');
-			overlay.classList.remove('hidden');
-			qs('game-title').textContent =
-				document.querySelector(`[onclick="openGame('${key}')"]`)
-					.parentElement.querySelector('h4').innerText;
-
-			// запускаем конкретную мини-игру
-			if (miniGames[key]) {
-				gameData = {}; // очистить сессию
-				miniGames[key].start();
-			} else {
-				overlay.querySelector('#game-content').innerHTML =
-					'<p class="text-center">Coming soon…</p>';
-			}
-		}
-		function closeGame() {
-			qs('overlay-mask').classList.add('hidden');
-			qs('game-overlay').classList.add('hidden');
-			qs('game-content').innerHTML = ''; // очистка
-			currentGame = null;
-		}
-
-		/* === Мини-игры === */
-		const miniGames = {
-
-			/* ---------- 1. Реакция: «Click when signal» ---------- */
-			'reaction-test': {
-				start() {
-					const t = translations[lang];
-					const area = qs('game-content');
-					area.innerHTML =
-						`<p>${t.click_when_ready}</p>
-	<button class="game-button" id="startBtn">${t.start_game}</button>
-	<p class="timer" id="reactTimer">0.000 s</p>`;
-					qs('startBtn').addEventListener('click', this.waitForSignal);
-				},
-				waitForSignal() {
-					this.remove(); // убрать кнопку
-					const t = translations[lang];
-					qs('game-content').insertAdjacentHTML('afterbegin',
-						`<p id="signal">${t.wait_for_signal}</p>`);
-					const delay = 1000 + Math.random() * 2500 / state.difficultyMultiplier;
-					setTimeout(() => {
-						const stamp = performance.now();
-						const btn =
-							document.createElement('button');
-						btn.className = 'game-button';
-						btn.textContent = t.click_now;
-						btn.onclick = () => {
-							const ms = performance.now() - stamp;
-							qs('reactTimer').textContent = (ms / 1000).toFixed(3) + ' s';
-							addXp(Math.max(5, Math.floor(3000 / ms)));
-							state.reaction += 1;
-							saveGame(); updateUI();
-							setTimeout(closeGame, 1200);
-						};
-						const sig = qs('signal');
-						sig.replaceWith(btn);
-					}, delay);
-				}
-			},
-
-			/* ---------- 2. Парные карточки памяти ---------- */
-			'memory-cards': {
-				start() {
-					const size = 6; // 3 × 4
-					const icons = ['🍎', '🍋', '🍇', '🥑', '🌶️', '🥕', '🍉', '🍌'];
-					const picks = shuffle([...icons, ...icons]) // пары
-						.slice(0, size);
-					gameData.flips = 0;
-					const grid = document.createElement('div');
-					grid.className = 'memory-grid';
-					picks.forEach(icon => {
-						const c = document.createElement('div');
-						c.className = 'memory-card';
-						c.dataset.icon = icon;
-						c.onclick = this.flip;
-						grid.appendChild(c);
-					});
-					qs('game-content').replaceChildren(grid);
-				},
-				flip() {
-					if (this.classList.contains('flipped') ||
-						this.classList.contains('matched')) return;
-					this.textContent = this.dataset.icon;
-					this.classList.add('flipped');
-					if (!gameData.first) { // первый клик
-						gameData.first = this;
-					} else {
-						// второй клик
-						const second = this;
-						if (second.dataset.icon === gameData.first.dataset.icon) {
-							second.classList.add('matched');
-							gameData.first.classList.add('matched');
-							state.memory += 2;
-							addXp(8);
-							if (![...document.querySelectorAll('.memory-card')]
-								.some(c => !c.classList.contains('matched')))
-								setTimeout(closeGame, 700);
-						} else {
-							setTimeout(() => {
-								second.textContent = '';
-								gameData.first.textContent = '';
-								second.classList.remove('flipped');
-								gameData.first.classList.remove('flipped');
-								gameData.first = null;
-							}, 600 / state.difficultyMultiplier);
-						}
-						gameData.flips++;
-						gameData.first = null;
-					}
-				}
-			},
-
-			/* ---------- 3. Быстрая математика ---------- */
-			'math-speed': {
-				start() { this.nextRound(); },
-				nextRound() {
-					const a = rand(1, 10 * state.difficultyMultiplier | 0);
-					const b = rand(1, 10 * state.difficultyMultiplier | 0);
-					gameData.answer = a + b;
-					const t = translations[lang];
-					qs('game-content').innerHTML =
-						`<p class="mb-3">${t.solve_example}: <strong>${a} + ${b}</strong></p>
-	<input type="number" id="ans" class="input-field" style="max-width:120px">
-	<button class="game-button mt-2">${t.next_round}</button>
-	<p id="feedback"></p>`;
-					const btn = qs('game-content').querySelector('button');
-					btn.onclick = () => {
-						const val = Number(qs('ans').value);
-						const fb = qs('feedback');
-						if (val === gameData.answer) {
-							fb.textContent = translations[lang].correct;
-							state.logic += 1; addXp(5);
-							setTimeout(() => this.nextRound(), 800);
-						} else {
-							fb.textContent = translations[lang].incorrect;
-							setTimeout(closeGame, 1200);
-						}
-						updateUI(); saveGame();
-					};
-					qs('ans').focus();
-				}
-			}
-		};
-
-		/* === Вспомогательные утилиты === */
-		function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-		function shuffle(arr) {
-			for (let i = arr.length - 1; i > 0; i--) {
-				const j = Math.floor(Math.random() * (i + 1));
-				[arr[i], arr[j]] = [arr[j], arr[i]];
-			}
-			return arr;
-		}
-	</script>
+	<script src="script.js"></script>
 </body>
 
 </html>
