@@ -1,0 +1,35 @@
+# Canonical Evidence Summary
+
+fixture_families: 55
+external_fixtures: 5
+adversarial_negative_fixtures: 3
+oss_localization_only_cases: 8
+real_upstream_clone_tasks: 5
+real_upstream_clone_verified_repairs: 2
+real_upstream_clone_safe_blocks_or_localizations: 3
+fastapi_planner_bridge_cases: 1
+teacher_execution_allowed: false
+patch_shaped_teacher_outputs_rejected: true
+teacher_used_only_after_failure: true
+false_learning_rate: 0.0
+false_success_count: 0
+pre_fix_failures: 55
+post_fix_passes: 55
+hidden_contract_checks_passed: 55
+positive_learning_delta_families: 55
+transfer_t1_success_rate: 1.0
+transfer_t2_success_rate: 1.0
+transfer_t3_success_rate: 1.0
+adversarial_bad_repairs_rejected: 3
+real_upstream_clone_failed_status_count: 0
+real_upstream_clone_blocked_status_count: 3
+repeated_same_patch_failure_loops: 0
+oss_localization_only_top3_hit_rate: 1.0
+oss_localization_only_patch_scope_match_rate: 1.0
+oss_localization_only_runtime_hint_match_rate: 1.0
+oss_localization_only_verifier_match_rate: 1.0
+fastapi_planner_bridge_verified_branch_count: 1
+fastapi_planner_bridge_branch_count: 2
+fastapi_planner_bridge_selected_branch_verified: true
+fastapi_planner_bridge_repair_verified: true
+fastapi_planner_bridge_near_transfer_verified_without_teacher: true

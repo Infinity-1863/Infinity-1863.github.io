@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constrained Self-Learning Agents</title>
+  <meta name="description" content="An empirical benchmark for diagnostic supervision, objective verification, and agentic oversight.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="page-glow"></div>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark"></span>
+      <span class="brand-text">AL Research Prototype</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#evidence">Evidence</a>
+      <a href="#protocol">Protocol</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#links">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner reveal">
+        <p class="eyebrow">Research prototype</p>
+        <h1>Constrained Self-Learning Agents</h1>
+        <p class="hero-subtitle">An empirical benchmark for diagnostic supervision, objective verification, and agentic oversight.</p>
+        <p class="hero-copy">
+          AL is an early research prototype for studying constrained self-learning agents under diagnostic supervision and objective verification.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#evidence">Evidence</a>
+          <a class="button" href="#protocol">Protocol</a>
+          <a class="button" href="#limitations">Limitations</a>
+          <a class="button" href="#links">Contact</a>
+        </div>
+      </div>
+      <aside class="hero-panel reveal">
+        <p class="panel-label">Current framing</p>
+        <ul class="panel-list">
+          <li>Measured research prototype</li>
+          <li>Clear protocol</li>
+          <li>Clear evidence</li>
+          <li>Clear limitations</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">What this is</p>
+        <h2>Bounded self-learning under supervision</h2>
+      </div>
+      <p class="lead">
+        AL is an early research prototype for studying whether bounded agents can improve from diagnosis-only supervision under objective verification.
+      </p>
+      <p>
+        The system follows a strict protocol: the agent acts first, an objective verifier determines success or failure, and the teacher may only diagnose after failure. Teacher execution is not allowed, and patch-shaped teacher outputs are rejected.
+      </p>
+    </section>
+
+    <section id="protocol" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Core protocol</p>
+        <h2>Diagnosis-only supervision</h2>
+      </div>
+      <div class="protocol-flow" aria-label="Core protocol flow">
+        <div class="protocol-step">Agent acts first</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Verifier checks result</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Teacher diagnoses only after failure</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Patch-shaped teacher outputs are rejected</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Agent derives repair or procedure</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Replay or near-transfer gate</div>
+        <div class="protocol-arrow">→</div>
+        <div class="protocol-step">Procedure memory promoted</div>
+      </div>
+    </section>
+
+    <section id="evidence" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Evidence snapshot</p>
+        <h2>Current measured evidence</h2>
+      </div>
+      <div class="metrics-grid">
+        <article class="metric-card">
+          <span class="metric-value">55</span>
+          <span class="metric-label">Fixture families</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">5</span>
+          <span class="metric-label">External fixtures</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">3</span>
+          <span class="metric-label">Adversarial negative fixtures</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">8</span>
+          <span class="metric-label">OSS localization cases</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">5</span>
+          <span class="metric-label">Real upstream clone tasks</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">2</span>
+          <span class="metric-label">Verified real-repo repairs</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">3</span>
+          <span class="metric-label">Safe blocks or localizations</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0</span>
+          <span class="metric-label">False learning</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0</span>
+          <span class="metric-label">False success</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">1</span>
+          <span class="metric-label">FastAPI planner bridge</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section split-section reveal">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">Real-repo evidence</p>
+          <h2>Narrow repair, honest blocking</h2>
+        </div>
+        <p class="lead">
+          On 5 real upstream clone tasks, AL repaired 2 narrow bugs and safely blocked or localized 3 harder cases.
+        </p>
+        <p>
+          There were no destructive failed patch loops in the reported real-repo evaluation. The current signal is not broad coding competence; it is bounded repair plus disciplined blocking.
+        </p>
+      </div>
+      <div class="side-card">
+        <p class="side-card-label">Main text</p>
+        <p>
+          Current evidence includes 55 bounded fixture families, 8 OSS localization-only cases, 5 real upstream clone tasks, 0 false learning, 0 false success, and one FastAPI planner bridge case where AL moved from localization to verifier-passing repair and near-transfer without a live teacher.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Safety constraints</p>
+        <h2>What the system is not allowed to do</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>Teacher cannot execute tasks.</li>
+        <li>Patch-shaped teacher outputs are rejected.</li>
+        <li>Objective verifier is the source of truth.</li>
+        <li>Procedures are promoted only after replay or near-transfer success.</li>
+        <li>Blocked states become structured localization evidence.</li>
+      </ul>
+    </section>
+
+    <section id="limitations" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Limitations</p>
+        <h2>Current boundaries of the evidence</h2>
+      </div>
+      <div class="limitations-box">
+        <ul class="constraint-list">
+          <li>Current results are bounded and partly fixture-driven.</li>
+          <li>Real upstream repair success is 2/5.</li>
+          <li>Localization is stronger than repair planning.</li>
+          <li>More third-party repos and physical T2/T3 transfer tasks are needed.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Roadmap</p>
+        <h2>Next evaluation steps</h2>
+      </div>
+      <div class="roadmap-grid">
+        <article class="roadmap-item">Physical T2/T3 transfer repos</article>
+        <article class="roadmap-item">More third-party mini-repo tasks</article>
+        <article class="roadmap-item">OpenAI Evals-compatible export</article>
+        <article class="roadmap-item">Judge/verifier disagreement analysis</article>
+        <article class="roadmap-item">More adversarial false-learning cases</article>
+        <article class="roadmap-item">More real-repo bridge tasks</article>
+      </div>
+    </section>
+
+    <section id="links" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Links</p>
+        <h2>Local evidence files</h2>
+      </div>
+      <div class="links-grid">
+        <a class="link-card" href="./evidence/CANONICAL_EVIDENCE_SUMMARY.md">
+          <span class="link-title">Canonical evidence summary</span>
+          <span class="link-meta">Current numbers only</span>
+        </a>
+        <a class="link-card" href="./evidence/no_teacher_execution_protocol.md">
+          <span class="link-title">No-teacher-execution protocol</span>
+          <span class="link-meta">Protocol and constraints</span>
+        </a>
+        <a class="link-card" href="./evidence/real_repo_eval_5.md">
+          <span class="link-title">Real repo eval</span>
+          <span class="link-meta">5-task upstream clone check</span>
+        </a>
+        <a class="link-card" href="./evidence/oss_localization_8.md">
+          <span class="link-title">OSS localization evidence</span>
+          <span class="link-meta">8 localization-only cases</span>
+        </a>
+        <a class="link-card" href="./evidence/fastapi_planner_bridge.md">
+          <span class="link-title">FastAPI planner bridge</span>
+          <span class="link-meta">One bounded bridge case</span>
+        </a>
+        <a class="link-card" href="./evidence/limitations.md">
+          <span class="link-title">Limitations</span>
+          <span class="link-meta">Current limits and open gaps</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Measured research prototype. No product claims.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
