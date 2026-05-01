@@ -254,7 +254,7 @@ p,
 }
 
 .metrics-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .metric-card {
@@ -365,8 +365,8 @@ p,
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: none;
   transition: opacity 420ms ease, transform 420ms ease;
 }
 

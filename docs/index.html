@@ -21,7 +21,7 @@
       <a href="#evidence">Evidence</a>
       <a href="#protocol">Protocol</a>
       <a href="#limitations">Limitations</a>
-      <a href="#links">Contact</a>
+      <a href="#links">Artifacts</a>
     </nav>
   </header>
 
@@ -33,6 +33,9 @@
         <p class="hero-subtitle">An empirical benchmark for diagnostic supervision, objective verification, and agentic oversight.</p>
         <p class="hero-copy">
           AL is an early research prototype for studying constrained self-learning agents under diagnostic supervision and objective verification.
+        </p>
+        <p class="hero-copy">
+          This is not a product demo. The current goal is to measure supervision, verification, blocked states, and transfer.
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#evidence">Evidence</a>
@@ -95,15 +98,15 @@
       <div class="metrics-grid">
         <article class="metric-card">
           <span class="metric-value">55</span>
-          <span class="metric-label">Fixture families</span>
+          <span class="metric-label">Bounded fixture families</span>
         </article>
         <article class="metric-card">
           <span class="metric-value">5</span>
           <span class="metric-label">External fixtures</span>
         </article>
         <article class="metric-card">
-          <span class="metric-value">3</span>
-          <span class="metric-label">Adversarial negative fixtures</span>
+          <span class="metric-value">3/3</span>
+          <span class="metric-label">Adversarial bad repairs rejected</span>
         </article>
         <article class="metric-card">
           <span class="metric-value">8</span>
@@ -131,7 +134,7 @@
         </article>
         <article class="metric-card">
           <span class="metric-value">1</span>
-          <span class="metric-label">FastAPI planner bridge</span>
+          <span class="metric-label">FastAPI bridge case</span>
         </article>
       </div>
     </section>
@@ -144,6 +147,9 @@
         </div>
         <p class="lead">
           On 5 real upstream clone tasks, AL repaired 2 narrow bugs and safely blocked or localized 3 harder cases.
+        </p>
+        <p>
+          All 5 tasks were verified red before AL ran.
         </p>
         <p>
           There were no destructive failed patch loops in the reported real-repo evaluation. The current signal is not broad coding competence; it is bounded repair plus disciplined blocking.
@@ -203,8 +209,8 @@
 
     <section id="links" class="content-section reveal">
       <div class="section-head">
-        <p class="eyebrow">Links</p>
-        <h2>Local evidence files</h2>
+        <p class="eyebrow">Artifacts</p>
+        <h2>Evidence artifacts</h2>
       </div>
       <div class="links-grid">
         <a class="link-card" href="./evidence/CANONICAL_EVIDENCE_SUMMARY.md">
