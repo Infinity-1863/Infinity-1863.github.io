@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AL Research Prototype - Devlog 02</title>
+  <meta name="description" content="Self-Planner Extension: a bounded coding-agent milestone for reducing LLM-teacher dependency through verified procedural memory and domain self-planners.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="page-glow"></div>
+  <header class="site-header">
+    <a class="brand" href="./index.html">
+      <span class="brand-mark"></span>
+      <span class="brand-text">AL Devlog</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="./index.html">Devlog</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#limitations">Limitations</a>
+      <a href="#artifacts">Artifacts</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner reveal">
+        <p class="eyebrow">AL Research Prototype - Devlog 02</p>
+        <h1>Self-Planner Extension</h1>
+        <p class="hero-subtitle">A bounded coding-agent milestone for reducing LLM-teacher dependency through verified procedural memory and domain self-planners.</p>
+        <p class="hero-copy">
+          AL remains a constrained self-learning research prototype. This update extends the original diagnosis-only supervision protocol into a more autonomous Python coding-agent setting.
+        </p>
+        <p class="hero-copy">
+          The goal is not to claim broad coding competence. The goal is to measure whether verified procedures can reduce teacher calls in specific coding task families.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="./index.html">Devlog</a>
+          <a class="button" href="#evidence">Evidence</a>
+          <a class="button" href="#limitations">Limitations</a>
+          <a class="button" href="#artifacts">Artifacts</a>
+        </div>
+      </div>
+      <aside class="hero-panel reveal">
+        <p class="panel-label">Current framing</p>
+        <ul class="panel-list">
+          <li>From supervised repair to self-planning</li>
+          <li>Measured teacher-dependency reduction</li>
+          <li>Bounded Python task families only</li>
+          <li>No broad coding-agent claim</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Current framing</p>
+        <h2>From supervised repair to self-planning</h2>
+      </div>
+      <p class="lead">
+        The first evidence page measured whether AL could improve under diagnostic supervision, objective verification, and strict teacher limits.
+      </p>
+      <p>
+        This second milestone asks a narrower follow-up question: can AL reuse verified repair procedures well enough to solve related cold tasks without an LLM teacher?
+      </p>
+      <p>
+        The answer is currently positive for one bounded real-repo task family: public API and export repair.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">What changed</p>
+        <h2>Domain self-planners</h2>
+      </div>
+      <p class="lead">
+        AL now includes self-planners for common Python repair classes.
+      </p>
+      <div class="roadmap-grid">
+        <article class="roadmap-item">CLI argparse flags</article>
+        <article class="roadmap-item">Config, env, and default fallback</article>
+        <article class="roadmap-item">SQLite parameterized lookup</article>
+        <article class="roadmap-item">Async timeout fallback</article>
+        <article class="roadmap-item">API response error shape</article>
+        <article class="roadmap-item">Dependency injection formatter</article>
+        <article class="roadmap-item">Date and public API export repair</article>
+      </div>
+      <p>
+        These planners do not replace the verifier. They only produce bounded repair candidates. A task is still verified only by objective checks.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Learning writeback</p>
+        <h2>Procedural memory, not patch memory</h2>
+      </div>
+      <p class="lead">
+        Verified episodes now write richer learning records.
+      </p>
+      <div class="roadmap-grid">
+        <article class="roadmap-item">Failure pattern</article>
+        <article class="roadmap-item">Operation shape</article>
+        <article class="roadmap-item">Preconditions</article>
+        <article class="roadmap-item">Verifier command</article>
+        <article class="roadmap-item">Reusable transformation</article>
+      </div>
+      <p>
+        This changes memory from “this patch worked once” into “this procedure may apply under these conditions.”
+      </p>
+      <p>
+        Procedures are only useful if they survive replay or near-transfer checks.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Safety continuity</p>
+        <h2>Same safety protocol</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>Teacher cannot execute tasks.</li>
+        <li>Teacher output is advisory only.</li>
+        <li>Objective verifier is the source of truth.</li>
+        <li>Patches run in branch-copy workspaces.</li>
+        <li>Bad patches do not mutate the main workspace.</li>
+        <li>Verified status cannot come from LLM confidence.</li>
+        <li>Weak or manual-review states are not upgraded into verified.</li>
+      </ul>
+      <p>
+        The LLM is treated as an untrusted teacher or critic, not as a controller.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Review findings</p>
+        <h2>Risks found before final evaluation</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>Crash on unrelated <code>__init__.py</code> files</li>
+        <li>Hardcoded items in dependency-injection planner</li>
+        <li>Patching the wrong first function</li>
+        <li>Overly destructive SQLite rewrite</li>
+        <li>Hardcoded <code>args.message</code> in CLI planner</li>
+      </ul>
+      <p>
+        These were fixed before the final hard batch.
+      </p>
+      <p>
+        This is part of the safety signal: planner errors were treated as failure modes, not hidden.
+      </p>
+    </section>
+
+    <section id="evidence" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Evidence snapshot</p>
+        <h2>Current measured evidence</h2>
+      </div>
+      <div class="metrics-grid">
+        <article class="metric-card">
+          <span class="metric-value">10</span>
+          <span class="metric-label">Targeted self-planner tests passed</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">23</span>
+          <span class="metric-label">Regression subset tests passed</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">20/20</span>
+          <span class="metric-label">Cold real-repo public export tasks verified</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0%</span>
+          <span class="metric-label">Teacher call rate on Click public-export batch</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0%</span>
+          <span class="metric-label">Repair teacher-2 rate</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">10/10</span>
+          <span class="metric-label">Warm rerun verified</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">100%</span>
+          <span class="metric-label">Warm transfer on this task family</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">1.0</span>
+          <span class="metric-label">Teacher avoidance after learning</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0</span>
+          <span class="metric-label">False verified</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">0</span>
+          <span class="metric-label">Secret hits</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section split-section reveal">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">Real-repo evidence</p>
+          <h2>Click public API and export repair</h2>
+        </div>
+        <p class="lead">
+          The main evaluation used a real Click repository copy.
+        </p>
+        <p>
+          Repository: <code>pallets/click</code><br>
+          Commit: <code>fed9049</code><br>
+          Task family: <code>public API / export repair</code><br>
+          Report: <code>artifacts/hard_v2_click_public_exports/report.json</code>
+        </p>
+        <p>
+          AL completed 20/20 bounded cold tasks without calling the LLM teacher.
+        </p>
+        <p>
+          The evaluated task family involved real files in the Click repository, especially public API/export boundaries and related modules.
+        </p>
+        <p>
+          This is not evidence of broad autonomous coding competence. It is evidence that verified self-planners can replace teacher calls in a bounded real-repo repair family.
+        </p>
+      </div>
+      <div class="side-card">
+        <p class="side-card-label">Harness correction</p>
+        <p>
+          An early run exposed a benchmark setup issue: pytest imported the installed click package instead of the repository copy.
+        </p>
+        <p>
+          The harness was corrected by clearing <code>sys.modules['click*']</code> before test execution.
+        </p>
+        <p>
+          Another false failure came from an assertion that did not match real Click behavior for <code>click.core.batch</code>. The contract was corrected and the evaluation was repeated.
+        </p>
+        <p>
+          These corrections are part of the reported evidence because benchmark validity is part of the protocol.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Main text</p>
+        <h2>Toward bounded self-planning</h2>
+      </div>
+      <p class="lead">
+        This milestone extends AL from diagnosis-only supervised repair toward bounded self-planning.
+      </p>
+      <p>
+        The previous baseline showed that AL could act first, receive diagnosis-only teacher feedback after failure, verify objectively, and promote procedures only after replay or near-transfer.
+      </p>
+      <p>
+        This update shows that, after adding domain self-planners and richer procedural memory, AL can solve one real-repo task family without LLM teacher calls.
+      </p>
+      <p>
+        The strongest current signal is not general coding ability. The signal is teacher-dependency reduction under objective verification.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">What this shows</p>
+        <h2>Narrow but important result</h2>
+      </div>
+      <p class="lead">
+        This milestone supports the following claim:
+      </p>
+      <p>
+        For bounded Python repair families, verified procedures can reduce LLM-teacher dependency while preserving objective verification and false-success controls.
+      </p>
+      <p>
+        The result is especially relevant to agentic oversight because the LLM is not trusted as the source of truth.
+      </p>
+      <p>
+        AL controls scope, patching, verification, memory promotion, and final status.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">What this does not show</p>
+        <h2>Current boundaries</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>Codex-level coding ability</li>
+        <li>Large architectural refactor reliability</li>
+        <li>General repo understanding across arbitrary projects</li>
+        <li>Strong performance without tests</li>
+        <li>Universal tool execution</li>
+        <li>Broad multi-language capability</li>
+      </ul>
+      <p>
+        The current result is strongest for public API/export repair and related bounded Python tasks.
+      </p>
+    </section>
+
+    <section id="limitations" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Limitations</p>
+        <h2>Current boundaries of this milestone</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>The Click batch focused on one task family.</li>
+        <li>The task family is real-repo, but still bounded.</li>
+        <li>Large refactors remain unproven.</li>
+        <li>Work without tests still falls back to weak or manual-review states.</li>
+        <li>Tool execution is not yet fully unified inside the supervisor loop.</li>
+        <li>Memory needs more verified episodes across more domains.</li>
+      </ul>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Next evaluation steps</p>
+        <h2>Follow-up batch design</h2>
+      </div>
+      <ul class="constraint-list">
+        <li>Run domain-diverse hard batch v3</li>
+        <li>Use at least 3 real repositories</li>
+        <li>Evaluate CLI, config/env, SQLite, async, API-client, and export tasks separately</li>
+        <li>Track teacher_call_rate by domain</li>
+        <li>Track planner_success_rate by domain</li>
+        <li>Add LLM-only vs AL-with-memory ablation</li>
+        <li>Add AL-without-memory ablation</li>
+        <li>Add more adversarial false-success cases</li>
+        <li>Export reports in OpenAI Evals-compatible format</li>
+      </ul>
+    </section>
+
+    <section id="artifacts" class="content-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Artifacts</p>
+        <h2>Evidence artifacts</h2>
+      </div>
+      <div class="links-grid">
+        <a class="link-card" href="#">
+          <span class="link-title">Self-planner tests</span>
+          <span class="link-meta">tests/test_coding_mind_domain_self_planners.py</span>
+        </a>
+        <a class="link-card" href="#">
+          <span class="link-title">Regression subset</span>
+          <span class="link-meta">tests/test_coding_mind.py and tests/test_autonomous_al_service.py</span>
+        </a>
+        <a class="link-card" href="#">
+          <span class="link-title">Real-repo report</span>
+          <span class="link-meta">artifacts/hard_v2_click_public_exports/report.json</span>
+        </a>
+        <a class="link-card" href="#">
+          <span class="link-title">Commit</span>
+          <span class="link-meta">4033cd2 feat: add coding self-planners and learning metadata</span>
+        </a>
+        <a class="link-card" href="#">
+          <span class="link-title">Memory writeback</span>
+          <span class="link-meta">qdrant_al / al_memory</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Measured research prototype. No product claims.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
