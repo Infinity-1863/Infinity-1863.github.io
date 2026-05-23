@@ -8,6 +8,7 @@
   --dim: #8b7ca3;
   --violet: #a96eff;
   --violet-strong: #c798ff;
+  --cyan: #68e7ff;
   --line: rgba(200, 152, 255, 0.16);
   --line-strong: rgba(200, 152, 255, 0.32);
   --success: #77f0c1;
@@ -134,6 +135,7 @@ main {
 
 .hero-inner,
 .hero-panel,
+.status-banner,
 .side-card,
 .metric-card,
 .link-card,
@@ -143,6 +145,27 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.status-banner {
+  padding: 28px;
+  margin: 6px 0 34px;
+  border-color: rgba(104, 231, 255, 0.26);
+  background:
+    linear-gradient(135deg, rgba(104, 231, 255, 0.10), rgba(119, 240, 193, 0.05)),
+    var(--panel-strong);
+}
+
+.status-banner h2 {
+  max-width: 18ch;
+}
+
+.status-banner .lead {
+  max-width: 820px;
+}
+
+.legacy-notice {
+  margin-top: 0;
 }
 
 .hero-inner {
@@ -340,6 +363,22 @@ p,
   padding: 20px;
   text-decoration: none;
   transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.status-pill {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 4px 9px;
+  border: 1px solid rgba(104, 231, 255, 0.30);
+  border-radius: 999px;
+  color: var(--cyan);
+  background: rgba(104, 231, 255, 0.08);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .link-card:hover {

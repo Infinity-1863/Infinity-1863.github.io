@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AL Devlog</title>
-  <meta name="description" content="Devlog index for AL research pages and future entries.">
+  <title>AL Devlog Archive</title>
+  <meta name="description" content="Archive index for earlier AL devlogs and the current direction: optimizing large language models for edge devices.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,8 +18,10 @@
       <span class="brand-text">AL Devlog</span>
     </a>
     <nav class="site-nav" aria-label="Primary">
+      <a href="#current">Current</a>
       <a href="#entries">Entries</a>
       <a href="#scope">Scope</a>
+      <a href="https://x.com/IN_F_I_N_I_T_UM" target="_blank" rel="noopener noreferrer">Updates</a>
     </nav>
   </header>
 
@@ -27,40 +29,59 @@
     <section class="hero">
       <div class="hero-inner reveal">
         <p class="eyebrow">Devlog</p>
-        <h1>AL research pages and future entries</h1>
-        <p class="hero-subtitle">A simple index for current writeups, evidence-oriented pages, and future devlog posts.</p>
+        <h1>AL devlog archive and current direction</h1>
+        <p class="hero-subtitle">The two published devlogs remain available as historical research notes, but they are no longer the active project direction.</p>
         <p class="hero-copy">
-          This is the main AL devlog page. Each entry is a separate page documenting a bounded milestone, evaluation, or protocol update.
+          Current work has moved toward a universal LLM optimization system for running large language models on edge devices, aimed at keeping user data private and secure by making more of that work happen locally.
         </p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#entries">Entries</a>
-          <a class="button" href="./self-planner-extension.html">Latest page</a>
+          <a class="button button-primary" href="#current">Current direction</a>
+          <a class="button" href="#entries">Archived devlogs</a>
+          <a class="button" href="https://x.com/IN_F_I_N_I_T_UM" target="_blank" rel="noopener noreferrer">Updates on X</a>
         </div>
       </div>
       <aside class="hero-panel reveal">
-        <p class="panel-label">Current state</p>
+        <p class="panel-label">Status</p>
         <ul class="panel-list">
-          <li>Main page is the devlog index</li>
-          <li>Entries are standalone pages</li>
-          <li>Latest milestone is Devlog 02</li>
-          <li>Older pages stay accessible as references</li>
+          <li>Devlog 01 and Devlog 02 are archived references</li>
+          <li>They describe earlier AL experiments</li>
+          <li>Active focus is large-model optimization for edge devices</li>
+          <li>Privacy and user-data safety are core goals</li>
         </ul>
       </aside>
     </section>
 
+    <section id="current" class="status-banner reveal">
+      <div>
+        <p class="eyebrow">Current direction</p>
+        <h2>Universal optimization for large language models on edge devices</h2>
+      </div>
+      <p class="lead">
+        The active work is shifting from these earlier AL devlogs toward a universal system for optimizing large language models on edge devices.
+      </p>
+      <p>
+        The goal is to make large-model execution more practical locally so user data can stay closer to the device, improving privacy and reducing exposure of sensitive information to external services.
+      </p>
+      <div class="hero-actions status-actions">
+        <a class="button button-primary" href="https://x.com/IN_F_I_N_I_T_UM" target="_blank" rel="noopener noreferrer">Follow updates on X</a>
+      </div>
+    </section>
+
     <section id="entries" class="content-section reveal">
       <div class="section-head">
-        <p class="eyebrow">Entries</p>
-        <h2>Devlog entries</h2>
+        <p class="eyebrow">Archive</p>
+        <h2>Outdated devlog entries</h2>
       </div>
       <div class="links-grid">
         <a class="link-card" href="./self-planner-extension.html">
+          <span class="status-pill">Archived / outdated</span>
           <span class="link-title">02. AL Research Prototype - Devlog 02</span>
-          <span class="link-meta">Self-planner extension and teacher-dependency reduction milestone</span>
+          <span class="link-meta">Historical self-planner and teacher-dependency reduction milestone</span>
         </a>
         <a class="link-card" href="./constrained-self-learning-agents.html">
+          <span class="status-pill">Archived / outdated</span>
           <span class="link-title">01. Constrained Self-Learning Agents</span>
-          <span class="link-meta">Original research page and evidence snapshot</span>
+          <span class="link-meta">Historical research page and evidence snapshot</span>
         </a>
       </div>
     </section>
@@ -71,10 +92,10 @@
         <h2>What this devlog is for</h2>
       </div>
       <p class="lead">
-        This page tracks AL as a measured research prototype through separate milestone pages.
+        This page now separates the archived AL research notes from the current edge-device LLM optimization direction.
       </p>
       <p>
-        Each entry is intended to capture one bounded step: protocol changes, evaluation results, tooling corrections, or new evidence about teacher dependency, verification, transfer, and safety constraints.
+        The archived entries capture earlier bounded steps around protocol changes, evaluation results, teacher dependency, verification, transfer, and safety constraints. They remain useful context, but they should not be read as the latest active roadmap.
       </p>
     </section>
   </main>
